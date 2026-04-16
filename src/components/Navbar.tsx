@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import { useConsultForm } from '../context/ConsultFormContext'
 
 const navLinks = [
   { label: 'Služby', href: '#sluzby' },
@@ -12,6 +13,7 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const { open: openConsult } = useConsultForm()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
@@ -49,12 +51,13 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
-            <a
-              href="#konzultace"
+            <button
+              type="button"
+              onClick={openConsult}
               className="rounded-full bg-charcoal px-7 py-2.5 text-[13px] font-semibold tracking-wide text-white transition-all duration-300 hover:bg-accent"
             >
               Konzultace zdarma
-            </a>
+            </button>
           </div>
 
           <button
@@ -90,13 +93,16 @@ export default function Navbar() {
                   {link.label}
                 </motion.a>
               ))}
-              <a
-                href="#konzultace"
-                onClick={() => setMobileOpen(false)}
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileOpen(false)
+                  openConsult()
+                }}
                 className="mt-4 rounded-full bg-charcoal px-6 py-3.5 text-center text-sm font-semibold text-white transition-colors hover:bg-accent"
               >
                 Konzultace zdarma
-              </a>
+              </button>
             </div>
           </motion.div>
         )}

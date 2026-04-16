@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import { useConsultForm } from '../context/ConsultFormContext'
 
 export default function FinalCTA() {
+  const { open: openConsult } = useConsultForm()
   return (
     <section id="konzultace" className="relative overflow-hidden bg-charcoal py-24 lg:py-32">
       {/* Background image */}
@@ -58,8 +60,9 @@ export default function FinalCTA() {
               nemovitosti a&nbsp;navrhneme optimální řešení pro váš segment.
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <a
-                href="mailto:info@pavelgolasowski.cz"
+              <button
+                type="button"
+                onClick={openConsult}
                 className="group inline-flex items-center justify-center gap-3 rounded-full bg-white px-10 py-4.5 text-sm font-semibold tracking-wide text-charcoal transition-all duration-300 hover:bg-accent hover:text-white"
               >
                 Konzultace zdarma
@@ -67,7 +70,7 @@ export default function FinalCTA() {
                   size={16}
                   className="transition-transform duration-300 group-hover:translate-x-1"
                 />
-              </a>
+              </button>
               <a
                 href="tel:+420737248144"
                 className="inline-flex items-center justify-center rounded-full border border-white/15 px-10 py-4.5 text-sm font-medium tracking-wide text-white/60 transition-all duration-300 hover:border-white/35 hover:text-white"
