@@ -9,17 +9,15 @@ export default function Hero() {
     <>
       <section className="bg-cream px-4 pt-20 pb-4 lg:px-6 lg:pt-24 lg:pb-6">
         <div className="relative min-h-[calc(100vh-8.5rem)] overflow-hidden rounded-2xl bg-charcoal">
-          {/* Background video — covers entire card */}
+          {/* Background photo — covers entire card */}
           <div className="absolute inset-0">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
+            <img
+              src="/images/hero.jpg"
+              alt=""
               className="h-full w-full object-cover"
-            >
-              <source src="/videos/hero.mp4" type="video/mp4" />
-            </video>
+              loading="eager"
+              fetchPriority="high"
+            />
             <div className="absolute inset-0 bg-charcoal/60" />
           </div>
 
