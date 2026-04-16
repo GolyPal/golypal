@@ -22,38 +22,56 @@ function BeforeAfterSlider({
   }, [])
 
   const onPointerDown = useCallback(
-    (e: React.PointerEvent) => {
-      e.preventDefault()
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      const el = containerRef.current
+      if (!el) return
       dragging.current = true
-      ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
+      // Capture on the container so drag keeps tracking even if pointer leaves a child element
+      try {
+        el.setPointerCapture(e.pointerId)
+      } catch {
+        /* capture can fail on some touch edge cases — fine, move handler still works */
+      }
       updatePosition(e.clientX)
-      document.body.style.userSelect = 'none'
     },
     [updatePosition],
   )
 
   const onPointerMove = useCallback(
-    (e: React.PointerEvent) => {
+    (e: React.PointerEvent<HTMLDivElement>) => {
       if (!dragging.current) return
-      e.preventDefault()
       updatePosition(e.clientX)
     },
     [updatePosition],
   )
 
-  const onPointerUp = useCallback(() => {
-    dragging.current = false
-    document.body.style.userSelect = ''
-  }, [])
+  const onPointerUp = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      dragging.current = false
+      const el = containerRef.current
+      if (el && el.hasPointerCapture?.(e.pointerId)) {
+        try {
+          el.releasePointerCapture(e.pointerId)
+        } catch {
+          /* noop */
+        }
+      }
+    },
+    [],
+  )
 
   return (
     <div
       ref={containerRef}
       className="relative aspect-[16/10] w-full cursor-ew-resize select-none overflow-hidden rounded-lg"
+      // touch-action: none prevents the browser from claiming horizontal swipes as
+      // scroll/back-navigation — without it Safari steals pointermove events and the
+      // slider handle "sticks" partway across.
+      style={{ touchAction: 'none' }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
-    >
+      onPointerCancel={onPointerUp}>
       <img
         src={after}
         alt="Po AI vizualizaci"
