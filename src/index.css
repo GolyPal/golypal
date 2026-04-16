@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  /* Warm ivory-based palette */
+  --color-cream: #F8F6F1;
+  --color-cream-dark: #F1EEE8;
+  --color-charcoal: #1A1A1A;
+  --color-warm-gray: #6B6B6B;
+  --color-light-gray: #E5E2DD;
+  --color-accent: #C7A97B;
+  --color-deep: #1A1A1A;
+  --color-muted: #6B6B6B;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-charcoal);
+  background-color: var(--color-cream);
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+/* Editorial horizontal rule */
+.editorial-line {
+  height: 1px;
+  max-width: 200px;
+  margin: 0 auto;
+  background: linear-gradient(to right, transparent, rgba(26,26,26,0.12), transparent);
+}
+
+.editorial-line-light {
+  height: 1px;
+  max-width: 200px;
+  margin: 0 auto;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent);
+}
+
+/* Parallax-like image zoom on scroll */
+@keyframes subtle-zoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
