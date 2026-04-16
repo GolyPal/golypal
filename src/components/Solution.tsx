@@ -276,24 +276,6 @@ function VisualPanel({ type }: { type: (typeof services)[number]['visual'] }) {
   }
 }
 
-/* ── Progress bar for scroll indicator ── */
-function ScrollProgress({ active, total }: { active: number; total: number }) {
-  return (
-    <div className="mt-8 flex gap-2 lg:mt-10">
-      {Array.from({ length: total }).map((_, i) => (
-        <div key={i} className="h-[2px] flex-1 overflow-hidden rounded-full bg-white/10">
-          <motion.div
-            className="h-full bg-accent"
-            initial={false}
-            animate={{ width: i < active ? '100%' : i === active ? '100%' : '0%' }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
-          />
-        </div>
-      ))}
-    </div>
-  )
-}
-
 /* ── Main component ── */
 export default function Solution() {
   const [active, setActive] = useState(0)
