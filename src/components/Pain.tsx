@@ -30,8 +30,8 @@ const painPoints = [
 export default function Pain() {
   return (
     <section id="problem" className="relative overflow-hidden bg-deep py-24 lg:py-32">
-      {/* Subtle radial glow */}
-      <div className="pointer-events-none absolute inset-0">
+      {/* Subtle radial glow — hidden on mobile where the wide blur looks like a grey panel */}
+      <div className="pointer-events-none absolute inset-0 hidden sm:block">
         <div className="absolute left-1/2 top-0 h-[600px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/[0.04] blur-[120px]" />
       </div>
 
