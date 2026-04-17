@@ -210,7 +210,7 @@ export default function Bonus() {
                   <CoverTile
                     key={i}
                     cover={cover}
-                    className="w-[220px] flex-none snap-start aspect-[9/16]"
+                    className="w-[85%] flex-none snap-start aspect-[9/16]"
                   />
                 ))}
               </div>

@@ -123,21 +123,19 @@ export default function Pain() {
         {/* ── MOBILE: horizontal snap scroll ── */}
         <div className="sm:hidden">
           {/*
-            -mx-6 breaks out of the section's px-6 padding so the scroll
-            area is full viewport width. px-6 adds it back as scroll-padding
-            so the first card starts flush with the rest of the content.
+            No negative margins — scroll container stays within the section's
+            px-6 padding. Each card is w-full (= full container width) so
+            exactly one card is visible per snap. No risk of page-level
+            horizontal overflow on Safari.
           */}
           <div
             ref={scrollRef}
-            className="scrollbar-hide -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-1"
-            style={{ scrollPaddingLeft: '1.5rem' }}
+            className="scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto pb-1"
           >
             {painPoints.map((point) => (
               <div
                 key={point.number}
-                /* Each card fills the content area (viewport minus 2×24px padding).
-                   flex-none + snap-start = one card per snap. */
-                className="w-[calc(100vw-3rem)] flex-none snap-start rounded-2xl border border-white/[0.06] bg-white/[0.03] p-8 backdrop-blur-sm"
+                className="w-full flex-none snap-start rounded-2xl border border-white/[0.06] bg-white/[0.03] p-8 backdrop-blur-sm"
               >
                 <span className="mb-4 block font-mono text-sm tracking-wider text-accent/60">
                   {point.number}
@@ -148,8 +146,6 @@ export default function Pain() {
                 <p className="leading-[1.75] text-white/45">{point.description}</p>
               </div>
             ))}
-            {/* Trailing spacer so the last card can snap to its start position */}
-            <div className="w-6 flex-none" aria-hidden="true" />
           </div>
 
           <ScrollDots
