@@ -474,7 +474,7 @@ function StepVolume({ value, onChange }: { value: string; onChange: (v: string) 
         Kolik nemovitostí měsíčně budete potřebovat nafotit / natočit?
       </h2>
       <p className="mb-7 text-[14px] leading-[1.7] text-warm-gray">
-        Klidně odhadněte. Pomůže mi připravit cenovou nabídku. Není povinné.
+        Klidně odhadněte. Pomůže mi lépe se připravit na naši konzultaci. Není povinné.
       </p>
       <input
         type="text"
