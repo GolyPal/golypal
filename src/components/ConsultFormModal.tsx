@@ -451,7 +451,7 @@ function StepLocation({ value, onChange }: { value: string; onChange: (v: string
         Kde působíte?
       </h2>
       <p className="mb-7 text-[14px] leading-[1.7] text-warm-gray">
-        Město, kraj nebo region — ať víme, jestli se to logisticky potkáme. Klidně přeskočte.
+        Město, kraj nebo region — ať vím, jestli se to logisticky potkám. Klidně přeskočte.
       </p>
       <input
         type="text"

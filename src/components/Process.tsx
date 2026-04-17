@@ -12,7 +12,7 @@ const steps = [
     number: '2',
     title: 'Konzultace',
     description:
-      'Probereme cílovou skupinu, rozsah služeb a\u00A0domluvíme termín. 15\u00A0minut, které vám ušetří týdny.',
+      'Probereme cílovou skupinu, rozsah služeb a\u00A0domluvím termín. 15\u00A0minut, které vám ušetří týdny.',
   },
   {
     number: '3',

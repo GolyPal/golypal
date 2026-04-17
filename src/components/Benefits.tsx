@@ -21,7 +21,7 @@ const benefits = [
     ),
     title: 'AI vizualizace místo stagingu',
     description:
-      'Neplaťte desítky tisíc za drahý staging. Každý prázdný prostor ukážeme jako zařízený interiér — za zlomek ceny a\u00A0pár desítek minut.',
+      'Neplaťte desítky tisíc za drahý staging. Každý prázdný prostor ukáži jako zařízený interiér — za zlomek ceny a\u00A0pár desítek minut.',
   },
   {
     icon: (
