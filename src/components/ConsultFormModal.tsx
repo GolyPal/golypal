@@ -135,7 +135,7 @@ export default function ConsultFormModal() {
           'Jméno': form.name,
           'Telefon': form.phone,
           'E-mail': form.email,
-          'Firma': form.company,
+          'Sociální sítě': form.company,
         }),
       })
       if (res.ok) {
@@ -579,12 +579,12 @@ function StepContact({
             />
           </Field>
         </div>
-        <Field label="Realitní kancelář / firma">
+        <Field label="Odkaz na sociální sítě (Instagram, Facebook…)">
           <input
-            type="text"
+            type="url"
             value={form.company}
             onChange={e => onChange('company', e.target.value)}
-            autoComplete="organization"
+            placeholder="https://instagram.com/vášprofil"
             className={inputClass}
           />
         </Field>
