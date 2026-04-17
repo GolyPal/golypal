@@ -54,15 +54,15 @@ function CoverTile({ cover, className = '' }: { cover: typeof covers[0]; classNa
       </div>
 
       {/* Info bottom */}
-      <div className="absolute bottom-3 left-3 right-3 z-10">
-        <p className="text-[7px] font-medium uppercase tracking-wider text-accent lg:text-[8px]">
+      <div className="absolute bottom-4 left-4 right-4 z-10 sm:bottom-3 sm:left-3 sm:right-3">
+        <p className="text-[10px] font-medium uppercase tracking-wider text-accent sm:text-[7px] lg:text-[8px]">
           Exkluzivní nabídka
         </p>
-        <p className="mt-0.5 font-serif text-[10px] font-medium leading-tight text-white lg:text-xs">
+        <p className="mt-1 font-serif text-sm font-medium leading-tight text-white sm:mt-0.5 sm:text-[10px] lg:text-xs">
           {cover.title}
         </p>
-        <p className="mt-0.5 text-[7px] text-white/50 lg:text-[8px]">{cover.subtitle}</p>
-        <p className="mt-1 text-[8px] font-medium text-accent lg:text-[9px]">{cover.price}</p>
+        <p className="mt-0.5 text-[11px] text-white/60 sm:text-[7px] lg:text-[8px]">{cover.subtitle}</p>
+        <p className="mt-1.5 text-xs font-medium text-accent sm:mt-1 sm:text-[8px] lg:text-[9px]">{cover.price}</p>
       </div>
     </div>
   )
