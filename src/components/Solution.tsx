@@ -410,6 +410,7 @@ function VisualPanel({ type }: { type: (typeof services)[number]['visual'] }) {
                   loop
                   muted
                   playsInline
+                  preload="auto"
                   className="h-full w-full object-cover"
                 />
               </div>
@@ -531,20 +532,26 @@ export default function Solution() {
 
             </div>
 
-            {/* Right — Visual panel (desktop only) */}
+            {/* Right — Visual panel (desktop only)
+                All panels stay mounted so the video preloads immediately.
+                Visibility is controlled via opacity + pointer-events. */}
             <div className="relative hidden lg:col-span-7 min-h-[500px] lg:flex lg:items-center lg:justify-center">
-              <AnimatePresence mode="wait">
+              {services.map((service, index) => (
                 <motion.div
-                  key={active}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
+                  key={service.number}
+                  animate={{
+                    opacity: active === index ? 1 : 0,
+                    y: active === index ? 0 : 16,
+                  }}
                   transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="w-full"
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ pointerEvents: active === index ? 'auto' : 'none' }}
                 >
-                  <VisualPanel type={services[active].visual} />
+                  <div className="w-full">
+                    <VisualPanel type={service.visual} />
+                  </div>
                 </motion.div>
-              </AnimatePresence>
+              ))}
             </div>
           </div>
         </div>
