@@ -322,7 +322,7 @@ function StepRole({ value, onChange }: { value: string; onChange: (v: string) =>
   return (
     <div>
       <h2 id="consult-form-title" className="mb-2 font-serif text-[clamp(1.35rem,3vw,1.85rem)] font-medium leading-[1.1] tracking-[-0.01em] text-charcoal">
-        S kým mám tu čest?
+        Co na vás nejvíce sedí?
       </h2>
       <p className="mb-7 text-[14px] leading-[1.7] text-warm-gray">
         Vyberte možnost, která vás nejlépe vystihuje.
