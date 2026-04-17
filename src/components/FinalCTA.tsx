@@ -49,8 +49,7 @@ export default function FinalCTA() {
             transition={{ duration: 0.9, delay: 0.15 }}
             className="mx-auto mt-6 max-w-md text-base leading-[1.85] text-white/50 lg:text-[17px]"
           >
-            Rezervujte si nezávaznou konzultaci zdarma. Probereme vaše
-            nemovitosti a&nbsp;navrhneme optimální řešení pro váš segment.
+            Řekněte mi o sobě víc a já se vám ozvu zpět do 24h. Stačí vyplnit krátký minutový formulář.
           </motion.p>
 
           <motion.div
