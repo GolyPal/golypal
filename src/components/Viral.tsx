@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Eye, Heart } from 'lucide-react'
+import { Eye, Heart, ArrowDown } from 'lucide-react'
 
 /* ── Animated counter hook ── */
 function useLoopCounter(max: number, durationMs: number = 10000) {
@@ -223,6 +223,28 @@ export default function Viral() {
 
           </div>
         </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8 }}
+          className="mt-16 flex flex-col items-center gap-3"
+        >
+          <button
+            type="button"
+            onClick={() => document.getElementById('konzultace')?.scrollIntoView({ behavior: 'smooth' })}
+            className="group inline-flex items-center gap-3 rounded-full bg-accent px-8 py-4 text-sm font-semibold tracking-wide text-white shadow-[0_8px_32px_rgba(199,169,123,0.3)] transition-all duration-300 hover:bg-accent/90 hover:shadow-[0_12px_40px_rgba(199,169,123,0.45)] hover:scale-[1.02]"
+          >
+            Mám zájem spolupracovat
+            <ArrowDown size={15} className="transition-transform duration-300 group-hover:translate-y-0.5" />
+          </button>
+          <p className="text-[12px] tracking-wide text-warm-gray/50">
+            Nezávazná konzultace · Zdarma
+          </p>
+        </motion.div>
+
       </div>
     </section>
   )
