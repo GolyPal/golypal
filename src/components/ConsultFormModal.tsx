@@ -196,7 +196,7 @@ export default function ConsultFormModal() {
                   <div className="border-b border-charcoal/8 px-8 pb-5 pt-10 sm:px-12">
                     <p className="text-[10px] uppercase tracking-[0.35em] text-accent">Konzultace zdarma</p>
                     <h2 className="mt-1.5 font-serif text-xl font-medium text-charcoal">
-                      Vyplňte krátký dotazník
+                      Vyplňte prosím krátký dotazník
                     </h2>
                     <p className="mt-1 text-[13px] text-warm-gray/70">
                       Zabere to méně než minutu. Díky tomu bude naše následná konzultace co nejpřínosnější.
