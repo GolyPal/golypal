@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Camera, Video, Wand2, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react'
+import { Camera, Video, Wand2, ChevronLeft, ChevronRight, Maximize2, ArrowDown } from 'lucide-react'
 import Lightbox from './Lightbox'
 
 /* ── Before / After Slider ── */
@@ -446,7 +446,7 @@ export default function Solution() {
           </div>
 
           {/* Accordion + Visual layout — fills remaining space */}
-          <div className="grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-12">
+          <div className="grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-12 mb-16">
             {/* Left — Accordion */}
             <div className="lg:col-span-5">
               <div className="space-y-0">
@@ -547,6 +547,26 @@ export default function Solution() {
               </AnimatePresence>
             </div>
           </div>
+        {/* CTA — below the accordion/visual grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col items-center gap-3"
+        >
+          <button
+            type="button"
+            onClick={() => document.getElementById('konzultace')?.scrollIntoView({ behavior: 'smooth' })}
+            className="group inline-flex items-center gap-3 rounded-full bg-accent px-8 py-4 text-sm font-semibold tracking-wide text-white shadow-[0_8px_32px_rgba(199,169,123,0.25)] transition-all duration-300 hover:bg-accent/90 hover:shadow-[0_12px_40px_rgba(199,169,123,0.4)] hover:scale-[1.02]"
+          >
+            Mám zájem spolupracovat
+            <ArrowDown size={15} className="transition-transform duration-300 group-hover:translate-y-0.5" />
+          </button>
+          <p className="text-[12px] text-white/30 tracking-wide">
+            Nezávazná konzultace · Zdarma
+          </p>
+        </motion.div>
         </div>
     </section>
   )
