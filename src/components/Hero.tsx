@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Play, X, Camera, Video, Wand2, FileText } from 'lucide-react'
+import { Play, X, Camera, Video, Wand2, FileText, ArrowDown } from 'lucide-react'
 
 export default function Hero() {
   const [videoOpen, setVideoOpen] = useState(false)
@@ -70,6 +70,25 @@ export default function Hero() {
                 <p className="flex items-center gap-3">
                   <FileText size={15} className="shrink-0 text-accent" strokeWidth={1.5} />
                   <span><span className="font-semibold text-white">Scripty</span> — první 3 sekundy rozhodují. Řeknu vám přesně co říct.</span>
+                </p>
+              </motion.div>
+              {/* CTA */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9, delay: 1.1, ease: [0.25, 0.1, 0.25, 1] }}
+                className="mt-10 flex flex-col items-center gap-3"
+              >
+                <button
+                  type="button"
+                  onClick={() => document.getElementById('konzultace')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="group inline-flex items-center gap-3 rounded-full bg-accent px-8 py-4 text-sm font-semibold tracking-wide text-white shadow-[0_8px_32px_rgba(199,169,123,0.3)] transition-all duration-300 hover:bg-accent/90 hover:shadow-[0_12px_40px_rgba(199,169,123,0.45)] hover:scale-[1.02]"
+                >
+                  Mám zájem spolupracovat
+                  <ArrowDown size={15} className="transition-transform duration-300 group-hover:translate-y-0.5" />
+                </button>
+                <p className="text-[12px] text-white/35 tracking-wide">
+                  Nezávazná konzultace · Zdarma
                 </p>
               </motion.div>
             </div>
