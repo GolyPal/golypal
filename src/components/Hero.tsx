@@ -12,7 +12,7 @@ export default function Hero() {
           {/* Background photo — covers entire card */}
           <div className="absolute inset-0">
             <img
-              src="/images/hero.jpg"
+              src="/images/hero.png"
               alt=""
               className="h-full w-full object-cover"
               loading="eager"
