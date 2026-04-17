@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Camera, Video, Wand2, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Camera, Video, Wand2, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react'
+import Lightbox from './Lightbox'
 
 /* ── Before / After Slider ── */
 function BeforeAfterSlider({
@@ -126,6 +127,7 @@ const aiShowcases = [
 
 function AICarousel() {
   const [current, setCurrent] = useState(0)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
   const total = aiShowcases.length
 
   const prev = () => setCurrent((c) => (c - 1 + total) % total)
@@ -135,30 +137,44 @@ function AICarousel() {
 
   return (
     <div className="relative w-full">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={current}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
+      {/* Media wrapper — relative so expand button can overlay */}
+      <div className="relative">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={current}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {item.type === 'slider' ? (
+              <BeforeAfterSlider before={item.before!} after={item.after!} />
+            ) : (
+              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg">
+                <video
+                  src={item.src}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            )}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Expand button — sibling of slider so pointer drag on slider isn't stolen.
+            z-20 to sit above BeforeAfterSlider's z-10 labels. */}
+        <button
+          type="button"
+          onClick={() => setLightboxOpen(true)}
+          aria-label="Zvětšit"
+          className="absolute bottom-3 right-3 z-20 flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white/80 backdrop-blur-sm transition-colors hover:border-white/50 hover:bg-black/60 hover:text-white sm:bottom-4 sm:right-4 sm:h-10 sm:w-10"
         >
-          {item.type === 'slider' ? (
-            <BeforeAfterSlider before={item.before!} after={item.after!} />
-          ) : (
-            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg">
-              <video
-                src={item.src}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="h-full w-full object-cover"
-              />
-            </div>
-          )}
-        </motion.div>
-      </AnimatePresence>
+          <Maximize2 size={15} />
+        </button>
+      </div>
 
       {/* Navigation */}
       <div className="mt-4 flex items-center justify-between">
@@ -181,6 +197,56 @@ function AICarousel() {
           </button>
         </div>
       </div>
+
+      {/* Lightbox — large view of current item. Slider keeps drag functionality,
+          video gets native controls for scrubbing. */}
+      <Lightbox
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        onPrev={prev}
+        onNext={next}
+      >
+        <div className="relative w-full">
+          {item.type === 'slider' ? (
+            <BeforeAfterSlider before={item.before!} after={item.after!} />
+          ) : (
+            <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-charcoal">
+              <video
+                src={item.src}
+                autoPlay
+                loop
+                controls
+                playsInline
+                className="h-full w-full object-contain"
+              />
+            </div>
+          )}
+
+          {/* Prev/next arrows + counter */}
+          <div className="mt-4 flex items-center justify-between text-white/70">
+            <p className="text-sm">{item.label}</p>
+            <div className="flex items-center gap-3">
+              <span className="text-xs text-white/50">
+                {current + 1} / {total}
+              </span>
+              <button
+                onClick={prev}
+                aria-label="Předchozí"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/70 transition-colors hover:border-white/40 hover:text-white"
+              >
+                <ChevronLeft size={18} />
+              </button>
+              <button
+                onClick={next}
+                aria-label="Další"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/70 transition-colors hover:border-white/40 hover:text-white"
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </Lightbox>
     </div>
   )
 }
@@ -224,6 +290,7 @@ const photos = [
 
 function PhotoCarousel() {
   const [current, setCurrent] = useState(0)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
   const total = photos.length
 
   const prev = () => setCurrent((c) => (c - 1 + total) % total)
@@ -239,14 +306,23 @@ function PhotoCarousel() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg">
+          <button
+            type="button"
+            onClick={() => setLightboxOpen(true)}
+            aria-label="Zvětšit fotku"
+            className="group relative block aspect-[16/10] w-full cursor-zoom-in overflow-hidden rounded-lg"
+          >
             <img
               src={photos[current].src}
               alt={photos[current].label}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
               loading="lazy"
             />
-          </div>
+            {/* Subtle zoom-hint icon in corner */}
+            <span className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white/80 backdrop-blur-sm transition-colors group-hover:border-white/50 group-hover:bg-black/60 group-hover:text-white sm:bottom-4 sm:right-4 sm:h-10 sm:w-10">
+              <Maximize2 size={15} />
+            </span>
+          </button>
         </motion.div>
       </AnimatePresence>
 
@@ -260,6 +336,52 @@ function PhotoCarousel() {
           <ChevronRight size={16} />
         </button>
       </div>
+
+      {/* Lightbox — full-size photo + prev/next */}
+      <Lightbox
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        onPrev={prev}
+        onNext={next}
+      >
+        <div className="relative flex w-full flex-col">
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={current}
+              src={photos[current].src}
+              alt={photos[current].label}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="mx-auto max-h-[80vh] w-auto max-w-full rounded-lg object-contain"
+            />
+          </AnimatePresence>
+
+          <div className="mt-4 flex items-center justify-between text-white/70">
+            <p className="text-sm">{photos[current].label}</p>
+            <div className="flex items-center gap-3">
+              <span className="text-xs text-white/50">
+                {current + 1} / {total}
+              </span>
+              <button
+                onClick={prev}
+                aria-label="Předchozí"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/70 transition-colors hover:border-white/40 hover:text-white"
+              >
+                <ChevronLeft size={18} />
+              </button>
+              <button
+                onClick={next}
+                aria-label="Další"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/70 transition-colors hover:border-white/40 hover:text-white"
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </Lightbox>
     </div>
   )
 }
