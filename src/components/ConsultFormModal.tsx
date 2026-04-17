@@ -5,13 +5,15 @@ import { useConsultForm } from '../context/ConsultFormContext'
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xqewpkvg'
 
-/* ── Steps definition ── */
-const TOTAL_STEPS = 4
+const TOTAL_STEPS = 7
 
 type FormState = {
-  interest: string[]
+  role: string
+  mediaStatus: string[]
+  propertyType: string[]
+  location: string
   volume: string
-  message: string
+  source: string
   name: string
   phone: string
   email: string
@@ -19,9 +21,12 @@ type FormState = {
 }
 
 const initialState: FormState = {
-  interest: [],
+  role: '',
+  mediaStatus: [],
+  propertyType: [],
+  location: '',
   volume: '',
-  message: '',
+  source: '',
   name: '',
   phone: '',
   email: '',
@@ -30,7 +35,6 @@ const initialState: FormState = {
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
 
-/* ── Slide animation variants ── */
 const variants = {
   enter: (dir: number) => ({ x: dir > 0 ? 48 : -48, opacity: 0 }),
   center: { x: 0, opacity: 1 },
@@ -46,7 +50,6 @@ export default function ConsultFormModal() {
   const [errorMsg, setErrorMsg] = useState('')
   const firstInputRef = useRef<HTMLInputElement | null>(null)
 
-  /* Lock body scroll */
   useEffect(() => {
     if (!isOpen) return
     const prev = document.body.style.overflow
@@ -54,7 +57,6 @@ export default function ConsultFormModal() {
     return () => { document.body.style.overflow = prev }
   }, [isOpen])
 
-  /* Escape key */
   useEffect(() => {
     if (!isOpen) return
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') close() }
@@ -62,15 +64,13 @@ export default function ConsultFormModal() {
     return () => window.removeEventListener('keydown', onKey)
   }, [isOpen, close])
 
-  /* Focus first input on step 4 */
   useEffect(() => {
-    if (step === 4) {
+    if (step === TOTAL_STEPS) {
       const t = window.setTimeout(() => firstInputRef.current?.focus(), 300)
       return () => window.clearTimeout(t)
     }
   }, [step])
 
-  /* Reset when closed */
   useEffect(() => {
     if (isOpen) return
     const t = window.setTimeout(() => {
@@ -88,20 +88,23 @@ export default function ConsultFormModal() {
     setStep(next)
   }
 
-  const toggleInterest = (v: string) => {
+  const toggleMulti = (key: 'mediaStatus' | 'propertyType', v: string) => {
     setForm(prev => ({
       ...prev,
-      interest: prev.interest.includes(v)
-        ? prev.interest.filter(x => x !== v)
-        : [...prev.interest, v],
+      [key]: prev[key].includes(v)
+        ? prev[key].filter(x => x !== v)
+        : [...prev[key], v],
     }))
   }
 
   const canProceed = () => {
-    if (step === 1) return form.interest.length > 0
-    if (step === 2) return form.volume !== ''
-    if (step === 3) return true // optional
-    if (step === 4) return form.name.trim() && form.phone.trim() && form.email.trim()
+    if (step === 1) return form.role !== ''
+    if (step === 2) return form.mediaStatus.length > 0
+    if (step === 3) return form.propertyType.length > 0
+    if (step === 4) return true // optional
+    if (step === 5) return true // optional
+    if (step === 6) return form.source !== ''
+    if (step === 7) return form.name.trim() !== '' && form.phone.trim() !== '' && form.email.trim() !== ''
     return false
   }
 
@@ -111,7 +114,7 @@ export default function ConsultFormModal() {
   }
 
   const handleSubmit = async () => {
-    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
       setErrorMsg('E-mail nemá správný formát.')
       setStatus('error')
       return
@@ -123,9 +126,12 @@ export default function ConsultFormModal() {
         method: 'POST',
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          'Zájem': form.interest.join(', '),
-          'Počet nemovitostí ročně': form.volume,
-          'Zpráva': form.message,
+          'Kdo jsem': form.role,
+          'Aktuální řešení foto/video': form.mediaStatus.join(', '),
+          'Typ nemovitostí': form.propertyType.join(', '),
+          'Oblast působení': form.location,
+          'Počet nemovitostí měsíčně': form.volume,
+          'Jak se dozvěděl': form.source,
           'Jméno': form.name,
           'Telefon': form.phone,
           'E-mail': form.email,
@@ -151,7 +157,6 @@ export default function ConsultFormModal() {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -162,7 +167,6 @@ export default function ConsultFormModal() {
             aria-hidden="true"
           />
 
-          {/* Modal */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -175,7 +179,6 @@ export default function ConsultFormModal() {
           >
             <div className="relative w-full max-w-[560px] bg-cream shadow-2xl overflow-hidden">
 
-              {/* Close */}
               <button
                 type="button"
                 onClick={close}
@@ -199,12 +202,10 @@ export default function ConsultFormModal() {
                   </div>
 
                   <div className="px-8 pb-10 pt-10 sm:px-12 sm:pb-12">
-                    {/* Step counter */}
                     <p className="mb-6 text-[11px] uppercase tracking-[0.3em] text-warm-gray/50">
                       Krok {step} z {TOTAL_STEPS}
                     </p>
 
-                    {/* Step content */}
                     <div className="overflow-hidden">
                       <AnimatePresence mode="wait" custom={dir}>
                         <motion.div
@@ -217,42 +218,36 @@ export default function ConsultFormModal() {
                           transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                         >
                           {step === 1 && (
-                            <StepInterest
-                              value={form.interest}
-                              onChange={toggleInterest}
-                            />
+                            <StepRole value={form.role} onChange={v => setForm(p => ({ ...p, role: v }))} />
                           )}
                           {step === 2 && (
-                            <StepVolume
-                              value={form.volume}
-                              onChange={v => setForm(p => ({ ...p, volume: v }))}
-                            />
+                            <StepMedia value={form.mediaStatus} onChange={v => toggleMulti('mediaStatus', v)} />
                           )}
                           {step === 3 && (
-                            <StepMessage
-                              value={form.message}
-                              onChange={v => setForm(p => ({ ...p, message: v }))}
-                            />
+                            <StepPropertyType value={form.propertyType} onChange={v => toggleMulti('propertyType', v)} />
                           )}
                           {step === 4 && (
-                            <StepContact
-                              form={form}
-                              onChange={(k, v) => setForm(p => ({ ...p, [k]: v }))}
-                              firstInputRef={firstInputRef}
-                            />
+                            <StepLocation value={form.location} onChange={v => setForm(p => ({ ...p, location: v }))} />
+                          )}
+                          {step === 5 && (
+                            <StepVolume value={form.volume} onChange={v => setForm(p => ({ ...p, volume: v }))} />
+                          )}
+                          {step === 6 && (
+                            <StepSource value={form.source} onChange={v => setForm(p => ({ ...p, source: v }))} />
+                          )}
+                          {step === 7 && (
+                            <StepContact form={form} onChange={(k, v) => setForm(p => ({ ...p, [k]: v }))} firstInputRef={firstInputRef} />
                           )}
                         </motion.div>
                       </AnimatePresence>
                     </div>
 
-                    {/* Error */}
                     {status === 'error' && errorMsg && (
                       <p className="mt-5 border-l-2 border-red-400 bg-red-50 px-4 py-3 text-[13px] leading-[1.5] text-red-700">
                         {errorMsg}
                       </p>
                     )}
 
-                    {/* Navigation */}
                     <div className="mt-10 flex items-center justify-between">
                       {step > 1 ? (
                         <button
@@ -263,9 +258,7 @@ export default function ConsultFormModal() {
                           <ArrowLeft size={15} className="transition-transform group-hover:-translate-x-0.5" />
                           Zpět
                         </button>
-                      ) : (
-                        <span />
-                      )}
+                      ) : <span />}
 
                       <button
                         type="button"
@@ -285,7 +278,7 @@ export default function ConsultFormModal() {
                           </>
                         ) : (
                           <>
-                            Odeslat poptávku
+                            Odeslat
                             <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
                           </>
                         )}
@@ -302,80 +295,44 @@ export default function ConsultFormModal() {
   )
 }
 
-/* ── Step 1: Interest (multi-select) ── */
-const interestOptions = ['AI vizualizace', 'Video', 'Foto', 'Kompletní balíček', 'Nejsem si jistý']
-
-function StepInterest({ value, onChange }: { value: string[]; onChange: (v: string) => void }) {
-  return (
-    <div>
-      <h2 id="consult-form-title" className="mb-2 font-serif text-[clamp(1.4rem,3vw,1.9rem)] font-medium leading-[1.1] tracking-[-0.01em] text-charcoal">
-        O co máte zájem?
-      </h2>
-      <p className="mb-8 text-[14px] leading-[1.7] text-warm-gray">
-        Vyberte vše, co vás zajímá. Lze vybrat více možností.
-      </p>
-      <div className="flex flex-wrap gap-2.5">
-        {interestOptions.map(opt => {
-          const active = value.includes(opt)
-          return (
-            <button
-              key={opt}
-              type="button"
-              onClick={() => onChange(opt)}
-              className={`flex items-center gap-2 rounded-full border px-5 py-2.5 text-[14px] font-medium transition-all duration-200 ${
-                active
-                  ? 'border-accent bg-accent text-white'
-                  : 'border-charcoal/15 bg-transparent text-warm-gray hover:border-charcoal/30 hover:text-charcoal'
-              }`}
-            >
-              {active && <Check size={13} strokeWidth={2.5} />}
-              {opt}
-            </button>
-          )
-        })}
-      </div>
-    </div>
-  )
-}
-
-/* ── Step 2: Volume (single select) ── */
-const volumeOptions = [
-  { value: '0–5', label: '0 – 5', sub: 'nemovitostí ročně' },
-  { value: '5–20', label: '5 – 20', sub: 'nemovitostí ročně' },
-  { value: '20–50', label: '20 – 50', sub: 'nemovitostí ročně' },
-  { value: '50+', label: '50+', sub: 'nemovitostí ročně' },
+/* ── Step 1: Role ── */
+const roleOptions = [
+  { value: 'Majitel realitní kanceláře', sub: 'Vedu vlastní RK' },
+  { value: 'Vedoucí / manažer RK', sub: 'Řídím tým makléřů' },
+  { value: 'Makléř na vlastní triko', sub: 'Pracuji samostatně' },
+  { value: 'Začínám v realitách', sub: 'Teprve rozjíždím podnikání' },
+  { value: 'Developer / investor', sub: 'Prodávám vlastní projekty' },
+  { value: 'Něco jiného', sub: 'Upřesním v poznámce' },
 ]
 
-function StepVolume({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+function StepRole({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   return (
     <div>
-      <h2 className="mb-2 font-serif text-[clamp(1.4rem,3vw,1.9rem)] font-medium leading-[1.1] tracking-[-0.01em] text-charcoal">
-        Kolik nemovitostí ročně prodáváte?
+      <h2 id="consult-form-title" className="mb-2 font-serif text-[clamp(1.35rem,3vw,1.85rem)] font-medium leading-[1.1] tracking-[-0.01em] text-charcoal">
+        S kým mám tu čest?
       </h2>
-      <p className="mb-8 text-[14px] leading-[1.7] text-warm-gray">
-        Pomůže nám lépe přizpůsobit nabídku vašim potřebám.
+      <p className="mb-7 text-[14px] leading-[1.7] text-warm-gray">
+        Vyberte možnost, která vás nejlépe vystihuje.
       </p>
-      <div className="grid grid-cols-2 gap-3">
-        {volumeOptions.map(opt => {
+      <div className="grid grid-cols-2 gap-2.5">
+        {roleOptions.map(opt => {
           const active = value === opt.value
           return (
             <button
               key={opt.value}
               type="button"
               onClick={() => onChange(opt.value)}
-              className={`group flex flex-col items-start rounded-xl border p-4 text-left transition-all duration-200 ${
-                active
-                  ? 'border-accent bg-accent/5'
-                  : 'border-charcoal/10 bg-white/60 hover:border-charcoal/20'
+              className={`flex flex-col items-start rounded-xl border px-4 py-3.5 text-left transition-all duration-200 ${
+                active ? 'border-accent bg-accent/5' : 'border-charcoal/10 bg-white/60 hover:border-charcoal/20'
               }`}
             >
-              <span className={`font-serif text-2xl font-medium transition-colors ${active ? 'text-accent' : 'text-charcoal'}`}>
-                {opt.label}
+              <span className={`text-[13.5px] font-medium leading-snug transition-colors ${active ? 'text-accent' : 'text-charcoal'}`}>
+                {opt.value}
               </span>
-              <span className="mt-0.5 text-[12px] text-warm-gray">{opt.sub}</span>
+              <span className="mt-0.5 text-[11.5px] text-warm-gray">{opt.sub}</span>
               {active && (
-                <span className="mt-2 flex h-5 w-5 items-center justify-center rounded-full bg-accent">
-                  <Check size={11} className="text-white" strokeWidth={2.5} />
+                <span className="mt-2 flex h-4 w-4 items-center justify-center rounded-full bg-accent">
+                  <Check size={10} className="text-white" strokeWidth={2.5} />
                 </span>
               )}
             </button>
@@ -386,28 +343,180 @@ function StepVolume({ value, onChange }: { value: string; onChange: (v: string) 
   )
 }
 
-/* ── Step 3: Open message ── */
-function StepMessage({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+/* ── Step 2: Current media situation ── */
+const mediaOptions = [
+  'Fotím / točím si sám',
+  'Mám fotografa, ale nejsem spokojený',
+  'Vůbec nevydávám video obsah',
+  'Používám pouze fotky z mobilu',
+  'Řeším to nárazově podle potřeby',
+  'Zatím nic neřeším',
+]
+
+function StepMedia({ value, onChange }: { value: string[]; onChange: (v: string) => void }) {
   return (
     <div>
-      <h2 className="mb-2 font-serif text-[clamp(1.4rem,3vw,1.9rem)] font-medium leading-[1.1] tracking-[-0.01em] text-charcoal">
-        Řekněte mi víc
+      <h2 className="mb-2 font-serif text-[clamp(1.35rem,3vw,1.85rem)] font-medium leading-[1.1] tracking-[-0.01em] text-charcoal">
+        Jak aktuálně řešíte foto a video?
       </h2>
-      <p className="mb-8 text-[14px] leading-[1.7] text-warm-gray">
-        Lokalita, termín, konkrétní nemovitost nebo jakákoliv otázka. Klidně přeskočte — není povinné.
+      <p className="mb-7 text-[14px] leading-[1.7] text-warm-gray">
+        Lze vybrat víc možností.
       </p>
-      <textarea
+      <div className="flex flex-col gap-2">
+        {mediaOptions.map(opt => {
+          const active = value.includes(opt)
+          return (
+            <button
+              key={opt}
+              type="button"
+              onClick={() => onChange(opt)}
+              className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all duration-200 ${
+                active ? 'border-accent bg-accent/5' : 'border-charcoal/10 bg-white/60 hover:border-charcoal/20'
+              }`}
+            >
+              <span className={`flex h-5 w-5 flex-none items-center justify-center rounded-full border transition-all ${
+                active ? 'border-accent bg-accent' : 'border-charcoal/20 bg-transparent'
+              }`}>
+                {active && <Check size={11} className="text-white" strokeWidth={2.5} />}
+              </span>
+              <span className={`text-[13.5px] font-medium transition-colors ${active ? 'text-accent' : 'text-charcoal'}`}>
+                {opt}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+/* ── Step 3: Property type ── */
+const propertyTypeOptions = [
+  'Byty',
+  'Rodinné domy',
+  'Pozemky',
+  'Komerční nemovitosti',
+  'Developerské projekty',
+  'Různé typy',
+]
+
+function StepPropertyType({ value, onChange }: { value: string[]; onChange: (v: string) => void }) {
+  return (
+    <div>
+      <h2 className="mb-2 font-serif text-[clamp(1.35rem,3vw,1.85rem)] font-medium leading-[1.1] tracking-[-0.01em] text-charcoal">
+        S jakými nemovitostmi nejčastěji pracujete?
+      </h2>
+      <p className="mb-7 text-[14px] leading-[1.7] text-warm-gray">
+        Lze vybrat víc možností.
+      </p>
+      <div className="flex flex-wrap gap-2.5">
+        {propertyTypeOptions.map(opt => {
+          const active = value.includes(opt)
+          return (
+            <button
+              key={opt}
+              type="button"
+              onClick={() => onChange(opt)}
+              className={`flex items-center gap-2 rounded-full border px-5 py-2.5 text-[13.5px] font-medium transition-all duration-200 ${
+                active ? 'border-accent bg-accent text-white' : 'border-charcoal/15 bg-white/60 text-warm-gray hover:border-charcoal/30 hover:text-charcoal'
+              }`}
+            >
+              {active && <Check size={12} strokeWidth={2.5} />}
+              {opt}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+/* ── Step 4: Location ── */
+function StepLocation({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  return (
+    <div>
+      <h2 className="mb-2 font-serif text-[clamp(1.35rem,3vw,1.85rem)] font-medium leading-[1.1] tracking-[-0.01em] text-charcoal">
+        Kde působíte?
+      </h2>
+      <p className="mb-7 text-[14px] leading-[1.7] text-warm-gray">
+        Město, kraj nebo region — ať víme, jestli se to logisticky potkáme. Klidně přeskočte.
+      </p>
+      <input
+        type="text"
         value={value}
         onChange={e => onChange(e.target.value)}
-        rows={5}
-        placeholder="Např. Mám byt v Ostravě, chtěl bych video + foto, termín nejdřív za 2 týdny…"
-        className="w-full resize-none border-b border-charcoal/15 bg-transparent py-2.5 text-[15px] text-charcoal outline-none transition-colors placeholder:text-warm-gray/30 focus:border-accent"
+        placeholder="Např. Ostrava, Olomoucký kraj, celá Morava…"
+        className={inputClass}
+        autoFocus
       />
     </div>
   )
 }
 
-/* ── Step 4: Contact details ── */
+/* ── Step 5: Volume ── */
+function StepVolume({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  return (
+    <div>
+      <h2 className="mb-2 font-serif text-[clamp(1.35rem,3vw,1.85rem)] font-medium leading-[1.1] tracking-[-0.01em] text-charcoal">
+        Kolik nemovitostí měsíčně budete potřebovat nafotit / natočit?
+      </h2>
+      <p className="mb-7 text-[14px] leading-[1.7] text-warm-gray">
+        Klidně odhadněte. Pomůže mi připravit cenovou nabídku. Není povinné.
+      </p>
+      <input
+        type="text"
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        placeholder="Např. 2–3 měsíčně, 1 týdně, zatím nevím…"
+        className={inputClass}
+        autoFocus
+      />
+    </div>
+  )
+}
+
+/* ── Step 6: Source ── */
+const sourceOptions = [
+  'Instagram',
+  'Doporučení od kolegy / známého',
+  'Google vyhledávání',
+  'Facebook',
+  'LinkedIn',
+  'Jinak',
+]
+
+function StepSource({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  return (
+    <div>
+      <h2 className="mb-2 font-serif text-[clamp(1.35rem,3vw,1.85rem)] font-medium leading-[1.1] tracking-[-0.01em] text-charcoal">
+        Jak jste se o mně dozvěděli?
+      </h2>
+      <p className="mb-7 text-[14px] leading-[1.7] text-warm-gray">
+        Čistě pro moji informaci — pomáhá mi vědět, co funguje.
+      </p>
+      <div className="flex flex-wrap gap-2.5">
+        {sourceOptions.map(opt => {
+          const active = value === opt
+          return (
+            <button
+              key={opt}
+              type="button"
+              onClick={() => onChange(opt)}
+              className={`flex items-center gap-2 rounded-full border px-5 py-2.5 text-[13.5px] font-medium transition-all duration-200 ${
+                active ? 'border-accent bg-accent text-white' : 'border-charcoal/15 bg-white/60 text-warm-gray hover:border-charcoal/30 hover:text-charcoal'
+              }`}
+            >
+              {active && <Check size={12} strokeWidth={2.5} />}
+              {opt}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+/* ── Step 7: Contact ── */
 function StepContact({
   form,
   onChange,
@@ -419,10 +528,10 @@ function StepContact({
 }) {
   return (
     <div>
-      <h2 className="mb-2 font-serif text-[clamp(1.4rem,3vw,1.9rem)] font-medium leading-[1.1] tracking-[-0.01em] text-charcoal">
+      <h2 className="mb-2 font-serif text-[clamp(1.35rem,3vw,1.85rem)] font-medium leading-[1.1] tracking-[-0.01em] text-charcoal">
         Vaše kontaktní údaje
       </h2>
-      <p className="mb-8 text-[14px] leading-[1.7] text-warm-gray">
+      <p className="mb-7 text-[14px] leading-[1.7] text-warm-gray">
         Ozvu se vám do 24 hodin.
       </p>
       <div className="space-y-5">
@@ -487,7 +596,7 @@ function Field({ label, required, children }: { label: string; required?: boolea
   )
 }
 
-/* ── Success state ── */
+/* ── Success ── */
 function SuccessState({ onClose }: { onClose: () => void }) {
   return (
     <div className="px-8 py-16 text-center sm:px-12 sm:py-20">
