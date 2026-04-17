@@ -192,19 +192,32 @@ export default function ConsultFormModal() {
                 <SuccessState onClose={close} />
               ) : (
                 <>
+                  {/* Header */}
+                  <div className="border-b border-charcoal/8 px-8 pb-5 pt-10 sm:px-12">
+                    <p className="text-[10px] uppercase tracking-[0.35em] text-accent">Konzultace zdarma</p>
+                    <h2 className="mt-1.5 font-serif text-xl font-medium text-charcoal">
+                      Vyplňte krátký dotazník
+                    </h2>
+                    <p className="mt-1 text-[13px] text-warm-gray/70">
+                      Zabere to méně než minutu. Díky odpovědím se na vás budu moct lépe připravit.
+                    </p>
+                  </div>
+
                   {/* Progress bar */}
-                  <div className="h-0.5 w-full bg-charcoal/8">
+                  <div className="relative h-2 w-full bg-charcoal/8">
                     <motion.div
                       className="h-full bg-accent"
                       animate={{ width: `${progress}%` }}
                       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                     />
+                    {/* Step counter inside bar area */}
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-medium tabular-nums text-warm-gray/50">
+                      {step} / {TOTAL_STEPS}
+                    </span>
                   </div>
 
-                  <div className="px-8 pb-10 pt-10 sm:px-12 sm:pb-12">
-                    <p className="mb-6 text-[11px] uppercase tracking-[0.3em] text-warm-gray/50">
-                      Krok {step} z {TOTAL_STEPS}
-                    </p>
+                  <div className="px-8 pb-10 pt-8 sm:px-12 sm:pb-12">
+
 
                     <div className="overflow-hidden">
                       <AnimatePresence mode="wait" custom={dir}>
