@@ -216,10 +216,9 @@ export default function ConsultFormModal() {
                     </span>
                   </div>
 
-                  <div className="px-8 pb-10 pt-8 sm:px-12 sm:pb-12">
-
-
-                    <div className="overflow-hidden">
+                  <div className="flex flex-col px-8 pb-10 pt-8 sm:px-12 sm:pb-12">
+                    {/* Fixed-height content area — prevents modal from resizing between steps */}
+                    <div className="h-[340px] overflow-y-auto overflow-x-hidden">
                       <AnimatePresence mode="wait" custom={dir}>
                         <motion.div
                           key={step}
@@ -253,7 +252,7 @@ export default function ConsultFormModal() {
                           )}
                         </motion.div>
                       </AnimatePresence>
-                    </div>
+                    </div>{/* end fixed-height area */}
 
                     {status === 'error' && errorMsg && (
                       <p className="mt-5 border-l-2 border-red-400 bg-red-50 px-4 py-3 text-[13px] leading-[1.5] text-red-700">
