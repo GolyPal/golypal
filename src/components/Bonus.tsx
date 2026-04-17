@@ -193,27 +193,26 @@ export default function Bonus() {
               profilu a{'\u00A0'}vyšší proklikovost.
             </p>
 
-            {/* ── MOBILE: horizontal snap, 1 cover at a time, larger ── */}
+            {/* ── MOBILE: horizontal snap, 1 cover at a time ── */}
             <div className="mt-6 sm:hidden">
               {/*
-                -mx-8 breaks out of the card's p-8 padding so covers can be wider.
-                px-8 adds the same padding back as scroll-padding (left anchor).
-                Each cover is 180px wide (≈ 2× current 87px) at 9:16 aspect.
+                Stays within the card's natural content area — no negative margin
+                tricks that could cause page-level horizontal overflow on Safari.
+                w-[220px] per cover: at ~263px card content width, the next cover
+                peeks by only ~30px (≈14%) — clearly 1 at a time.
               */}
               <div
                 ref={scrollRef}
-                className="scrollbar-hide -mx-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-8 pb-1"
-                style={{ scrollPaddingLeft: '2rem' }}
+                className="scrollbar-hide flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1"
+                style={{ scrollPaddingLeft: '0px' }}
               >
                 {covers.map((cover, i) => (
                   <CoverTile
                     key={i}
                     cover={cover}
-                    className="h-[280px] w-auto flex-none snap-start aspect-[9/16]"
+                    className="w-[220px] flex-none snap-start aspect-[9/16]"
                   />
                 ))}
-                {/* Trailing spacer so last cover can snap to start position */}
-                <div className="w-8 flex-none" aria-hidden="true" />
               </div>
 
               <ScrollDots
