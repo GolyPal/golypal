@@ -1,6 +1,5 @@
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
-import { useCallback, useEffect, useRef, useState } from 'react'
 
 const testimonials = [
   {
@@ -33,86 +32,126 @@ const testimonials = [
   },
 ]
 
-const AUTOPLAY_MS = 7500
-const FADE_MS = 350
+/* ── Dot progress indicator (mobile) ── */
+function ScrollDots({
+  total,
+  current,
+  onDotClick,
+}: {
+  total: number
+  current: number
+  onDotClick: (i: number) => void
+}) {
+  return (
+    <div className="mt-5 flex items-center justify-center gap-2">
+      {Array.from({ length: total }).map((_, i) => (
+        <button
+          key={i}
+          onClick={() => onDotClick(i)}
+          aria-label={`Přejít na referenci ${i + 1}`}
+          className={`rounded-full transition-all duration-300 ${
+            i === current
+              ? 'h-1.5 w-5 bg-accent/70'
+              : 'h-1.5 w-1.5 bg-white/25 hover:bg-white/40'
+          }`}
+        />
+      ))}
+    </div>
+  )
+}
 
-export default function Testimonials() {
-  const count = testimonials.length
-  const [index, setIndex] = useState(0)
-  const [displayed, setDisplayed] = useState(0)
-  const [visible, setVisible] = useState(true)
-  const [paused, setPaused] = useState(false)
-  const swapTimer = useRef<number | null>(null)
+/* ── Single testimonial card ── */
+function TestimonialCard({
+  t,
+  delay = 0,
+  animate = true,
+}: {
+  t: (typeof testimonials)[0]
+  delay?: number
+  animate?: boolean
+}) {
+  const inner = (
+    <div className="flex h-full flex-col rounded-2xl border border-white/[0.06] bg-white/[0.03] p-8 backdrop-blur-sm lg:p-10">
+      {/* Opening quote mark */}
+      <span
+        aria-hidden="true"
+        className="mb-4 block font-serif text-5xl leading-none text-accent/50 lg:text-6xl"
+      >
+        &ldquo;
+      </span>
 
-  const goTo = useCallback(
-    (nextIdx: number) => {
-      setIndex(prev => {
-        const normalized = ((nextIdx % count) + count) % count
-        return normalized === prev ? prev : normalized
-      })
-    },
-    [count],
+      <blockquote className="flex-1 font-serif text-[15px] font-light italic leading-[1.75] text-white/80 lg:text-base">
+        {t.quote}
+      </blockquote>
+
+      <div className="mt-8 flex items-center gap-4">
+        {/* Avatar circle */}
+        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-full border border-accent/30 bg-accent/10">
+          <span className="font-serif text-base font-medium text-accent">
+            {t.initial}
+          </span>
+        </div>
+        <div>
+          <p className="font-serif text-[15px] font-medium text-white">
+            {t.name}
+          </p>
+          <p className="mt-0.5 text-[11px] uppercase tracking-[0.2em] text-white/40">
+            {t.role}
+          </p>
+        </div>
+      </div>
+    </div>
   )
 
-  // Fade out, swap content, fade in
+  if (!animate) return inner
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.7, delay }}
+      className="h-full"
+    >
+      {inner}
+    </motion.div>
+  )
+}
+
+export default function Testimonials() {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [currentIdx, setCurrentIdx] = useState(0)
+
+  const handleScroll = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const max = el.scrollWidth - el.clientWidth
+    if (max <= 0) return
+    setCurrentIdx(Math.round((el.scrollLeft / max) * (testimonials.length - 1)))
+  }, [])
+
   useEffect(() => {
-    if (index === displayed) return
-    setVisible(false)
-    if (swapTimer.current) window.clearTimeout(swapTimer.current)
-    swapTimer.current = window.setTimeout(() => {
-      setDisplayed(index)
-      setVisible(true)
-    }, FADE_MS)
-    return () => {
-      if (swapTimer.current) window.clearTimeout(swapTimer.current)
-    }
-  }, [index, displayed])
+    const el = scrollRef.current
+    if (!el) return
+    el.addEventListener('scroll', handleScroll, { passive: true })
+    return () => el.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
 
-  const next = useCallback(() => goTo(index + 1), [goTo, index])
-  const prev = useCallback(() => goTo(index - 1), [goTo, index])
-
-  useEffect(() => {
-    if (paused) return
-    const id = window.setTimeout(
-      () => setIndex(i => (i + 1) % count),
-      AUTOPLAY_MS,
-    )
-    return () => window.clearTimeout(id)
-  }, [index, paused, count])
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') next()
-      if (e.key === 'ArrowLeft') prev()
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [next, prev])
-
-  const current = testimonials[displayed]
+  const scrollToIdx = useCallback((i: number) => {
+    const el = scrollRef.current
+    if (!el) return
+    const max = el.scrollWidth - el.clientWidth
+    el.scrollTo({ left: (i / (testimonials.length - 1)) * max, behavior: 'smooth' })
+  }, [])
 
   return (
     <section
       id="reference"
       className="relative overflow-hidden bg-deep py-24 lg:py-32"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
     >
-      {/* Decorative giant initial in background */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 flex items-center justify-center"
-      >
-        <span
-          key={current.initial}
-          className="select-none font-serif text-[clamp(22rem,48vw,44rem)] font-medium leading-none text-accent opacity-[0.05]"
-          style={{
-            transition: `opacity ${FADE_MS}ms ease-out`,
-            opacity: visible ? 0.05 : 0,
-          }}
-        >
-          {current.initial}
-        </span>
+      {/* Subtle radial glow */}
+      <div className="pointer-events-none absolute inset-0 hidden sm:block">
+        <div className="absolute left-1/2 top-1/2 h-[700px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/[0.03] blur-[140px]" />
       </div>
 
       <div className="relative mx-auto max-w-[1400px] px-6 lg:px-16">
@@ -131,111 +170,47 @@ export default function Testimonials() {
           <div className="editorial-line-light flex-1" />
         </motion.div>
 
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.9 }}
-          className="mb-16 text-center lg:mb-24"
+          className="mb-14 text-center lg:mb-16"
         >
           <h2 className="font-serif text-[clamp(1.6rem,3.5vw,2.6rem)] font-medium leading-[1.05] tracking-[-0.01em] text-white">
             Co o mé práci říkají <em className="text-accent">klienti</em>
           </h2>
         </motion.div>
 
-        {/* Stage */}
-        <div className="relative mx-auto min-h-[380px] max-w-3xl lg:min-h-[440px]">
-          {/* Opening quotation mark */}
-          <motion.span
-            aria-hidden="true"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8 }}
-            className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 font-serif text-[6rem] leading-none text-accent/70 lg:-top-14 lg:text-[8rem]"
-          >
-            &ldquo;
-          </motion.span>
-
+        {/* ── MOBILE: horizontal snap scroll ── */}
+        <div className="sm:hidden">
           <div
-            className="text-center"
-            style={{
-              transition: `opacity ${FADE_MS}ms ease-out, transform ${FADE_MS}ms ease-out`,
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'translateY(0)' : 'translateY(8px)',
-            }}
+            ref={scrollRef}
+            className="scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto pb-1"
           >
-            <blockquote className="font-serif text-[clamp(1.15rem,1.9vw,1.65rem)] font-light italic leading-[1.5] text-white/90">
-              {current.quote}
-            </blockquote>
-
-            <div className="mt-12 flex items-center justify-center gap-5 lg:mt-14">
-              <span className="h-px w-10 bg-accent/50 lg:w-14" />
-              <div className="text-center">
-                <p className="font-serif text-lg text-white lg:text-xl">
-                  {current.name}
-                </p>
-                <p className="mt-1.5 text-[10px] uppercase tracking-[0.3em] text-white/50">
-                  {current.role}
-                </p>
-              </div>
-              <span className="h-px w-10 bg-accent/50 lg:w-14" />
-            </div>
-          </div>
-        </div>
-
-        {/* Controls */}
-        <div className="mt-16 flex items-center justify-center gap-8 lg:mt-20">
-          <button
-            type="button"
-            onClick={prev}
-            aria-label="Předchozí reference"
-            className="group flex h-11 w-11 items-center justify-center border border-white/15 text-white/70 transition-all hover:border-accent hover:text-accent"
-          >
-            <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-0.5" />
-          </button>
-
-          <div className="flex items-center gap-2.5">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => goTo(i)}
-                aria-label={`Reference ${i + 1}`}
-                className="group py-3"
+            {testimonials.map((t) => (
+              <div
+                key={t.name}
+                className="w-full flex-none snap-start"
               >
-                <motion.span
-                  animate={{
-                    width: i === index ? 40 : 20,
-                    backgroundColor:
-                      i === index ? 'rgb(199, 169, 123)' : 'rgba(255,255,255,0.2)',
-                  }}
-                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                  className="block h-[2px] group-hover:bg-white/50"
-                />
-              </button>
+                <TestimonialCard t={t} animate={false} />
+              </div>
             ))}
           </div>
 
-          <button
-            type="button"
-            onClick={next}
-            aria-label="Další reference"
-            className="group flex h-11 w-11 items-center justify-center border border-white/15 text-white/70 transition-all hover:border-accent hover:text-accent"
-          >
-            <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
-          </button>
+          <ScrollDots
+            total={testimonials.length}
+            current={currentIdx}
+            onDotClick={scrollToIdx}
+          />
         </div>
 
-        {/* Counter */}
-        <div className="mt-8 text-center">
-          <span className="font-serif text-sm tracking-[0.2em] text-white/40">
-            <span className="text-accent">
-              {String(index + 1).padStart(2, '0')}
-            </span>
-            {'\u00A0\u00A0—\u00A0\u00A0'}
-            {String(count).padStart(2, '0')}
-          </span>
+        {/* ── DESKTOP: 2×2 grid, all cards visible at once ── */}
+        <div className="hidden sm:grid sm:grid-cols-2 sm:gap-5 lg:gap-6">
+          {testimonials.map((t, i) => (
+            <TestimonialCard key={t.name} t={t} delay={i * 0.1} />
+          ))}
         </div>
       </div>
     </section>
