@@ -46,6 +46,14 @@ body {
   background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent);
 }
 
+/* Hide scrollbar while keeping scroll functionality */
+@utility scrollbar-hide {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* Parallax-like image zoom on scroll */
 @keyframes subtle-zoom {
   from { transform: scale(1); }

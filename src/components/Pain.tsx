@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
 
 const painPoints = [
@@ -27,10 +28,64 @@ const painPoints = [
   },
 ]
 
+/* ── Dot progress indicator ── */
+function ScrollDots({
+  total,
+  current,
+  onDotClick,
+}: {
+  total: number
+  current: number
+  onDotClick: (i: number) => void
+}) {
+  return (
+    <div className="mt-5 flex items-center justify-center gap-2">
+      {Array.from({ length: total }).map((_, i) => (
+        <button
+          key={i}
+          onClick={() => onDotClick(i)}
+          aria-label={`Přejít na bod ${i + 1}`}
+          className={`rounded-full transition-all duration-300 ${
+            i === current
+              ? 'h-1.5 w-5 bg-accent/70'
+              : 'h-1.5 w-1.5 bg-white/25 hover:bg-white/40'
+          }`}
+        />
+      ))}
+    </div>
+  )
+}
+
 export default function Pain() {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [currentIdx, setCurrentIdx] = useState(0)
+
+  const handleScroll = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const max = el.scrollWidth - el.clientWidth
+    if (max <= 0) return
+    const progress = el.scrollLeft / max
+    setCurrentIdx(Math.round(progress * (painPoints.length - 1)))
+  }, [])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    el.addEventListener('scroll', handleScroll, { passive: true })
+    return () => el.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
+
+  const scrollToIdx = useCallback((i: number) => {
+    const el = scrollRef.current
+    if (!el) return
+    const max = el.scrollWidth - el.clientWidth
+    el.scrollTo({ left: (i / (painPoints.length - 1)) * max, behavior: 'smooth' })
+  }, [])
+
   return (
     <section id="problem" className="relative overflow-hidden bg-deep py-24 lg:py-32">
-      {/* Subtle radial glow — hidden on mobile where the wide blur looks like a grey panel */}
+      {/* Subtle radial glow — hidden on mobile */}
       <div className="pointer-events-none absolute inset-0 hidden sm:block">
         <div className="absolute left-1/2 top-0 h-[600px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/[0.04] blur-[120px]" />
       </div>
@@ -65,8 +120,47 @@ export default function Pain() {
           </p>
         </motion.div>
 
-        {/* Single column list */}
-        <div className="grid gap-4 lg:gap-5">
+        {/* ── MOBILE: horizontal snap scroll ── */}
+        <div className="sm:hidden">
+          {/*
+            -mx-6 breaks out of the section's px-6 padding so the scroll
+            area is full viewport width. px-6 adds it back as scroll-padding
+            so the first card starts flush with the rest of the content.
+          */}
+          <div
+            ref={scrollRef}
+            className="scrollbar-hide -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-1"
+            style={{ scrollPaddingLeft: '1.5rem' }}
+          >
+            {painPoints.map((point) => (
+              <div
+                key={point.number}
+                /* Each card fills the content area (viewport minus 2×24px padding).
+                   flex-none + snap-start = one card per snap. */
+                className="w-[calc(100vw-3rem)] flex-none snap-start rounded-2xl border border-white/[0.06] bg-white/[0.03] p-8 backdrop-blur-sm"
+              >
+                <span className="mb-4 block font-mono text-sm tracking-wider text-accent/60">
+                  {point.number}
+                </span>
+                <h3 className="mb-3 font-serif text-xl font-semibold leading-tight text-white">
+                  {point.label}
+                </h3>
+                <p className="leading-[1.75] text-white/45">{point.description}</p>
+              </div>
+            ))}
+            {/* Trailing spacer so the last card can snap to its start position */}
+            <div className="w-6 flex-none" aria-hidden="true" />
+          </div>
+
+          <ScrollDots
+            total={painPoints.length}
+            current={currentIdx}
+            onDotClick={scrollToIdx}
+          />
+        </div>
+
+        {/* ── DESKTOP: vertical single-column grid (unchanged) ── */}
+        <div className="hidden sm:grid sm:gap-4 lg:gap-5">
           {painPoints.map((point, i) => (
             <motion.div
               key={point.number}
@@ -82,9 +176,7 @@ export default function Pain() {
               <h3 className="mb-3 font-serif text-xl font-semibold leading-tight text-white lg:text-2xl">
                 {point.label}
               </h3>
-              <p className="leading-[1.75] text-white/45">
-                {point.description}
-              </p>
+              <p className="leading-[1.75] text-white/45">{point.description}</p>
             </motion.div>
           ))}
         </div>

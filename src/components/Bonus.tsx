@@ -1,7 +1,99 @@
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { FileText, Image } from 'lucide-react'
 
+const covers = [
+  { img: '/images/foto-sluzba.jpg',  title: 'Byt 3+kk',      subtitle: 'Třinec · Lyžbice',    price: '8 490 000 Kč' },
+  { img: '/images/ai-po.jpg',        title: 'Byt 4+kk',      subtitle: 'Opava · Kateřinky',   price: '12 900 000 Kč' },
+  { img: '/images/ai-po-2.jpg',      title: 'Rodinný dům',   subtitle: 'Ostrava · Poruba',    price: '19 500 000 Kč' },
+]
+
+/* ── Reusable dot indicator ── */
+function ScrollDots({
+  total,
+  current,
+  onDotClick,
+}: {
+  total: number
+  current: number
+  onDotClick: (i: number) => void
+}) {
+  return (
+    <div className="mt-4 flex items-center justify-center gap-2">
+      {Array.from({ length: total }).map((_, i) => (
+        <button
+          key={i}
+          onClick={() => onDotClick(i)}
+          aria-label={`Cover ${i + 1}`}
+          className={`rounded-full transition-all duration-300 ${
+            i === current
+              ? 'h-1.5 w-5 bg-accent/70'
+              : 'h-1.5 w-1.5 bg-charcoal/20 hover:bg-charcoal/40'
+          }`}
+        />
+      ))}
+    </div>
+  )
+}
+
+/* ── Single Cover tile ── */
+function CoverTile({ cover, className = '' }: { cover: typeof covers[0]; className?: string }) {
+  return (
+    <div className={`group relative overflow-hidden rounded-lg ${className}`}>
+      <img
+        src={cover.img}
+        alt={cover.title}
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/70" />
+
+      {/* Decorative top */}
+      <div className="absolute left-3 right-3 top-3 z-10 flex items-center justify-between">
+        <div className="h-[3px] w-8 rounded-full bg-accent/60" />
+        <div className="h-5 w-5 rounded-full border border-white/20" />
+      </div>
+
+      {/* Info bottom */}
+      <div className="absolute bottom-3 left-3 right-3 z-10">
+        <p className="text-[7px] font-medium uppercase tracking-wider text-accent lg:text-[8px]">
+          Exkluzivní nabídka
+        </p>
+        <p className="mt-0.5 font-serif text-[10px] font-medium leading-tight text-white lg:text-xs">
+          {cover.title}
+        </p>
+        <p className="mt-0.5 text-[7px] text-white/50 lg:text-[8px]">{cover.subtitle}</p>
+        <p className="mt-1 text-[8px] font-medium text-accent lg:text-[9px]">{cover.price}</p>
+      </div>
+    </div>
+  )
+}
+
 export default function Bonus() {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [currentIdx, setCurrentIdx] = useState(0)
+
+  const handleScroll = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const max = el.scrollWidth - el.clientWidth
+    if (max <= 0) return
+    setCurrentIdx(Math.round((el.scrollLeft / max) * (covers.length - 1)))
+  }, [])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    el.addEventListener('scroll', handleScroll, { passive: true })
+    return () => el.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
+
+  const scrollToIdx = useCallback((i: number) => {
+    const el = scrollRef.current
+    if (!el) return
+    const max = el.scrollWidth - el.clientWidth
+    el.scrollTo({ left: (i / (covers.length - 1)) * max, behavior: 'smooth' })
+  }, [])
+
   return (
     <section className="bg-cream py-24 lg:py-32">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
@@ -66,7 +158,6 @@ export default function Bonus() {
               scriptu je můžete ztratit.
             </p>
 
-            {/* Script example — centered, fills remaining space */}
             <div className="mt-8 flex flex-1 items-center">
               <div className="w-full rounded-xl bg-deep p-6 text-center lg:p-8">
                 <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.15em] text-accent">
@@ -102,49 +193,41 @@ export default function Bonus() {
               profilu a{'\u00A0'}vyšší proklikovost.
             </p>
 
-            {/* Reels Cover mockups — centered */}
-            <div className="mt-auto pt-8">
-              <div className="grid grid-cols-3 gap-3">
-                {[
-                  { img: '/images/foto-sluzba.jpg', title: 'Byt 3+kk', subtitle: 'Třinec · Lyžbice', price: '8 490 000 Kč' },
-                  { img: '/images/ai-po.jpg', title: 'Byt 4+kk', subtitle: 'Opava · Kateřinky', price: '12 900 000 Kč' },
-                  { img: '/images/ai-po-2.jpg', title: 'Rodinný dům', subtitle: 'Ostrava · Poruba', price: '19 500 000 Kč' },
-                ].map((cover, i) => (
-                  <div
+            {/* ── MOBILE: horizontal snap, 1 cover at a time, larger ── */}
+            <div className="mt-6 sm:hidden">
+              {/*
+                -mx-8 breaks out of the card's p-8 padding so covers can be wider.
+                px-8 adds the same padding back as scroll-padding (left anchor).
+                Each cover is 180px wide (≈ 2× current 87px) at 9:16 aspect.
+              */}
+              <div
+                ref={scrollRef}
+                className="scrollbar-hide -mx-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-8 pb-1"
+                style={{ scrollPaddingLeft: '2rem' }}
+              >
+                {covers.map((cover, i) => (
+                  <CoverTile
                     key={i}
-                    className="group relative aspect-[9/16] w-full overflow-hidden rounded-lg"
-                  >
-                    {/* Background image */}
-                    <img
-                      src={cover.img}
-                      alt={cover.title}
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
-                    />
-                    {/* Dark overlay gradient — lighter to show property */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/70" />
+                    cover={cover}
+                    className="h-[280px] w-auto flex-none snap-start aspect-[9/16]"
+                  />
+                ))}
+                {/* Trailing spacer so last cover can snap to start position */}
+                <div className="w-8 flex-none" aria-hidden="true" />
+              </div>
 
-                    {/* Decorative top element */}
-                    <div className="absolute top-3 left-3 right-3 z-10 flex items-center justify-between">
-                      <div className="h-[3px] w-8 rounded-full bg-accent/60" />
-                      <div className="h-5 w-5 rounded-full border border-white/20" />
-                    </div>
+              <ScrollDots
+                total={covers.length}
+                current={currentIdx}
+                onDotClick={scrollToIdx}
+              />
+            </div>
 
-                    {/* Content at bottom */}
-                    <div className="absolute bottom-3 left-3 right-3 z-10">
-                      <p className="text-[7px] font-medium uppercase tracking-wider text-accent lg:text-[8px]">
-                        Exkluzivní nabídka
-                      </p>
-                      <p className="mt-0.5 font-serif text-[10px] font-medium leading-tight text-white lg:text-xs">
-                        {cover.title}
-                      </p>
-                      <p className="mt-0.5 text-[7px] text-white/50 lg:text-[8px]">
-                        {cover.subtitle}
-                      </p>
-                      <p className="mt-1 text-[8px] font-medium text-accent lg:text-[9px]">
-                        {cover.price}
-                      </p>
-                    </div>
-                  </div>
+            {/* ── DESKTOP: 3-column grid (unchanged) ── */}
+            <div className="mt-auto hidden pt-8 sm:block">
+              <div className="grid grid-cols-3 gap-3">
+                {covers.map((cover, i) => (
+                  <CoverTile key={i} cover={cover} className="aspect-[9/16] w-full" />
                 ))}
               </div>
             </div>
