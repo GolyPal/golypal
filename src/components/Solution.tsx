@@ -27,6 +27,8 @@ function BeforeAfterSlider({
       const el = containerRef.current
       if (!el) return
       dragging.current = true
+      // Prevent text selection across the whole page while dragging
+      document.documentElement.style.userSelect = 'none'
       // Capture on the container so drag keeps tracking even if pointer leaves a child element
       try {
         el.setPointerCapture(e.pointerId)
@@ -46,9 +48,11 @@ function BeforeAfterSlider({
     [updatePosition],
   )
 
-  const onPointerUp = useCallback(
+  const stopDrag = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
       dragging.current = false
+      // Restore text selection
+      document.documentElement.style.userSelect = ''
       const el = containerRef.current
       if (el && el.hasPointerCapture?.(e.pointerId)) {
         try {
@@ -71,8 +75,8 @@ function BeforeAfterSlider({
       style={{ touchAction: 'none' }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onPointerCancel={onPointerUp}>
+      onPointerUp={stopDrag}
+      onPointerCancel={stopDrag}>
       <img
         src={after}
         alt="Po AI vizualizaci"
