@@ -38,7 +38,7 @@ export default function FinalCTA() {
             transition={{ duration: 1 }}
             className="font-serif text-[clamp(1.6rem,3.5vw,2.6rem)] font-medium leading-[1.05] tracking-[-0.02em] text-white"
           >
-            Připraveni prodávat nemovitosti{' '}
+            Jste připraveni prodávat nemovitosti{' '}
             <em className="text-accent">rychleji?</em>
           </motion.h2>
 
