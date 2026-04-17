@@ -240,9 +240,6 @@ export default function Viral() {
             Mám zájem spolupracovat
             <ArrowDown size={15} className="transition-transform duration-300 group-hover:translate-y-0.5" />
           </button>
-          <p className="text-[12px] tracking-wide text-warm-gray/50">
-            Nezávazná konzultace · Zdarma
-          </p>
         </motion.div>
 
       </div>
