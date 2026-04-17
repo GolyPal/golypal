@@ -164,10 +164,6 @@ export default function Testimonials() {
           className="mb-6 flex items-center gap-6"
         >
           <div className="editorial-line-light flex-1" />
-          <span className="text-[10px] uppercase tracking-[0.4em] text-white/40">
-            Reference
-          </span>
-          <div className="editorial-line-light flex-1" />
         </motion.div>
 
         {/* Heading */}

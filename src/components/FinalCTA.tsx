@@ -27,10 +27,6 @@ export default function FinalCTA() {
           className="mb-6 flex items-center gap-6"
         >
           <div className="editorial-line-light flex-1" />
-          <span className="text-[10px] uppercase tracking-[0.4em] text-white/40">
-            Konzultace
-          </span>
-          <div className="editorial-line-light flex-1" />
         </motion.div>
 
         {/* Centred content */}
