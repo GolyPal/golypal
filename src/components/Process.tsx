@@ -4,9 +4,9 @@ import { motion } from 'framer-motion'
 const steps = [
   {
     number: '1',
-    title: 'Ozvěte se',
+    title: 'Vyplňte formulář',
     description:
-      'Napíšete mi o\u00A0nemovitosti. Do\u00A024\u00A0hodin dostanete pevnou cenu a\u00A0termín.',
+      'Řekněte mi o\u00A0sobě pár věcí — zabere to méně než minutu. Já se vám ozvu zpět do\u00A024\u00A0hodin.',
   },
   {
     number: '2',
