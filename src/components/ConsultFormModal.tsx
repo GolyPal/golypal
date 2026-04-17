@@ -199,7 +199,7 @@ export default function ConsultFormModal() {
                       Vyplňte prosím krátký dotazník
                     </h2>
                     <p className="mt-1 text-[13px] text-warm-gray/70">
-                      Řekněte mi o sobě víc a já se ozvu s dalším postupem.
+                      Řekněte mi o sobě víc a já se vám ozvu zpět do 24h.
                     </p>
                   </div>
 
