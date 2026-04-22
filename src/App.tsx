@@ -12,26 +12,31 @@ import FinalCTA from './components/FinalCTA'
 import Footer from './components/Footer'
 import ConsultFormModal from './components/ConsultFormModal'
 import { ConsultFormProvider } from './context/ConsultFormContext'
+import { PrivacyPolicyProvider } from './context/PrivacyPolicyContext'
+import PrivacyPolicyModal from './components/PrivacyPolicyModal'
 
 function App() {
   return (
-    <ConsultFormProvider>
-      <div className="overflow-x-clip">
-        <Navbar />
-        <Hero />
-        <Viral />
-        <Pain />
-        <Benefits />
-        <Solution />
-        <Bonus />
-        <Process />
-        <Testimonials />
-        <About />
-        <FinalCTA />
-        <Footer />
-        <ConsultFormModal />
-      </div>
-    </ConsultFormProvider>
+    <PrivacyPolicyProvider>
+      <ConsultFormProvider>
+        <div className="overflow-x-clip">
+          <Navbar />
+          <Hero />
+          <Viral />
+          <Pain />
+          <Benefits />
+          <Solution />
+          <Bonus />
+          <Process />
+          <Testimonials />
+          <About />
+          <FinalCTA />
+          <Footer />
+          <ConsultFormModal />
+          <PrivacyPolicyModal />
+        </div>
+      </ConsultFormProvider>
+    </PrivacyPolicyProvider>
   )
 }
 

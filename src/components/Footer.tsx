@@ -1,7 +1,9 @@
 import { Mail, Phone } from 'lucide-react'
+import { usePrivacyPolicy } from '../context/PrivacyPolicyContext'
 
 export default function Footer() {
   const year = new Date().getFullYear()
+  const { open: openPrivacy } = usePrivacyPolicy()
 
   return (
     <footer className="bg-cream py-16 lg:py-24">
@@ -71,11 +73,11 @@ export default function Footer() {
               <ul className="space-y-3">
                 <li>
                   <a
-                    href="mailto:info@pavelgolasowski.cz"
+                    href="mailto:p.golasowski@icloud.com"
                     className="inline-flex items-center gap-2 text-sm text-warm-gray transition-colors hover:text-charcoal"
                   >
                     <Mail size={13} />
-                    info@pavelgolasowski.cz
+                    p.golasowski@icloud.com
                   </a>
                 </li>
                 <li>
@@ -93,13 +95,22 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-charcoal/6 pt-8 sm:flex-row lg:mt-20">
+        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-charcoal/6 pt-8 sm:flex-row sm:items-center lg:mt-20">
           <p className="text-xs text-warm-gray">
             &copy; {year} Pavel Golasowski. Všechna práva vyhrazena.
           </p>
-          <p className="text-xs text-warm-gray/60">
-            IČO: 12345678 &middot; Praha, Česká republika
-          </p>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+            <p className="text-xs text-warm-gray/60">
+              IČO: 08438927 &middot; Hrádek 390 &middot; OSVČ
+            </p>
+            <button
+              type="button"
+              onClick={openPrivacy}
+              className="text-xs text-warm-gray/60 underline underline-offset-2 transition-colors hover:text-warm-gray"
+            >
+              Zásady ochrany osobních údajů
+            </button>
+          </div>
         </div>
       </div>
     </footer>
