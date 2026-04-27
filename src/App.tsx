@@ -1,3 +1,4 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Viral from './components/Viral'
@@ -14,29 +15,41 @@ import ConsultFormModal from './components/ConsultFormModal'
 import { ConsultFormProvider } from './context/ConsultFormContext'
 import { PrivacyPolicyProvider } from './context/PrivacyPolicyContext'
 import PrivacyPolicyModal from './components/PrivacyPolicyModal'
+import CaseStudy from './pages/CaseStudy'
+
+function HomePage() {
+  return (
+    <div className="overflow-x-clip">
+      <Navbar />
+      <Hero />
+      <Viral />
+      <Pain />
+      <Benefits />
+      <Solution />
+      <Bonus />
+      <Process />
+      <Testimonials />
+      <About />
+      <FinalCTA />
+      <Footer />
+    </div>
+  )
+}
 
 function App() {
   return (
-    <PrivacyPolicyProvider>
-      <ConsultFormProvider>
-        <div className="overflow-x-clip">
-          <Navbar />
-          <Hero />
-          <Viral />
-          <Pain />
-          <Benefits />
-          <Solution />
-          <Bonus />
-          <Process />
-          <Testimonials />
-          <About />
-          <FinalCTA />
-          <Footer />
+    <BrowserRouter>
+      <PrivacyPolicyProvider>
+        <ConsultFormProvider>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/pripadova-studie" element={<CaseStudy />} />
+          </Routes>
           <ConsultFormModal />
           <PrivacyPolicyModal />
-        </div>
-      </ConsultFormProvider>
-    </PrivacyPolicyProvider>
+        </ConsultFormProvider>
+      </PrivacyPolicyProvider>
+    </BrowserRouter>
   )
 }
 

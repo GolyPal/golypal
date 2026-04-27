@@ -1,25 +1,31 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import { Link, useLocation } from 'react-router-dom'
 import { useConsultForm } from '../context/ConsultFormContext'
 
 const navLinks = [
-  { label: 'Služby', href: '#sluzby' },
-  { label: 'Proces', href: '#proces' },
-  { label: 'Reference', href: '#reference' },
-  { label: 'O mně', href: '#o-mne' },
+  { label: 'Služby', href: '/#sluzby' },
+  { label: 'Proces', href: '/#proces' },
+  { label: 'Reference', href: '/#reference' },
+  { label: 'O mně', href: '/#o-mne' },
 ]
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const { open: openConsult } = useConsultForm()
+  const location = useLocation()
+  const isHome = location.pathname === '/'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // On home page use hash-only links so smooth scroll works without reload
+  const linkHref = (hash: string) => isHome ? hash.replace('/', '') : hash
 
   return (
     <motion.nav
@@ -34,23 +40,29 @@ export default function Navbar() {
     >
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         <div className="flex h-20 items-center justify-between lg:h-24">
-          <a
-            href="#"
+          <Link
+            to="/"
             className="font-serif text-xl font-semibold tracking-tight text-charcoal transition-colors duration-300 lg:text-2xl"
           >
             Pavel Golasowski
-          </a>
+          </Link>
 
           <div className="hidden items-center gap-10 md:flex lg:gap-12">
             {navLinks.map((link) => (
               <a
                 key={link.href}
-                href={link.href}
+                href={linkHref(link.href)}
                 className="text-[13px] font-medium uppercase tracking-[0.12em] text-warm-gray transition-colors duration-300 hover:text-charcoal"
               >
                 {link.label}
               </a>
             ))}
+            <Link
+              to="/pripadova-studie"
+              className="text-[13px] font-medium uppercase tracking-[0.12em] text-warm-gray transition-colors duration-300 hover:text-charcoal"
+            >
+              Případová studie
+            </Link>
             <button
               type="button"
               onClick={openConsult}
@@ -83,7 +95,7 @@ export default function Navbar() {
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.href}
-                  href={link.href}
+                  href={linkHref(link.href)}
                   onClick={() => setMobileOpen(false)}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -93,6 +105,19 @@ export default function Navbar() {
                   {link.label}
                 </motion.a>
               ))}
+              <motion.div
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navLinks.length * 0.05 }}
+              >
+                <Link
+                  to="/pripadova-studie"
+                  onClick={() => setMobileOpen(false)}
+                  className="block rounded-lg px-4 py-3.5 text-[15px] font-medium text-warm-gray transition-colors hover:text-charcoal"
+                >
+                  Případová studie
+                </Link>
+              </motion.div>
               <button
                 type="button"
                 onClick={() => {
