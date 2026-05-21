@@ -33,31 +33,31 @@ export default function CaseStudy() {
           </Link>
 
           <p className="mb-5 text-[11px] uppercase tracking-[0.35em]" style={{ color: '#C7A97B' }}>
-            Případová studie · Český Těšín · 2024
+            Případová studie · Třinec · 2025
           </p>
 
           <h1
             className="max-w-4xl font-serif font-semibold leading-[1.1] tracking-[-0.02em]"
             style={{ color: '#ffffff', fontSize: 'clamp(1.8rem, 4.5vw, 3.2rem)' }}
           >
-            Jak profesionální fotky a video přinesly{' '}
-            <em style={{ color: '#C7A97B' }}>23 prohlídek za 4 dny</em>{' '}
-            a prodaly byt nad cenou
+            Jak jedno video udělalo{' '}
+            <em style={{ color: '#C7A97B' }}>130 000 zhlédnutí</em>{' '}
+            — a přivedlo 8 zájemců na jeden byt
           </h1>
 
           <p className="mt-6 max-w-2xl text-[15px] leading-[1.85]" style={{ color: 'rgba(255,255,255,0.55)' }}>
-            Podkrovní byt 3+1 na Čapkově ulici ležel na trhu týdny. Fotky z mobilu, nulový zájem, prodávající tlačil na slevu. Po vytvoření profesionální vizuální prezentace se nemovitost prodala za 4 dny — za 3 950 000 Kč místo původních 3 790 000 Kč.
+            Reel pro byt 3+1 v Třinci nasbíral za 10 dní přes 130 tisíc zhlédnutí na Instagramu a Facebooku. Přinesl 8 zájemců o nemovitost — a hlavně posílil osobní brand makléře Adama Kadlubiece natolik, že mu majitelé sami píšou, že chtějí prodávat přes něj.
           </p>
 
           {/* Stats */}
           <div className="mt-12 grid grid-cols-2 gap-px lg:grid-cols-4" style={{ background: 'rgba(255,255,255,0.06)' }}>
             {[
-              { value: '847×', label: 'zobrazení první den', sub: 'průměr okolí: 80–120' },
-              { value: '23', label: 'reálných prohlídek', sub: 'za 4 dny' },
-              { value: '4 dny', label: 'na trhu', sub: 'předtím 14+ dní' },
-              { value: '+160 tis.', label: 'nad původní cenou', sub: '3 950 000 Kč' },
+              { value: '130 000', label: 'zhlédnutí', sub: 'za 10 dní · IG + FB' },
+              { value: '8', label: 'zájemců o byt', sub: 'čistě z videa' },
+              { value: '200+', label: 'nových sledujících', sub: 'z jednoho reelu' },
+              { value: '1 988', label: 'uložení videa', sub: '1 641 to se mi líbí' },
             ].map((stat) => (
-              <div key={stat.value} className="px-6 py-8 lg:px-8" style={{ backgroundColor: '#1A1A1A' }}>
+              <div key={stat.label} className="px-6 py-8 lg:px-8" style={{ backgroundColor: '#1A1A1A' }}>
                 <p className="font-serif font-semibold leading-none" style={{ color: '#C7A97B', fontSize: 'clamp(1.7rem,2.8vw,2.4rem)' }}>
                   {stat.value}
                 </p>
@@ -76,10 +76,10 @@ export default function CaseStudy() {
             <div className="lg:col-span-7">
               <div className="editorial-line mb-8" />
               <p className="text-[16px] leading-[1.9] text-warm-gray">
-                Ukážu vám, jak jsme jeden podkrovní byt proměnili v nejžádanější nemovitost v okolí. A hlavně — proč tento postup funguje pro každého makléře, který chce prodávat rychleji, za vyšší ceny a bez tlaku na slevu.
+                Tahle případová studie není o jednom prodaném bytě. Je o tom, co udělá jedno dobře postavené video pro makléře — pro jeho jméno, jeho dosah a jeho pozici na trhu.
               </p>
               <p className="mt-5 text-[15px] leading-[1.85] text-warm-gray">
-                Tato případová studie není o marketingovém tahu. Je o konkrétním postupu, konkrétní nemovitosti a konkrétních číslech.
+                Reel pro byt 3+1 v Třinci jsem natočil a sestříhal tak, aby zastavil scrollování. Za 10 dní udělal přes 130 tisíc zhlédnutí, přinesl 8 zájemců o nemovitost a posunul osobní brand Adama Kadlubiece o kus dál. Konkrétní video, konkrétní čísla.
               </p>
             </div>
             <div className="lg:col-span-5">
@@ -87,11 +87,11 @@ export default function CaseStudy() {
                 <p className="mb-5 text-[10px] uppercase tracking-[0.3em] text-warm-gray">Rychlá fakta</p>
                 <dl className="space-y-3">
                   {[
-                    ['Nemovitost', 'Podkrovní byt 3+1, 78 m²'],
-                    ['Lokalita', 'Čapkova ulice, Český Těšín'],
-                    ['Původní cena', '3 790 000 Kč'],
-                    ['Prodejní cena', '3 950 000 Kč'],
-                    ['Doba na trhu', '4 dny'],
+                    ['Nemovitost', 'Byt 3+1, 66 m²'],
+                    ['Stav', 'Původní stav, před rekonstrukcí'],
+                    ['Lokalita', 'ul. Seifertova, Třinec'],
+                    ['Platformy', 'Instagram + Facebook'],
+                    ['Délka videa', '0:54'],
                     ['Makléř', 'Adam Kadlubiec'],
                   ].map(([dt, dd]) => (
                     <div key={dt} className="flex justify-between gap-4 border-b border-charcoal/6 pb-3 last:border-0 last:pb-0">
@@ -100,6 +100,66 @@ export default function CaseStudy() {
                     </div>
                   ))}
                 </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── REEL + ČÍSLA ── */}
+      <section className="py-16 lg:py-24" style={{ backgroundColor: '#0F0F0F' }}>
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
+          <div className="mb-12 lg:mb-16">
+            <div className="editorial-line-light mb-7" />
+            <p className="mb-3 text-center text-[11px] uppercase tracking-[0.3em]" style={{ color: '#C7A97B' }}>Reel</p>
+            <h2 className="text-center font-serif font-semibold leading-[1.1] tracking-[-0.02em]" style={{ color: '#ffffff', fontSize: 'clamp(1.6rem,3vw,2.5rem)' }}>
+              Jeden reel. 54 sekund.
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-center text-[14px] leading-[1.8]" style={{ color: 'rgba(255,255,255,0.45)' }}>
+              Tohle nasbíral za prvních 10 dní na Instagramu a Facebooku.
+            </p>
+          </div>
+
+          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+            {/* Phone with video */}
+            <div className="lg:col-span-5">
+              <div className="relative mx-auto w-[230px] sm:w-[260px]">
+                <div className="relative overflow-hidden rounded-[2rem] border-[5px] border-white/15 bg-charcoal shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+                  <div className="absolute left-1/2 top-2 z-30 h-5 w-16 -translate-x-1/2 rounded-full bg-charcoal" />
+                  <div className="aspect-[9/19] w-full overflow-hidden">
+                    <video
+                      src="/videos/Reel-3.mp4"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      preload="auto"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Numbers grid */}
+            <div className="lg:col-span-7">
+              <div className="grid grid-cols-2 gap-px sm:grid-cols-4 lg:grid-cols-2" style={{ background: 'rgba(255,255,255,0.06)' }}>
+                {[
+                  { value: '130 000', label: 'zhlédnutí', sub: 'IG 107 272 · FB 20 500' },
+                  { value: '9 d 15 h', label: 'doba sledování', sub: 'celkem 28 min navíc' },
+                  { value: '1 988', label: 'uložení', sub: 'lidé si video schovali' },
+                  { value: '1 641', label: 'to se mi líbí', sub: '57 komentářů · 22 sdílení' },
+                  { value: '200+', label: 'nových sledujících', sub: 'z jednoho videa' },
+                  { value: '8', label: 'zájemců o byt', sub: 'čistě z videa' },
+                ].map((m) => (
+                  <div key={m.label} className="px-6 py-7" style={{ backgroundColor: '#0F0F0F' }}>
+                    <p className="font-serif font-semibold leading-none" style={{ color: '#C7A97B', fontSize: 'clamp(1.5rem,2.4vw,2rem)' }}>
+                      {m.value}
+                    </p>
+                    <p className="mt-2 text-[13px] font-medium" style={{ color: '#ffffff' }}>{m.label}</p>
+                    <p className="mt-1 text-[11px]" style={{ color: 'rgba(255,255,255,0.35)' }}>{m.sub}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -119,74 +179,24 @@ export default function CaseStudy() {
             </div>
             <div className="lg:col-span-8">
               <p className="text-[15px] leading-[1.85] text-warm-gray">
-                Adam Kadlubiec je realitní makléř, který prodává nemovitosti v segmentu 3–15 milionů korun. Pracuje hlavně s byty a rodinnými domy v Moravskoslezském kraji. Za poslední rok zprostředkoval přes 20 prodejů.
+                Adam Kadlubiec se realitám věnuje 16 let a působí v Moravskoslezském kraji. Ročně realizuje kolem 40 prodejů — byty i rodinné domy. Patří mezi makléře, kteří berou svou práci vážně a vědí, že na dnešním trhu nerozhoduje jen cena, ale i to, jak je makléř vidět.
               </p>
               <p className="mt-4 text-[15px] leading-[1.85] text-warm-gray">
-                Adam patří mezi makléře, kteří svou práci berou vážně. Sledoval, co funguje na sítích — viděl, že ti nejlepší mají skvělý vizuální obsah. Ale sám nevěděl, jak se k takovému výsledku dostat.
+                Videa spolu točíme už delší dobu. Všechna mají nadprůměrná čísla oproti obsahu, který si Adam dělá sám — a právě díky nim mu roste osobní brand. Je víc vidět, lidé mu víc věří a začínají ho oslovovat sami. Reel z Třince je zatím jeho nejúspěšnější.
               </p>
-              <blockquote className="mt-8 border-l-2 border-accent pl-6">
-                <p className="text-[15px] italic leading-[1.8] text-charcoal">
-                  „Viděl jsem, jak ostatní makléři mají na sítích skvělý obsah — nemovitosti vypadají jako z katalogu. A já tam měl fotky, u kterých se sám červenám. Věděl jsem, že to poškozuje i můj brand. Ale fotograf, staging, koordinace — to mi přišlo jako noční můra a drahá sranda."
-                </p>
-                <footer className="mt-3 text-[11px] uppercase tracking-[0.15em] text-warm-gray">
-                  — Adam Kadlubiec, realitní makléř
-                </footer>
-              </blockquote>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── PROBLÉM ── */}
-      <section className="py-16 lg:py-24" style={{ backgroundColor: '#0F0F0F' }}>
-        <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-          <div className="mb-12 lg:mb-16">
-            <div className="editorial-line-light mb-7" />
-            <p className="mb-3 text-center text-[11px] uppercase tracking-[0.3em]" style={{ color: '#C7A97B' }}>Diagnóza</p>
-            <h2 className="text-center font-serif font-semibold leading-[1.1] tracking-[-0.02em]" style={{ color: '#ffffff', fontSize: 'clamp(1.6rem,3vw,2.5rem)' }}>
-              Co přesně nefungovalo — a proč
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-center text-[14px] leading-[1.8]" style={{ color: 'rgba(255,255,255,0.45)' }}>
-              Problém nebyl v bytě. Byl v tom, jak byl prezentovaný.
-            </p>
-          </div>
-
-          <div className="grid gap-4 lg:grid-cols-3">
-            {[
-              {
-                num: '01',
-                title: 'Prázdný prostor zabíjí představivost',
-                body: 'Kupující vidí prázdné místnosti a nedokáže si představit, jak tam bude žít. Nevidí domov — vidí metry čtvereční. A metry čtvereční nevzbuzují emoce. Emoce prodávají.',
-              },
-              {
-                num: '02',
-                title: 'Fotky bez kontextu jsou jen dokumentace',
-                body: 'Fotky z mobilu technicky zachytily prostor. Ale nic neprodávaly. Žádný příběh, žádná atmosféra, žádný důvod zastavit se a říct: „tohle chci vidět."',
-              },
-              {
-                num: '03',
-                title: 'Chyběl skript, který uvede nemovitost',
-                body: 'Video bez scénáře je jen záznam prostoru. Video se skriptem je příběh, který kupujícího vtáhne dovnitř — ještě než fyzicky překročí práh.',
-              },
-            ].map((card) => (
-              <div key={card.num} className="p-7 lg:p-8" style={{ border: '1px solid rgba(255,255,255,0.07)' }}>
-                <p className="mb-4 font-serif font-semibold" style={{ fontSize: '2.8rem', color: 'rgba(255,255,255,0.07)', lineHeight: 1 }}>{card.num}</p>
-                <h3 className="mb-3 text-[15px] font-semibold leading-snug" style={{ color: '#ffffff' }}>{card.title}</h3>
-                <p className="text-[13px] leading-[1.85]" style={{ color: 'rgba(255,255,255,0.5)' }}>{card.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── PROCES ── */}
+      {/* ── POSTUP ── */}
       <section className="bg-cream py-16 lg:py-24">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
           <div className="mb-12 lg:mb-16">
             <div className="editorial-line mb-7" />
             <p className="mb-3 text-center text-[11px] uppercase tracking-[0.3em] text-accent">Postup</p>
             <h2 className="text-center font-serif font-semibold leading-[1.1] tracking-[-0.02em] text-charcoal" style={{ fontSize: 'clamp(1.6rem,3vw,2.5rem)' }}>
-              3 kroky, které proměnily nemovitost
+              Jak takové video vzniklo
             </h2>
           </div>
 
@@ -194,29 +204,29 @@ export default function CaseStudy() {
             {[
               {
                 num: '01',
-                label: 'Skript na míru',
-                title: 'Poznat nemovitost a napsat příběh',
+                label: 'Skript & hook',
+                title: 'Zastavit scrollování v první vteřině',
                 paras: [
-                  'Ke každé nemovitosti přistupuji jako k příběhu, který čeká na vyprávění. Nejdřív prostor nacítím — projdu si ho, pochopím, co v něm je a co v něm může být. Teprve pak začnu přemýšlet o tom, jak ho ukázat.',
-                  'U bytu na Čapkově jsem si všiml krásných podkrovních šikmin, výhledu na náměstí, blízkosti nádraží a vlastního kotle — nezávislosti na SVJ. Na základě toho jsem napsal skript přímo pro Adama. Ne „krásný byt v centru", ale: „78 metrů, ve kterých se ráno probudíte s výhledem na náměstí — a za 5 minut jste na nádraží."',
+                  'Reel začíná letícími klíči — obraz, u kterého palec sám zastaví. První vteřina rozhoduje o tom, jestli člověk video uvidí, nebo odscrolluje dál. Proto na ní stavím nejvíc.',
+                  'Scénář jsem postavil na přednostech bytu: dvě lodžie, dispozice 3+1 a hlavně potenciál. Byt je v původním stavu, takže příběh neprodává „hotový domov", ale příležitost — prostor, který si nový majitel udělá přesně podle sebe.',
                 ],
               },
               {
                 num: '02',
-                label: 'Foto & Video',
-                title: 'Profesionální produkce se záměrem',
+                label: 'Foto, video & AI vizualizace',
+                title: 'Ukázat potenciál, ne jen prázdné metry',
                 paras: [
-                  'Focení a natáčení trvalo zhruba 3 hodiny. Pracoval jsem s přirozeným světlem a kompozicí, která ukazuje prostor tak, jak ho člověk reálně vnímá — ne z rohů s wide objektivem, který zkresluje.',
-                  'Video jsem natočil podle skriptu — začátek zastaví pozornost, střed ukazuje prostor a jeho potenciál, závěr vede k akci. Fotky jsem připravil tak, aby každá fungovala samostatně, ale dohromady vyprávěly příběh.',
+                  'Prázdný byt v původním stavu sám o sobě emoce nevzbudí. Přes AI vizualizaci jsem proto ukázal, jak může vypadat zařízený a po rekonstrukci — kupující najednou nevidí metry čtvereční, ale místo, kde se dá žít.',
+                  'Vše jsem nafotil a natočil profesionálně, s přirozeným světlem a kompozicí, která prostor ukazuje tak, jak ho člověk reálně vnímá.',
                 ],
               },
               {
                 num: '03',
-                label: 'AI vizualizace',
-                title: 'Ukázat potenciál bez stagingu za desítky tisíc',
+                label: 'Střih & optimalizace',
+                title: 'Připravit video tak, aby ho algoritmus tlačil',
                 paras: [
-                  'Byt byl prázdný. Staging by stál 30–50 tisíc Kč a týden čekání. Místo toho jsem využil AI vizualizaci — za několik hodin jsem měl vizualizace, které ukázaly, jak může byt vypadat zařízený.',
-                  'Kupující najednou neviděl prázdné místnosti. Viděl domov. Staging ukazuje jednu variantu za desítky tisíc. AI vizualizace ukáže více variant za zlomek ceny. Celý materiál — fotky, video, AI vizualizace — byl hotový za 48 hodin od převzetí klíčů.',
+                  'Formát 9:16, délka 54 sekund, dynamický střih, hudba a cover, který funguje i jako náhled. Každý detail je laděný pro Instagram a Facebook — od tempa po titulky.',
+                  'Výsledek: video, které lidé nejen vidí, ale dokoukají, uloží a sdílejí. A přesně to ho posouvá k dalším a dalším divákům.',
                 ],
               },
             ].map((step) => (
@@ -237,62 +247,72 @@ export default function CaseStudy() {
         </div>
       </section>
 
-      {/* ── VÝSLEDKY ── */}
+      {/* ── CO TO PŘINESLO ── */}
       <section className="py-16 lg:py-24" style={{ backgroundColor: '#1A1A1A' }}>
         <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-          <div className="mb-12">
+          <div className="mb-12 lg:mb-16">
             <div className="editorial-line-light mb-7" />
-            <p className="mb-3 text-center text-[11px] uppercase tracking-[0.3em]" style={{ color: '#C7A97B' }}>Výsledky</p>
+            <p className="mb-3 text-center text-[11px] uppercase tracking-[0.3em]" style={{ color: '#C7A97B' }}>Co to přineslo</p>
             <h2 className="text-center font-serif font-semibold leading-[1.1] tracking-[-0.02em]" style={{ color: '#ffffff', fontSize: 'clamp(1.6rem,3vw,2.5rem)' }}>
-              Čísla, která mluví za sebe
+              Dosah, který se mění na byznys
             </h2>
+            <p className="mx-auto mt-4 max-w-xl text-center text-[14px] leading-[1.8]" style={{ color: 'rgba(255,255,255,0.45)' }}>
+              Zhlédnutí jsou hezká. Ale teprve tohle z nich dělá hodnotu.
+            </p>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[520px] border-collapse">
-              <thead>
-                <tr>
-                  <th className="pb-4 text-left text-[10px] uppercase tracking-[0.25em]" style={{ color: 'rgba(255,255,255,0.25)', borderBottom: '1px solid rgba(255,255,255,0.08)', width: '50%' }}>Metrika</th>
-                  <th className="pb-4 text-right text-[10px] uppercase tracking-[0.25em]" style={{ color: 'rgba(255,255,255,0.25)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>Před</th>
-                  <th className="pb-4 text-right text-[10px] uppercase tracking-[0.25em]" style={{ color: '#C7A97B', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>Po</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  ['Zobrazení na Sreality / den', '6', '847 (první den)'],
-                  ['Počet zájemců', '2 (za 2 týdny)', '23 (za 4 dny)'],
-                  ['Doba na trhu', '14+ dní', '4 dny'],
-                  ['Prodejní cena', 'Tlak na slevu', '3 950 000 Kč (+160 tis.)'],
-                ].map(([metric, before, after]) => (
-                  <tr key={metric} style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                    <td className="py-4 pr-6 text-[13px]" style={{ color: 'rgba(255,255,255,0.55)' }}>{metric}</td>
-                    <td className="py-4 pr-6 text-right text-[13px]" style={{ color: 'rgba(255,255,255,0.25)' }}>{before}</td>
-                    <td className="py-4 text-right text-[13px] font-semibold" style={{ color: '#C7A97B' }}>{after}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="grid gap-4 lg:grid-cols-3">
+            {[
+              {
+                num: '01',
+                title: 'Osobní brand, který roste',
+                body: '130 tisíc lidí vidělo Adama jako makléře, který umí nemovitost ukázat. Každé takové video ho dělá víc vidět a víc důvěryhodným — a důvěra je to, co v realitách rozhoduje.',
+              },
+              {
+                num: '02',
+                title: 'Majitelé se ozývají sami',
+                body: 'Po tomhle videu — a dalších — začali Adamovi psát majitelé, že chtějí prodávat přes něj. Poptávka, která přišla za ním, ne naopak. Přesně tohle dělá z obsahu investici, ne náklad.',
+              },
+              {
+                num: '03',
+                title: 'Silnější pozice u stolu',
+                body: 'Když Adam přijde k novému klientovi, jeho obsah mluví za něj. Nemusí se obhajovat ani soutěžit cenou — vybírají si ho, protože ho znají a věří mu. To je vyjednávací výhoda, kterou peníze nekoupí.',
+              },
+            ].map((card) => (
+              <div key={card.num} className="p-7 lg:p-8" style={{ border: '1px solid rgba(255,255,255,0.07)' }}>
+                <p className="mb-4 font-serif font-semibold" style={{ fontSize: '2.8rem', color: 'rgba(255,255,255,0.07)', lineHeight: 1 }}>{card.num}</p>
+                <h3 className="mb-3 text-[15px] font-semibold leading-snug" style={{ color: '#ffffff' }}>{card.title}</h3>
+                <p className="text-[13px] leading-[1.85]" style={{ color: 'rgba(255,255,255,0.5)' }}>{card.body}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 flex flex-col items-center gap-3 border p-7 text-center sm:flex-row sm:justify-center sm:gap-6 lg:p-8" style={{ borderColor: 'rgba(199,169,123,0.25)', backgroundColor: 'rgba(199,169,123,0.05)' }}>
+            <p className="font-serif font-semibold leading-none" style={{ color: '#C7A97B', fontSize: 'clamp(2rem,3vw,2.6rem)' }}>8 zájemců</p>
+            <p className="max-w-md text-[14px] leading-[1.7]" style={{ color: 'rgba(255,255,255,0.6)' }}>
+              o byt 3+1 v Třinci se ozvalo čistě z videa — ne z inzerátu. Prohlídky stále běží.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ── CITÁT ── */}
+      {/* ── CITÁT (placeholder) ── */}
       <section className="py-16 lg:py-24" style={{ backgroundColor: '#F1EEE8' }}>
         <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
           <div className="mx-auto max-w-3xl">
             <div className="editorial-line mb-10" />
-            <blockquote>
-              <p className="font-serif font-medium leading-[1.75] text-charcoal" style={{ fontSize: 'clamp(1.05rem,2vw,1.3rem)' }}>
-                „Upřímně? Čekal jsem hezké fotky. Dostal jsem kompletní prezentaci, která ten byt prodala za mě. Pavel přijel, prošel si byt, napsal skript, nafotil, natočil a za dva dny mi poslal všechno hotové. Já to jenom nahrál a telefon mi přestal zvonit až po 23. prohlídce. Ten byt se prodal za 4 dny — a ještě nad cenou. Od té doby posílám Pavlovi každou nemovitost."
+            <div
+              className="flex flex-col items-center justify-center rounded-sm px-6 py-14 text-center"
+              style={{ border: '1px dashed rgba(26,26,26,0.18)' }}
+            >
+              <p className="text-[11px] uppercase tracking-[0.25em] text-warm-gray">Citát klienta</p>
+              <p className="mt-4 max-w-xl font-serif italic leading-[1.7] text-charcoal/45" style={{ fontSize: 'clamp(1.05rem,2vw,1.3rem)' }}>
+                Místo připravené pro slova Adama Kadlubiece o tom, co mu videa přinesla. Doplníme brzy.
               </p>
-              <footer className="mt-6 flex items-center gap-4">
-                <div className="h-px flex-1 bg-charcoal/12" />
-                <div className="text-right">
-                  <p className="text-[13px] font-semibold text-charcoal">Adam Kadlubiec</p>
-                  <p className="mt-0.5 text-[11px] uppercase tracking-[0.15em] text-warm-gray">Realitní makléř · Moravskoslezský kraj</p>
-                </div>
-              </footer>
-            </blockquote>
+              <p className="mt-6 text-[11px] uppercase tracking-[0.15em] text-warm-gray">
+                Adam Kadlubiec · Realitní makléř, Moravskoslezský kraj
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -305,10 +325,10 @@ export default function CaseStudy() {
               <div className="editorial-line-light mb-7" />
               <p className="mb-3 text-[11px] uppercase tracking-[0.3em]" style={{ color: '#C7A97B' }}>Pro koho to funguje</p>
               <h2 className="font-serif font-semibold leading-[1.1] tracking-[-0.02em]" style={{ color: '#ffffff', fontSize: 'clamp(1.6rem,3vw,2.5rem)' }}>
-                Funguje tohle i pro vás?
+                Chcete podobné výsledky?
               </h2>
               <p className="mt-4 text-[14px] leading-[1.8]" style={{ color: 'rgba(255,255,255,0.45)' }}>
-                Nepotřebujete větší rozpočet na reklamu. Potřebujete, aby ten jeden inzerát zastavil scrollování — a přiměl lidi zvednout telefon.
+                Nepotřebujete víc inzerátů. Potřebujete obsah, který lidé dokoukají, zapamatují si vás — a sami se vám ozvou.
               </p>
               <motion.button
                 type="button"
@@ -331,11 +351,11 @@ export default function CaseStudy() {
             <div className="lg:col-span-7">
               <ul className="space-y-4">
                 {[
-                  'Prodáváte nemovitosti v segmentu od 3 milionů výš — a víte, že vizuální prezentace rozhoduje o tom, jak rychle a za kolik prodáte.',
-                  'Fotíte sami na mobil nebo spolupracujete s fotografem, který dodá hezké fotky — ale chybí vám skript, video a AI vizualizace.',
-                  'Řešíte prázdné nebo nevybavené nemovitosti. AI vizualizace ukáže potenciál za zlomek ceny a času stagingu.',
-                  'Chcete budovat svůj osobní brand a potřebujete obsah, který vás odliší od stovek ostatních makléřů na Sreality.',
-                  'Nechcete nic koordinovat. Předáte klíče — za 48 hodin máte kompletní materiál připravený k publikaci.',
+                  'Chcete být vidět — aby vás majitelé znali dřív, než jim vůbec zavoláte.',
+                  'Chcete obsah, který lidé dokoukají, uloží a sdílejí — ne další inzerát, co zapadne mezi stovky podobných.',
+                  'Chcete příchozí poptávky — aby se majitelé ozývali sami, že chtějí prodávat přes vás.',
+                  'Chcete silnější vyjednávací pozici — vybírají si vás, protože vám věří, ne protože jste nejlevnější.',
+                  'Chcete budovat osobní brand, který vás odliší od stovek ostatních makléřů na sítích i Sreality.',
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <span className="mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full" style={{ backgroundColor: 'rgba(199,169,123,0.15)' }}>
