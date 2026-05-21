@@ -390,6 +390,66 @@ function PhotoCarousel() {
   )
 }
 
+/* ── Video Carousel ── */
+const reels = ['/videos/Reel.mp4', '/videos/Reel-2.mp4', '/videos/Reel-3.mp4']
+
+function VideoCarousel() {
+  const [current, setCurrent] = useState(0)
+  const total = reels.length
+
+  const prev = () => setCurrent((c) => (c - 1 + total) % total)
+  const next = () => setCurrent((c) => (c + 1) % total)
+
+  return (
+    <div className="flex h-full flex-col items-center justify-center">
+      <div className="relative w-[220px] sm:w-[260px] lg:w-[240px] lg:max-h-[500px]">
+        <div className="relative overflow-hidden rounded-[2rem] border-[5px] border-white/15 bg-charcoal shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+          <div className="absolute left-1/2 top-2 z-30 h-5 w-16 -translate-x-1/2 rounded-full bg-charcoal" />
+          <div className="aspect-[9/19] w-full overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.video
+                key={current}
+                src={reels[current]}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="h-full w-full object-cover"
+              />
+            </AnimatePresence>
+          </div>
+        </div>
+      </div>
+
+      {/* Arrows */}
+      <div className="mt-4 flex items-center justify-center gap-3">
+        <button
+          onClick={prev}
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/50 transition hover:border-white/30 hover:text-white"
+          aria-label="Předchozí video"
+        >
+          <ChevronLeft size={16} />
+        </button>
+        <span className="min-w-[44px] text-center text-xs text-white/40">
+          {current + 1} / {total}
+        </span>
+        <button
+          onClick={next}
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/50 transition hover:border-white/30 hover:text-white"
+          aria-label="Další video"
+        >
+          <ChevronRight size={16} />
+        </button>
+      </div>
+    </div>
+  )
+}
+
 /* ── Visual panels ── */
 function VisualPanel({ type }: { type: (typeof services)[number]['visual'] }) {
   switch (type) {
@@ -398,26 +458,7 @@ function VisualPanel({ type }: { type: (typeof services)[number]['visual'] }) {
     case 'photo':
       return <PhotoCarousel />
     case 'video':
-      return (
-        <div className="flex h-full items-center justify-center">
-          <div className="relative w-[220px] sm:w-[260px] lg:w-[240px] lg:max-h-[500px]">
-            <div className="relative overflow-hidden rounded-[2rem] border-[5px] border-white/15 bg-charcoal shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
-              <div className="absolute left-1/2 top-2 z-30 h-5 w-16 -translate-x-1/2 rounded-full bg-charcoal" />
-              <div className="aspect-[9/19] w-full overflow-hidden">
-                <video
-                  src="/videos/Reel.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      )
+      return <VideoCarousel />
   }
 }
 
