@@ -268,7 +268,7 @@ const services = [
   {
     number: '02',
     icon: Video,
-    title: 'Cinematic Video',
+    title: 'Dynamická videa',
     description:
       'Vytvořené pro sociální sítě. Správná délka, střih, hudba. Připravené k\u00A0nahrání bez jediné úpravy z\u00A0vaší strany.',
     visual: 'video' as const,
