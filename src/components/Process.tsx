@@ -6,31 +6,25 @@ const steps = [
     number: '1',
     title: 'Vyplňte formulář',
     description:
-      'Řekněte mi o sobě pár věcí — zabere to méně než minutu. Já se vám ozvu zpět do 24 hodin.',
+      'Řekněte mi o sobě pár věcí — zabere to necelou minutu. Ozvu se vám do 24 hodin.',
   },
   {
     number: '2',
     title: 'Konzultace',
     description:
-      'Chci pochopit vaši situaci a ujasnit si, jestli by naše spolupráce měla pro obě strany přínos a smysl.',
+      'Sejdeme se (klidně online) a probereme, jak pracujete, jaké nemovitosti nabízíte a kam chcete posunout svou prezentaci. Cílem je zjistit, jestli si vzájemně sedneme a má smysl jít do dlouhodobé spolupráce.',
   },
   {
     number: '3',
-    title: 'Domluva na spolupráci',
+    title: 'Nastavení spolupráce',
     description:
-      'Každou zakázku naceňuji zvlášť. Pošlete mi, o co jde, domluvíme se na rozsahu práce a potvrdíme si cenu.',
+      'Pokud se domluvíme, že do toho jdeme spolu, nastavíme si formát spolupráce na míru — jak často se potkáváme u nemovitostí, co všechno budu pro vaše inzeráty připravovat a za jakých podmínek. Tak, aby to fungovalo dlouhodobě.',
   },
   {
     number: '4',
-    title: 'Focení & natáčení',
+    title: 'Společná práce na vašich nemovitostech',
     description:
-      'Přijedu na místo s kompletním vybavením. Vše nafotím a natočím — profesionálně a bez zdržování.',
-  },
-  {
-    number: '5',
-    title: 'Dodání materiálů',
-    description:
-      'Fotky dodám do 2–3 dnů, video do týdne. Kompletní balíček připravený k publikaci na portály i sítě.',
+      'U každé nemovitosti přijedu s kompletním vybavením, vše nafotím a natočím. Fotky dodám do 2–3 dnů, video do týdne — připravené k publikaci na portály i sítě. A jdeme na další.',
   },
 ]
 
@@ -60,23 +54,23 @@ export default function Process() {
           className="mb-14 text-center lg:mb-16"
         >
           <h2 className="font-serif text-[clamp(1.6rem,3.5vw,2.6rem)] font-medium leading-[1.05] tracking-[-0.01em] text-charcoal">
-            Jak to funguje? <em className="text-accent">Pět jednoduchých kroků.</em>
+            Jak to funguje? <em className="text-accent">Čtyři jednoduché kroky.</em>
           </h2>
         </motion.div>
 
         {/* Timeline steps */}
         <div
-          className="relative grid gap-12 md:grid-cols-5 md:gap-6 lg:gap-10"
+          className="relative grid gap-12 md:grid-cols-4 md:gap-6 lg:gap-10"
           onMouseLeave={() => setHovered(null)}
         >
           {/* Connecting lines (desktop) */}
-          {[0, 1, 2, 3].map((lineIndex) => (
+          {[0, 1, 2].map((lineIndex) => (
             <div
               key={lineIndex}
               className="pointer-events-none absolute top-[28px] hidden h-px md:block"
               style={{
-                left: `calc(${(lineIndex * 100) / 5 + 100 / 10}% + 36px)`,
-                right: `calc(${100 - (lineIndex + 1) * 100 / 5 - 100 / 10}% + 36px)`,
+                left: `calc(${(lineIndex * 100) / 4 + 100 / 8}% + 36px)`,
+                right: `calc(${100 - (lineIndex + 1) * 100 / 4 - 100 / 8}% + 36px)`,
               }}
             >
               {/* Background line */}
