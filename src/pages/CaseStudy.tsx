@@ -76,7 +76,7 @@ export default function CaseStudy() {
             <div className="lg:col-span-7">
               <div className="editorial-line mb-8" />
               <p className="text-[16px] leading-[1.9] text-warm-gray">
-                Tahle případová studie není o jednom prodaném bytě. Je o tom, co udělá jedno dobře postavené video pro makléře — pro jeho jméno, jeho dosah a jeho pozici na trhu.
+                Tahle případová studie není o jednom bytě. Je o tom, co udělá jedno dobře postavené video pro makléře — pro jeho jméno, jeho dosah a jeho pozici na trhu.
               </p>
               <p className="mt-5 text-[15px] leading-[1.85] text-warm-gray">
                 Reel pro byt 3+1 v Třinci jsem natočil a sestříhal tak, aby zastavil scrollování. Za 10 dní udělal přes 130 tisíc zhlédnutí, přinesl 8 zájemců o nemovitost a posunul osobní brand Adama Kadlubiece o kus dál. Konkrétní video, konkrétní čísla.
@@ -162,6 +162,35 @@ export default function CaseStudy() {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── REAKCE ── */}
+      <section className="bg-cream py-16 lg:py-24">
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
+          <div className="mb-12 lg:mb-16">
+            <div className="editorial-line mb-7" />
+            <p className="mb-3 text-center text-[11px] uppercase tracking-[0.3em] text-accent">Reakce</p>
+            <h2 className="text-center font-serif font-semibold leading-[1.1] tracking-[-0.02em] text-charcoal" style={{ fontSize: 'clamp(1.6rem,3vw,2.5rem)' }}>
+              Co psali lidé pod videem
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-center text-[14px] leading-[1.8] text-warm-gray">
+              Stovky reakcí přímo na Instagramu a Facebooku — od klientů, kolegů z branže i dalších makléřů.
+            </p>
+          </div>
+
+          <div className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto scrollbar-hide px-6 sm:gap-6 lg:mx-0 lg:grid lg:grid-cols-3 lg:gap-8 lg:overflow-visible lg:px-0">
+            {['komentare-1.jpg', 'komentare-2.jpg', 'komentare-3.jpg'].map((img, i) => (
+              <div key={img} className="w-[78%] flex-none snap-center sm:w-[58%] lg:w-auto">
+                <img
+                  src={`/images/${img}`}
+                  alt={`Komentáře pod videem ${i + 1}`}
+                  loading="lazy"
+                  className="w-full rounded-xl border border-charcoal/10 shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>
