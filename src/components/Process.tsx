@@ -25,7 +25,7 @@ const steps = [
     number: '4',
     title: 'Společná práce na vašich nemovitostech',
     description:
-      'U každé nemovitosti přijedu s kompletním vybavením, vše nafotím a natočím. Fotky dodám do 2–3 dnů, video i s reels cover do týdne — optimalizováno na sítě i Sreality.',
+      'Nemovitost nafotím a natočím. Fotky dodám do 2–3 dnů, video i s reels cover do týdne. Všechny výstupy optimalizuji na sítě i Sreality.',
   },
 ]
 
