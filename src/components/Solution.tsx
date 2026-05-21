@@ -391,7 +391,7 @@ function PhotoCarousel() {
 }
 
 /* ── Video Carousel ── */
-const reels = ['/videos/Reel.mp4', '/videos/Reel-2.mp4', '/videos/Reel-3.mp4']
+const reels = ['/videos/Reel-3.mp4', '/videos/Reel-2.mp4', '/videos/Reel.mp4']
 
 function VideoCarousel() {
   const [current, setCurrent] = useState(0)
