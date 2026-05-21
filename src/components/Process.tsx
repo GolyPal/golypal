@@ -23,7 +23,7 @@ const steps = [
   },
   {
     number: '4',
-    title: 'Společná práce na vašich nemovitostech',
+    title: 'Focení a natáčení',
     description:
       'Nemovitost nafotím a natočím. Fotky dodám do 2–3 dnů, video i s reels cover do týdne. Všechny výstupy optimalizuji na sítě i Sreality.',
   },
