@@ -483,7 +483,7 @@ export default function Solution() {
               {' '}<em className="text-accent">Vše, co potřebujete.</em>
             </h2>
             <p className="mx-auto mt-4 text-[15px] leading-[1.85] text-white/60">
-              Žádné koordinování, žádný stres. Předáte mi klíče a{'\u00A0'}za{'\u00A0'}72h dostanete kompletní podklady.
+              Žádné koordinování, žádný stres. Předáte mi klíče a{'\u00A0'}za{'\u00A0'}5{'\u00A0'}dnů dostanete kompletní podklady.
             </p>
           </div>
 

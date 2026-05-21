@@ -11,7 +11,7 @@ const benefits = [
     ),
     title: 'Vše na klíč',
     description:
-      'Konec s\u00A0hledáním, domlouváním a\u00A0čekáním. Jeden člověk, 72\u00A0hodin a\u00A0materiály máte hotové k\u00A0publikaci.',
+      'Konec s\u00A0hledáním, domlouváním a\u00A0čekáním. Jeden člověk, 5\u00A0dnů a\u00A0materiály máte hotové k\u00A0publikaci.',
   },
   {
     icon: (

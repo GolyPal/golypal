@@ -25,7 +25,7 @@ const steps = [
     number: '4',
     title: 'Focení a natáčení',
     description:
-      'Nemovitost nafotím a natočím. Fotky dodám do 2–3 dnů, video i s reels cover do týdne. Všechny výstupy optimalizuji na sítě i Sreality.',
+      'Nemovitost nafotím a natočím. Fotky dodám do 2–3 dnů, video i s reels cover do 5 dnů. Všechny výstupy optimalizuji na sítě i Sreality.',
   },
 ]
 
