@@ -12,7 +12,7 @@ const steps = [
     number: '2',
     title: 'Konzultace',
     description:
-      'Sejdeme se (klidně online) a probereme, jak pracujete, jaké nemovitosti nabízíte a kam chcete posunout svou prezentaci. Cílem je zjistit, jestli si vzájemně sedneme a má smysl jít do dlouhodobé spolupráce.',
+      'Sejdeme se (klidně online) a probereme, jak pracujete, jaké nemovitosti nabízíte a kam chcete posunout svou prezentaci. Cílem je zjistit, jestli si vzájemně sedneme a má smysl jít do toho.',
   },
   {
     number: '3',
