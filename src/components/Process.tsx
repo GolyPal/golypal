@@ -6,25 +6,31 @@ const steps = [
     number: '1',
     title: 'Vyplňte formulář',
     description:
-      'Řekněte mi o\u00A0sobě pár věcí — zabere to méně než minutu. Já se vám ozvu zpět do\u00A024\u00A0hodin.',
+      'Řekněte mi o sobě pár věcí — zabere to méně než minutu. Já se vám ozvu zpět do 24 hodin.',
   },
   {
     number: '2',
     title: 'Konzultace',
     description:
-      'Chci pochopit vaši situaci a\u00A0ujasnit si, co by pro vás mělo smysl. Otázky budu mít — proto si na to vyhraďte aspoň 15\u00A0minut.',
+      'Chci pochopit vaši situaci a ujasnit si, jestli by naše spolupráce měla pro obě strany přínos a smysl.',
   },
   {
     number: '3',
-    title: 'Focení & natáčení',
+    title: 'Domluva na spolupráci',
     description:
-      'Přijedu s\u00A0kompletním vybavením. Profesionální přístup, bez zdržování — obvykle 2–3\u00A0hodiny.',
+      'Každou zakázku naceňuji zvlášť. Pošlete mi, o co jde, domluvíme se na rozsahu práce a potvrdíme si cenu.',
   },
   {
     number: '4',
+    title: 'Focení & natáčení',
+    description:
+      'Přijedu na místo s kompletním vybavením. Vše nafotím a natočím — profesionálně a bez zdržování.',
+  },
+  {
+    number: '5',
     title: 'Dodání materiálů',
     description:
-      'Do\u00A048–72\u00A0hodin obdržíte kompletní balíček připravený k\u00A0publikaci na portály i\u00A0sítě.',
+      'Fotky dodám do 2–3 dnů, video do týdne. Kompletní balíček připravený k publikaci na portály i sítě.',
   },
 ]
 
@@ -54,23 +60,23 @@ export default function Process() {
           className="mb-14 text-center lg:mb-16"
         >
           <h2 className="font-serif text-[clamp(1.6rem,3.5vw,2.6rem)] font-medium leading-[1.05] tracking-[-0.01em] text-charcoal">
-            Jak to funguje? <em className="text-accent">Čtyři jednoduché kroky.</em>
+            Jak to funguje? <em className="text-accent">Pět jednoduchých kroků.</em>
           </h2>
         </motion.div>
 
         {/* Timeline steps */}
         <div
-          className="relative grid gap-12 md:grid-cols-4 md:gap-6 lg:gap-10"
+          className="relative grid gap-12 md:grid-cols-5 md:gap-6 lg:gap-10"
           onMouseLeave={() => setHovered(null)}
         >
           {/* Connecting lines (desktop) */}
-          {[0, 1, 2].map((lineIndex) => (
+          {[0, 1, 2, 3].map((lineIndex) => (
             <div
               key={lineIndex}
               className="pointer-events-none absolute top-[28px] hidden h-px md:block"
               style={{
-                left: `calc(${(lineIndex * 100) / 4 + 100 / 8}% + 36px)`,
-                right: `calc(${100 - (lineIndex + 1) * 100 / 4 - 100 / 8}% + 36px)`,
+                left: `calc(${(lineIndex * 100) / 5 + 100 / 10}% + 36px)`,
+                right: `calc(${100 - (lineIndex + 1) * 100 / 5 - 100 / 10}% + 36px)`,
               }}
             >
               {/* Background line */}
