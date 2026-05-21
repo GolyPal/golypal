@@ -45,7 +45,7 @@ export default function Hero() {
                 <h1 className="font-serif text-[clamp(2rem,4vw,3.4rem)] font-medium leading-[1.12] tracking-[-0.02em] text-white">
                   Připravím vám <em className="text-accent">kompletní vizuální prezentaci</em>
                   <br />
-                  nemovitosti do&nbsp;<em className="text-accent">72&nbsp;hodin</em>
+                  nemovitosti do&nbsp;<em className="text-accent">5&nbsp;dnů</em>
                 </h1>
               </motion.div>
 
