@@ -18,7 +18,7 @@ const steps = [
     number: '3',
     title: 'Nastavení spolupráce',
     description:
-      'Pokud se domluvíme, že do toho jdeme spolu, nastavíme si formát spolupráce na míru — jak často se potkáváme u nemovitostí, co všechno budu pro vaše inzeráty připravovat a za jakých podmínek. Tak, aby to fungovalo dlouhodobě.',
+      'Pokud se domluvíme, že do toho jdeme spolu, nastavíme si formát spolupráce na míru. Tak, aby to fungovalo dlouhodobě.',
   },
   {
     number: '4',
