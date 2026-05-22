@@ -129,6 +129,7 @@ export default function CaseStudy() {
                   <div className="aspect-[9/19] w-full overflow-hidden">
                     <video
                       src="/videos/Reel-3.mp4"
+                      poster="/videos/Reel-3-poster.jpg"
                       autoPlay
                       loop
                       muted

@@ -131,6 +131,7 @@ export default function Viral() {
               <div className="aspect-[9/19] w-full overflow-hidden bg-charcoal">
                 <video
                   src="/videos/uvodni_reel.mp4"
+                  poster="/videos/uvodni_reel-poster.jpg"
                   autoPlay
                   loop
                   muted

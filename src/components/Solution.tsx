@@ -157,6 +157,7 @@ function AICarousel() {
               <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg">
                 <video
                   src={item.src}
+                  poster={item.src!.replace('.mp4', '-poster.jpg')}
                   autoPlay
                   loop
                   muted
@@ -217,6 +218,7 @@ function AICarousel() {
             <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-charcoal">
               <video
                 src={item.src}
+                poster={item.src!.replace('.mp4', '-poster.jpg')}
                 autoPlay
                 loop
                 controls
@@ -410,6 +412,7 @@ function VideoCarousel() {
               <motion.video
                 key={current}
                 src={reels[current]}
+                poster={reels[current].replace('.mp4', '-poster.jpg')}
                 autoPlay
                 loop
                 muted

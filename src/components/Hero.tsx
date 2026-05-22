@@ -124,6 +124,7 @@ export default function Hero() {
                   autoPlay
                   controls
                   playsInline
+                  poster="/videos/hero-poster.jpg"
                   className="h-full w-full object-cover"
                 >
                   <source src="/videos/hero.mp4" type="video/mp4" />
