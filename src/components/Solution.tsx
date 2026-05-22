@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Camera, Video, Wand2, ChevronLeft, ChevronRight, Maximize2, Volume2, VolumeX } from 'lucide-react'
 import Lightbox from './Lightbox'
@@ -399,6 +399,7 @@ function VideoCarousel() {
   const [current, setCurrent] = useState(0)
   const [muted, setMuted] = useState(true)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const total = reels.length
 
   const prev = () => setCurrent((c) => (c - 1 + total) % total)
@@ -409,8 +410,25 @@ function VideoCarousel() {
     setMuted((m) => !m)
   }
 
+  // Pause playback (and therefore audio) when the carousel scrolls out of view.
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const v = videoRef.current
+        if (!v) return
+        if (entry.isIntersecting) v.play().catch(() => {})
+        else v.pause()
+      },
+      { threshold: 0.4 },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <div className="flex h-full flex-col items-center justify-center">
+    <div ref={containerRef} className="flex h-full flex-col items-center justify-center">
       <div className="relative w-[220px] sm:w-[260px] lg:w-[240px] lg:max-h-[500px]">
         <div className="relative overflow-hidden rounded-[2rem] border-[5px] border-white/15 bg-charcoal shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
           <div className="absolute left-1/2 top-2 z-30 h-5 w-16 -translate-x-1/2 rounded-full bg-charcoal" />
