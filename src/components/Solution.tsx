@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Camera, Video, Wand2, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react'
+import { Camera, Video, Wand2, ChevronLeft, ChevronRight, Maximize2, Volume2, VolumeX } from 'lucide-react'
 import Lightbox from './Lightbox'
 
 /* ── Before / After Slider ── */
@@ -397,10 +397,17 @@ const reels = ['/videos/Reel-3.mp4', '/videos/Reel-2.mp4', '/videos/Reel.mp4']
 
 function VideoCarousel() {
   const [current, setCurrent] = useState(0)
+  const [muted, setMuted] = useState(true)
+  const videoRef = useRef<HTMLVideoElement>(null)
   const total = reels.length
 
   const prev = () => setCurrent((c) => (c - 1 + total) % total)
   const next = () => setCurrent((c) => (c + 1) % total)
+  const toggleMute = () => {
+    const v = videoRef.current
+    if (v) v.muted = !muted
+    setMuted((m) => !m)
+  }
 
   return (
     <div className="flex h-full flex-col items-center justify-center">
@@ -411,13 +418,15 @@ function VideoCarousel() {
             <AnimatePresence mode="wait">
               <motion.video
                 key={current}
+                ref={videoRef}
                 src={reels[current]}
                 poster={reels[current].replace('.mp4', '-poster.jpg')}
                 autoPlay
                 loop
-                muted
+                muted={muted}
                 playsInline
                 preload="auto"
+                onLoadedMetadata={(e) => { e.currentTarget.muted = muted }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -426,6 +435,13 @@ function VideoCarousel() {
               />
             </AnimatePresence>
           </div>
+          <button
+            onClick={toggleMute}
+            aria-label={muted ? 'Zapnout zvuk' : 'Vypnout zvuk'}
+            className="absolute bottom-3 right-3 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white/80 backdrop-blur-sm transition-colors hover:border-white/50 hover:bg-black/60 hover:text-white"
+          >
+            {muted ? <VolumeX size={15} /> : <Volume2 size={15} />}
+          </button>
         </div>
       </div>
 
