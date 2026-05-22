@@ -3,9 +3,9 @@ import { motion } from 'framer-motion'
 import { FileText, Image } from 'lucide-react'
 
 const covers = [
-  { img: '/images/foto-sluzba.jpg',  title: 'Byt 3+kk',      subtitle: 'Třinec · Lyžbice',    price: '8 490 000 Kč' },
-  { img: '/images/ai-po.jpg',        title: 'Byt 4+kk',      subtitle: 'Opava · Kateřinky',   price: '12 900 000 Kč' },
-  { img: '/images/ai-po-2.jpg',      title: 'Rodinný dům',   subtitle: 'Ostrava · Poruba',    price: '19 500 000 Kč' },
+  { img: '/images/cover-1.jpg', alt: 'Reels cover — byt 3+1, Ostrava, ul. Nádražní' },
+  { img: '/images/cover-2.jpg', alt: 'Reels cover — byt 3+1, Český Těšín, ul. Čapková' },
+  { img: '/images/cover-3.jpg', alt: 'Reels cover — rodinný dům 2×2+1, Dolní Lomná' },
 ]
 
 /* ── Reusable dot indicator ── */
@@ -42,28 +42,9 @@ function CoverTile({ cover, className = '' }: { cover: typeof covers[0]; classNa
     <div className={`group relative overflow-hidden rounded-lg ${className}`}>
       <img
         src={cover.img}
-        alt={cover.title}
+        alt={cover.alt}
         className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/70" />
-
-      {/* Decorative top */}
-      <div className="absolute left-3 right-3 top-3 z-10 flex items-center justify-between">
-        <div className="h-[3px] w-8 rounded-full bg-accent/60" />
-        <div className="h-5 w-5 rounded-full border border-white/20" />
-      </div>
-
-      {/* Info bottom */}
-      <div className="absolute bottom-4 left-4 right-4 z-10 sm:bottom-3 sm:left-3 sm:right-3">
-        <p className="text-[10px] font-medium uppercase tracking-wider text-accent sm:text-[7px] lg:text-[8px]">
-          Exkluzivní nabídka
-        </p>
-        <p className="mt-1 font-serif text-sm font-medium leading-tight text-white sm:mt-0.5 sm:text-[10px] lg:text-xs">
-          {cover.title}
-        </p>
-        <p className="mt-0.5 text-[11px] text-white/60 sm:text-[7px] lg:text-[8px]">{cover.subtitle}</p>
-        <p className="mt-1.5 text-xs font-medium text-accent sm:mt-1 sm:text-[8px] lg:text-[9px]">{cover.price}</p>
-      </div>
     </div>
   )
 }
