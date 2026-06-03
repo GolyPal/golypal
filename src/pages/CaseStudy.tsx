@@ -1,10 +1,70 @@
-import { useEffect } from 'react'
-import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { ArrowLeft, ArrowRight, Check, Volume2, VolumeX } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { useConsultForm } from '../context/ConsultFormContext'
+
+/* Phone reel with sound toggle. Autoplays muted (browser policy); the
+   button lets visitors unmute. Pauses when scrolled out of view so the
+   audio never keeps playing off-screen. */
+function ReelPlayer() {
+  const [muted, setMuted] = useState(true)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const wrapRef = useRef<HTMLDivElement>(null)
+
+  const toggleMute = () => {
+    const v = videoRef.current
+    if (v) v.muted = !muted
+    setMuted((m) => !m)
+  }
+
+  useEffect(() => {
+    const el = wrapRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const v = videoRef.current
+        if (!v) return
+        if (entry.isIntersecting) v.play().catch(() => {})
+        else v.pause()
+      },
+      { threshold: 0.4 },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={wrapRef} className="relative mx-auto w-[230px] sm:w-[260px]">
+      <div className="relative overflow-hidden rounded-[2rem] border-[5px] border-white/15 bg-charcoal shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+        <div className="absolute left-1/2 top-2 z-30 h-5 w-16 -translate-x-1/2 rounded-full bg-charcoal" />
+        <div className="aspect-[9/19] w-full overflow-hidden">
+          <video
+            ref={videoRef}
+            src="/videos/Reel-3.mp4"
+            poster="/videos/Reel-3-poster.jpg"
+            autoPlay
+            loop
+            muted={muted}
+            playsInline
+            preload="auto"
+            onLoadedMetadata={(e) => { e.currentTarget.muted = muted }}
+            className="h-full w-full object-cover"
+          />
+        </div>
+        <button
+          onClick={toggleMute}
+          aria-label={muted ? 'Zapnout zvuk' : 'Vypnout zvuk'}
+          className="absolute bottom-3 right-3 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white/80 backdrop-blur-sm transition-colors hover:border-white/50 hover:bg-black/60 hover:text-white"
+        >
+          {muted ? <VolumeX size={15} /> : <Volume2 size={15} />}
+        </button>
+      </div>
+    </div>
+  )
+}
 
 export default function CaseStudy() {
   const { open: openConsult } = useConsultForm()
@@ -252,23 +312,7 @@ export default function CaseStudy() {
           <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
             {/* Phone with video */}
             <div className="lg:col-span-5">
-              <div className="relative mx-auto w-[230px] sm:w-[260px]">
-                <div className="relative overflow-hidden rounded-[2rem] border-[5px] border-white/15 bg-charcoal shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
-                  <div className="absolute left-1/2 top-2 z-30 h-5 w-16 -translate-x-1/2 rounded-full bg-charcoal" />
-                  <div className="aspect-[9/19] w-full overflow-hidden">
-                    <video
-                      src="/videos/Reel-3.mp4"
-                      poster="/videos/Reel-3-poster.jpg"
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      preload="auto"
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                </div>
-              </div>
+              <ReelPlayer />
             </div>
 
             {/* Numbers grid */}
