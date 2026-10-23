@@ -73,11 +73,11 @@ export default function Footer() {
               <ul className="space-y-3">
                 <li>
                   <a
-                    href="mailto:p.golasowski@icloud.com"
+                    href="mailto:info@golasvisuals.com"
                     className="inline-flex items-center gap-2 text-sm text-warm-gray transition-colors hover:text-charcoal"
                   >
                     <Mail size={13} />
-                    p.golasowski@icloud.com
+                    info@golasvisuals.com
                   </a>
                 </li>
                 <li>

@@ -59,7 +59,7 @@ const benefits = [
 
 export default function Benefits() {
   return (
-    <section id="benefits" className="relative bg-cream-dark py-24 lg:py-32">
+    <section id="benefits" className="relative bg-cream py-24 lg:py-32">
       {/* Top decorative divider — gradient fade from dark section */}
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-deep/10 to-transparent" />
 

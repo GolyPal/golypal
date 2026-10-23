@@ -33,7 +33,7 @@ export default function Process() {
   const [hovered, setHovered] = useState<number | null>(null)
 
   return (
-    <section id="proces" className="bg-cream-dark py-24 lg:py-32">
+    <section id="proces" className="bg-cream py-24 lg:py-32">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         {/* Editorial line */}
         <motion.div
@@ -78,7 +78,7 @@ export default function Process() {
               <div className="absolute inset-0 bg-charcoal/10" />
               {/* Active fill line */}
               <div
-                className="absolute inset-y-0 left-0 bg-accent/50 transition-all duration-500 ease-out"
+                className="absolute inset-y-0 left-0 bg-cta/60 transition-all duration-500 ease-out"
                 style={{
                   width:
                     hovered !== null && hovered > lineIndex ? '100%' : '0%',
@@ -109,10 +109,10 @@ export default function Process() {
                   className="relative mx-auto mb-8 flex h-14 w-14 items-center justify-center rounded-sm border transition-all duration-500 ease-out"
                   style={{
                     borderColor: isActive
-                      ? 'var(--color-accent)'
-                      : 'rgba(199,169,123,0.4)',
+                      ? 'var(--color-cta)'
+                      : 'color-mix(in srgb, var(--color-charcoal) 20%, transparent)',
                     backgroundColor: isActive
-                      ? 'var(--color-accent)'
+                      ? 'var(--color-cta)'
                       : 'var(--color-cream-dark)',
                     transitionDelay: isActive ? `${i * 150}ms` : '0ms',
                   }}
@@ -120,7 +120,7 @@ export default function Process() {
                   <span
                     className="font-serif text-xl font-medium transition-colors duration-500 ease-out"
                     style={{
-                      color: isActive ? '#fff' : 'var(--color-charcoal)',
+                      color: isActive ? 'var(--color-on-cta)' : 'var(--color-charcoal)',
                       transitionDelay: isActive ? `${i * 150}ms` : '0ms',
                     }}
                   >
@@ -161,7 +161,7 @@ export default function Process() {
           <button
             type="button"
             onClick={() => document.getElementById('konzultace')?.scrollIntoView({ behavior: 'smooth' })}
-            className="group inline-flex items-center gap-3 rounded-full bg-accent px-8 py-4 text-sm font-semibold tracking-wide text-white shadow-[0_8px_32px_rgba(199,169,123,0.25)] transition-all duration-300 hover:bg-accent/90 hover:shadow-[0_12px_40px_rgba(199,169,123,0.4)] hover:scale-[1.02]"
+            className="group inline-flex items-center gap-3 rounded-full bg-cta px-8 py-4 text-sm font-semibold tracking-wide text-on-cta shadow-[0_8px_32px_color-mix(in_srgb,var(--color-cta)_25%,transparent)] transition-all duration-300 hover:bg-cta/90 hover:shadow-[0_12px_40px_color-mix(in_srgb,var(--color-cta)_40%,transparent)] hover:scale-[1.02]"
           >
             Mám zájem spolupracovat
             <ArrowDown size={15} className="transition-transform duration-300 group-hover:translate-y-0.5" />

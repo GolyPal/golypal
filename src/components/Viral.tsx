@@ -126,9 +126,9 @@ export default function Viral() {
             transition={{ duration: 0.9, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
             className="relative z-20 w-[240px] sm:absolute sm:left-1/2 sm:top-1/2 sm:w-[280px] sm:-translate-x-1/2 sm:-translate-y-1/2 lg:w-[320px]"
           >
-            <div className="relative overflow-hidden rounded-[2.5rem] border-[6px] border-charcoal/90 bg-charcoal shadow-[0_20px_60px_rgba(0,0,0,0.15)]">
-              <div className="absolute left-1/2 top-2 z-30 h-6 w-24 -translate-x-1/2 rounded-full bg-charcoal/90" />
-              <div className="aspect-[9/19] w-full overflow-hidden bg-charcoal">
+            <div className="relative overflow-hidden rounded-[2.5rem] border-[6px] border-neutral-900 bg-black shadow-[0_20px_60px_rgba(0,0,0,0.15)]">
+              <div className="absolute left-1/2 top-2 z-30 h-6 w-24 -translate-x-1/2 rounded-full bg-black" />
+              <div className="aspect-[9/19] w-full overflow-hidden bg-black">
                 <video
                   src="/videos/uvodni_reel.mp4"
                   poster="/videos/uvodni_reel-poster.jpg"
@@ -160,24 +160,24 @@ export default function Viral() {
               className="flex-1 sm:flex-none sm:absolute sm:left-1/2 sm:top-[38%] sm:z-10 sm:-ml-[10px] sm:-translate-y-1/2"
             >
               <div
-                className="w-full overflow-hidden rounded-2xl bg-gradient-to-br from-[#FEF3E2] via-[#FFFBF5] to-[#FEF0D6] p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)] transition-transform duration-300 sm:w-[220px] sm:px-7 sm:py-6"
+                className="w-full overflow-hidden rounded-2xl bg-brand p-4 shadow-[0_8px_32px_color-mix(in_srgb,var(--color-on-brand)_18%,transparent)] transition-transform duration-300 sm:w-[220px] sm:px-7 sm:py-6"
                 style={{ transform: likesPopped ? 'scale(1.12)' : 'scale(1)' }}
               >
                 <div className="mb-2 flex items-center gap-2 sm:mb-3 sm:gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-100/60 sm:h-10 sm:w-10">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-on-brand/10 sm:h-10 sm:w-10">
                     <Heart
                       size={16}
-                      className={`fill-amber-500 text-amber-500 transition-transform duration-300 sm:size-[18px] ${likesPopped ? 'scale-125' : 'scale-100'}`}
+                      className={`fill-on-brand text-on-brand transition-transform duration-300 sm:size-[18px] ${likesPopped ? 'scale-125' : 'scale-100'}`}
                     />
                   </div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-warm-gray sm:text-xs">Likes</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-on-brand/60 sm:text-xs">Likes</p>
                 </div>
-                <p className={`font-serif text-2xl font-bold tracking-tight transition-colors duration-300 sm:text-4xl ${likesPopped ? 'text-accent' : 'text-charcoal'}`}>
+                <p className={`font-serif text-2xl font-bold tracking-tight transition-colors duration-300 sm:text-4xl text-on-brand`}>
                   {likes.toLocaleString('cs-CZ')}
                 </p>
-                <div className="mt-2 h-[3px] w-full overflow-hidden rounded-full bg-amber-200/50 sm:mt-3">
+                <div className="mt-2 h-[3px] w-full overflow-hidden rounded-full bg-on-brand/15 sm:mt-3">
                   <div
-                    className={`h-full rounded-full transition-none ${likesPopped ? 'bg-accent' : 'bg-amber-400'}`}
+                    className={`h-full rounded-full transition-none bg-on-brand`}
                     style={{ width: `${likesProgress * 100}%` }}
                   />
                 </div>
@@ -198,24 +198,24 @@ export default function Viral() {
               className="flex-1 sm:flex-none sm:absolute sm:right-1/2 sm:top-[38%] sm:z-10 sm:-mr-[10px] sm:-translate-y-1/2"
             >
               <div
-                className="w-full overflow-hidden rounded-2xl bg-gradient-to-br from-[#FEF3E2] via-[#FFFBF5] to-[#FEF0D6] p-4 shadow-[0_8px_32px_rgba(0,0,0,0.08)] transition-transform duration-300 sm:w-[220px] sm:px-7 sm:py-6"
+                className="w-full overflow-hidden rounded-2xl bg-brand p-4 shadow-[0_8px_32px_color-mix(in_srgb,var(--color-on-brand)_18%,transparent)] transition-transform duration-300 sm:w-[220px] sm:px-7 sm:py-6"
                 style={{ transform: viewsPopped ? 'scale(1.12)' : 'scale(1)' }}
               >
                 <div className="mb-2 flex items-center gap-2 sm:mb-3 sm:gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-100/60 sm:h-10 sm:w-10">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-on-brand/10 sm:h-10 sm:w-10">
                     <Eye
                       size={16}
-                      className={`text-amber-500 transition-transform duration-300 sm:size-[18px] ${viewsPopped ? 'scale-125' : 'scale-100'}`}
+                      className={`text-on-brand transition-transform duration-300 sm:size-[18px] ${viewsPopped ? 'scale-125' : 'scale-100'}`}
                     />
                   </div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-warm-gray sm:text-xs">Views</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-on-brand/60 sm:text-xs">Views</p>
                 </div>
-                <p className={`font-serif text-2xl font-bold tracking-tight transition-colors duration-300 sm:text-4xl ${viewsPopped ? 'text-accent' : 'text-charcoal'}`}>
+                <p className={`font-serif text-2xl font-bold tracking-tight transition-colors duration-300 sm:text-4xl text-on-brand`}>
                   {views.toLocaleString('cs-CZ')}
                 </p>
-                <div className="mt-2 h-[3px] w-full overflow-hidden rounded-full bg-amber-200/50 sm:mt-3">
+                <div className="mt-2 h-[3px] w-full overflow-hidden rounded-full bg-on-brand/15 sm:mt-3">
                   <div
-                    className={`h-full rounded-full transition-none ${viewsPopped ? 'bg-accent' : 'bg-amber-400'}`}
+                    className={`h-full rounded-full transition-none bg-on-brand`}
                     style={{ width: `${viewsProgress * 100}%` }}
                   />
                 </div>
@@ -236,7 +236,7 @@ export default function Viral() {
           <button
             type="button"
             onClick={() => document.getElementById('konzultace')?.scrollIntoView({ behavior: 'smooth' })}
-            className="group inline-flex items-center gap-3 rounded-full bg-accent px-8 py-4 text-sm font-semibold tracking-wide text-white shadow-[0_8px_32px_rgba(199,169,123,0.3)] transition-all duration-300 hover:bg-accent/90 hover:shadow-[0_12px_40px_rgba(199,169,123,0.45)] hover:scale-[1.02]"
+            className="group inline-flex items-center gap-3 rounded-full bg-cta px-8 py-4 text-sm font-semibold tracking-wide text-on-cta shadow-[0_8px_32px_color-mix(in_srgb,var(--color-cta)_30%,transparent)] transition-all duration-300 hover:bg-cta/90 hover:shadow-[0_12px_40px_color-mix(in_srgb,var(--color-cta)_45%,transparent)] hover:scale-[1.02]"
           >
             Mám zájem spolupracovat
             <ArrowDown size={15} className="transition-transform duration-300 group-hover:translate-y-0.5" />

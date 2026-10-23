@@ -5,7 +5,6 @@ import Viral from './components/Viral'
 import Pain from './components/Pain'
 import Benefits from './components/Benefits'
 import Solution from './components/Solution'
-import Bonus from './components/Bonus'
 import Process from './components/Process'
 import Testimonials from './components/Testimonials'
 import About from './components/About'
@@ -26,7 +25,6 @@ function HomePage() {
       <Pain />
       <Benefits />
       <Solution />
-      <Bonus />
       <Process />
       <Testimonials />
       <About />

@@ -286,7 +286,7 @@ export default function ConsultFormModal() {
                         type="button"
                         onClick={handleNext}
                         disabled={!canProceed() || status === 'sending'}
-                        className="group inline-flex items-center gap-3 rounded-full bg-charcoal px-8 py-3.5 text-sm font-semibold tracking-wide text-white transition-all duration-300 hover:bg-accent disabled:cursor-not-allowed disabled:opacity-40"
+                        className="group inline-flex items-center gap-3 rounded-full bg-cta px-8 py-3.5 text-sm font-semibold tracking-wide text-on-cta transition-all duration-300 hover:bg-cta/85 disabled:cursor-not-allowed disabled:opacity-40"
                       >
                         {status === 'sending' ? (
                           <>
@@ -354,7 +354,7 @@ function StepRole({ value, onChange }: { value: string; onChange: (v: string) =>
               <span className="mt-0.5 text-[11.5px] text-warm-gray">{opt.sub}</span>
               {active && (
                 <span className="mt-2 flex h-4 w-4 items-center justify-center rounded-full bg-accent">
-                  <Check size={10} className="text-white" strokeWidth={2.5} />
+                  <Check size={10} className="text-on-accent" strokeWidth={2.5} />
                 </span>
               )}
             </button>
@@ -399,7 +399,7 @@ function StepMedia({ value, onChange }: { value: string[]; onChange: (v: string)
               <span className={`flex h-5 w-5 flex-none items-center justify-center rounded-full border transition-all ${
                 active ? 'border-accent bg-accent' : 'border-charcoal/20 bg-transparent'
               }`}>
-                {active && <Check size={11} className="text-white" strokeWidth={2.5} />}
+                {active && <Check size={11} className="text-on-accent" strokeWidth={2.5} />}
               </span>
               <span className={`text-[13.5px] font-medium transition-colors ${active ? 'text-accent' : 'text-charcoal'}`}>
                 {opt}
@@ -440,7 +440,7 @@ function StepPropertyType({ value, onChange }: { value: string[]; onChange: (v: 
               type="button"
               onClick={() => onChange(opt)}
               className={`flex items-center gap-2 rounded-full border px-5 py-2.5 text-[13.5px] font-medium transition-all duration-200 ${
-                active ? 'border-accent bg-accent text-white' : 'border-charcoal/15 bg-white/60 text-warm-gray hover:border-charcoal/30 hover:text-charcoal'
+                active ? 'border-accent bg-accent text-on-accent' : 'border-charcoal/15 bg-white/60 text-warm-gray hover:border-charcoal/30 hover:text-charcoal'
               }`}
             >
               {active && <Check size={12} strokeWidth={2.5} />}
@@ -525,7 +525,7 @@ function StepSource({ value, onChange }: { value: string; onChange: (v: string) 
               type="button"
               onClick={() => onChange(opt)}
               className={`flex items-center gap-2 rounded-full border px-5 py-2.5 text-[13.5px] font-medium transition-all duration-200 ${
-                active ? 'border-accent bg-accent text-white' : 'border-charcoal/15 bg-white/60 text-warm-gray hover:border-charcoal/30 hover:text-charcoal'
+                active ? 'border-accent bg-accent text-on-accent' : 'border-charcoal/15 bg-white/60 text-warm-gray hover:border-charcoal/30 hover:text-charcoal'
               }`}
             >
               {active && <Check size={12} strokeWidth={2.5} />}
@@ -616,7 +616,7 @@ function StepContact({
                 : 'border-charcoal/25 bg-transparent hover:border-charcoal/40'
             }`}
           >
-            {form.gdprConsent && <Check size={11} className="text-white" strokeWidth={2.5} />}
+            {form.gdprConsent && <Check size={11} className="text-on-accent" strokeWidth={2.5} />}
           </button>
           <span className="text-[12.5px] leading-[1.6] text-warm-gray">
             Souhlasím se zpracováním osobních údajů dle{' '}

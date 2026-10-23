@@ -76,8 +76,8 @@ export default function PrivacyPolicyModal() {
                     <p>
                       Pavel Golasowski, IČO: 08438927, Hrádek 390,
                       e-mail:{' '}
-                      <a href="mailto:p.golasowski@icloud.com" className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors">
-                        p.golasowski@icloud.com
+                      <a href="mailto:info@golasvisuals.com" className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors">
+                        info@golasvisuals.com
                       </a>
                       , tel.:{' '}
                       <a href="tel:+420737248144" className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors">
@@ -158,8 +158,8 @@ export default function PrivacyPolicyModal() {
                     </ul>
                     <p className="mt-3">
                       Žádost uplatněte na{' '}
-                      <a href="mailto:p.golasowski@icloud.com" className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors">
-                        p.golasowski@icloud.com
+                      <a href="mailto:info@golasvisuals.com" className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors">
+                        info@golasvisuals.com
                       </a>
                       . Máte také právo podat stížnost u dozorového orgánu —{' '}
                       <a

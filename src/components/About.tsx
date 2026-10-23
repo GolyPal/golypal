@@ -1,9 +1,8 @@
 import { motion } from 'framer-motion'
-import { ImageIcon } from 'lucide-react'
 
 export default function About() {
   return (
-    <section id="o-mne" className="bg-cream-dark py-24 lg:py-32">
+    <section id="o-mne" className="bg-cream py-24 lg:py-32">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
         {/* Editorial section header */}
         <motion.div
@@ -25,15 +24,13 @@ export default function About() {
             transition={{ duration: 1 }}
             className="relative lg:col-span-5"
           >
-            <div className="relative">
-              <div className="flex aspect-[3/4] items-center justify-center border border-charcoal/10 bg-charcoal/5">
-                <div className="flex flex-col items-center gap-3 text-charcoal/30">
-                  <ImageIcon size={40} strokeWidth={1.2} />
-                  <span className="text-[10px] uppercase tracking-[0.3em]">
-                    Foto brzy
-                  </span>
-                </div>
-              </div>
+            <div className="relative overflow-hidden rounded-2xl">
+              <img
+                src="/images/pavel.jpg"
+                alt="Pavel Golasowski s fotoaparátem"
+                loading="lazy"
+                className="aspect-[3/4] w-full object-cover"
+              />
             </div>
           </motion.div>
 

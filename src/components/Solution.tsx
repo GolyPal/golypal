@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Camera, Video, Wand2, ChevronLeft, ChevronRight, Maximize2, Volume2, VolumeX } from 'lucide-react'
+import { Camera, Video, Wand2, Gift, ChevronLeft, ChevronRight, Maximize2, Volume2, VolumeX } from 'lucide-react'
 import Lightbox from './Lightbox'
 
 /* ── Before / After Slider ── */
@@ -283,7 +283,51 @@ const services = [
       'Interiér, exteriér a\u00A0detaily. Upravené fotografie připravené rovnou k\u00A0nahrání na Sreality i\u00A0sítě.',
     visual: 'photo' as const,
   },
+  {
+    number: '+',
+    icon: Gift,
+    title: 'Bonus v\u00A0ceně',
+    badge: 'zdarma',
+    description:
+      'Věci, které jinde platíte zvlášť nebo neřešíte vůbec. Script na míru, aby první 3\u00A0sekundy zastavily scroll, a\u00A0vizuálně sladěné Reels covery pro vyšší proklikovost.',
+    visual: 'bonus' as const,
+  },
 ]
+
+/* ── Bonus panel: hook example + reels covers ── */
+const covers = [
+  { img: '/images/cover-1.jpg', alt: 'Reels cover — byt 3+1, Ostrava, ul. Nádražní' },
+  { img: '/images/cover-2.jpg', alt: 'Reels cover — byt 3+1, Český Těšín, ul. Čapková' },
+  { img: '/images/cover-3.jpg', alt: 'Reels cover — rodinný dům 2×2+1, Dolní Lomná' },
+]
+
+function BonusPanel() {
+  return (
+    <div className="mx-auto w-full max-w-[560px]">
+      <div className="rounded-xl border border-white/[0.06] bg-black/20 p-6 text-center lg:p-7">
+        <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.15em] text-accent">
+          Ukázka hooku
+        </p>
+        <p className="font-serif text-lg italic leading-relaxed text-white/80 lg:text-xl">
+          „Čtyři pokoje. Osmdesát metrů m². Jedna otázka — proč tady ještě nebydlíte?"
+        </p>
+      </div>
+      <div className="mt-4 grid grid-cols-3 gap-3">
+        {covers.map((cover) => (
+          <div key={cover.img} className="group overflow-hidden rounded-lg">
+            <img
+              src={cover.img}
+              alt={cover.alt}
+              loading="lazy"
+              className="aspect-[9/16] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            />
+          </div>
+        ))}
+      </div>
+      <p className="mt-4 text-sm text-white/40">Reels Cover · ukázky</p>
+    </div>
+  )
+}
 
 /* ── Photo Carousel ── */
 const photos = [
@@ -430,8 +474,8 @@ function VideoCarousel() {
   return (
     <div ref={containerRef} className="flex h-full flex-col items-center justify-center">
       <div className="relative w-[220px] sm:w-[260px] lg:w-[240px] lg:max-h-[500px]">
-        <div className="relative overflow-hidden rounded-[2rem] border-[5px] border-white/15 bg-charcoal shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
-          <div className="absolute left-1/2 top-2 z-30 h-5 w-16 -translate-x-1/2 rounded-full bg-charcoal" />
+        <div className="relative overflow-hidden rounded-[2rem] border-[5px] border-neutral-900 bg-black ring-1 ring-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+          <div className="absolute left-1/2 top-2 z-30 h-5 w-16 -translate-x-1/2 rounded-full bg-black" />
           <div className="aspect-[9/19] w-full overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.video
@@ -496,6 +540,8 @@ function VisualPanel({ type }: { type: (typeof services)[number]['visual'] }) {
       return <PhotoCarousel />
     case 'video':
       return <VideoCarousel />
+    case 'bonus':
+      return <BonusPanel />
   }
 }
 
@@ -573,6 +619,11 @@ export default function Solution() {
                             }`}
                           >
                             {service.title}
+                            {service.badge && (
+                              <span className="ml-3 inline-block rounded-full bg-brand px-2.5 py-0.5 align-middle font-sans text-[11px] font-semibold uppercase tracking-wider text-on-brand">
+                                {service.badge}
+                              </span>
+                            )}
                           </h3>
                         </div>
                       </button>

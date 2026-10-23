@@ -62,7 +62,7 @@ export default function FinalCTA() {
             <button
               type="button"
               onClick={openConsult}
-              className="group inline-flex items-center justify-center gap-3 rounded-full bg-white px-10 py-4.5 text-sm font-semibold tracking-wide text-charcoal transition-all duration-300 hover:bg-accent hover:text-white"
+              className="group inline-flex items-center justify-center gap-3 rounded-full bg-white px-10 py-4.5 text-sm font-semibold tracking-wide text-charcoal transition-all duration-300 hover:bg-white/90"
             >
               Konzultace zdarma
               <ArrowRight

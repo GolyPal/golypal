@@ -52,21 +52,21 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={linkHref(link.href)}
-                className="text-[13px] font-medium uppercase tracking-[0.12em] text-warm-gray transition-colors duration-300 hover:text-charcoal"
+                className="relative isolate text-[13px] font-medium uppercase tracking-[0.12em] text-warm-gray transition-colors duration-300 hover:text-on-brand before:absolute before:-inset-x-4 before:-inset-y-2 before:-z-10 before:scale-90 before:rounded-full before:bg-brand before:opacity-0 before:transition-all before:duration-300 hover:before:scale-100 hover:before:opacity-100"
               >
                 {link.label}
               </a>
             ))}
             <Link
               to="/pripadova-studie"
-              className="text-[13px] font-medium uppercase tracking-[0.12em] text-warm-gray transition-colors duration-300 hover:text-charcoal"
+              className="relative isolate text-[13px] font-medium uppercase tracking-[0.12em] text-warm-gray transition-colors duration-300 hover:text-on-brand before:absolute before:-inset-x-4 before:-inset-y-2 before:-z-10 before:scale-90 before:rounded-full before:bg-brand before:opacity-0 before:transition-all before:duration-300 hover:before:scale-100 hover:before:opacity-100"
             >
               Případová studie
             </Link>
             <button
               type="button"
               onClick={openConsult}
-              className="rounded-full bg-charcoal px-7 py-2.5 text-[13px] font-semibold tracking-wide text-white transition-all duration-300 hover:bg-accent"
+              className="rounded-full bg-cta px-7 py-2.5 text-[13px] font-semibold tracking-wide text-on-cta transition-all duration-300 hover:bg-cta/85"
             >
               Konzultace zdarma
             </button>
@@ -100,7 +100,7 @@ export default function Navbar() {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className="rounded-lg px-4 py-3.5 text-[15px] font-medium text-warm-gray transition-colors hover:text-charcoal"
+                  className="rounded-lg px-4 py-3.5 text-[15px] font-medium text-warm-gray transition-colors hover:bg-brand hover:text-on-brand"
                 >
                   {link.label}
                 </motion.a>
@@ -113,7 +113,7 @@ export default function Navbar() {
                 <Link
                   to="/pripadova-studie"
                   onClick={() => setMobileOpen(false)}
-                  className="block rounded-lg px-4 py-3.5 text-[15px] font-medium text-warm-gray transition-colors hover:text-charcoal"
+                  className="block rounded-lg px-4 py-3.5 text-[15px] font-medium text-warm-gray transition-colors hover:bg-brand hover:text-on-brand"
                 >
                   Případová studie
                 </Link>
@@ -124,7 +124,7 @@ export default function Navbar() {
                   setMobileOpen(false)
                   openConsult()
                 }}
-                className="mt-4 rounded-full bg-charcoal px-6 py-3.5 text-center text-sm font-semibold text-white transition-colors hover:bg-accent"
+                className="mt-4 rounded-full bg-cta px-6 py-3.5 text-center text-sm font-semibold text-on-cta transition-colors hover:bg-cta/85"
               >
                 Konzultace zdarma
               </button>

@@ -4,15 +4,68 @@
   --font-serif: "Playfair Display", Georgia, serif;
   --font-sans: "Inter", system-ui, sans-serif;
 
-  /* Warm ivory-based palette */
-  --color-cream: #F8F6F1;
-  --color-cream-dark: #F1EEE8;
-  --color-charcoal: #1A1A1A;
-  --color-warm-gray: #6B6B6B;
-  --color-light-gray: #E5E2DD;
-  --color-accent: #C7A97B;
-  --color-deep: #1A1A1A;
-  --color-muted: #6B6B6B;
+  /* Fresh Canopy + Lime Sprout palette */
+  --color-cream: #F7F7F3;
+  --color-cream-dark: #EDEEE6;
+  --color-charcoal: #2D3E2C;
+  --color-warm-gray: #5F665C;
+  --color-light-gray: #DFE1D7;
+  --color-accent: var(--accent-on-light);
+  --color-on-accent: var(--on-accent-on-light);
+  /* CTA buttons: dark button with accent text on light surfaces,
+     accent button with dark text on dark surfaces */
+  --color-cta: var(--color-charcoal);
+  --color-on-cta: var(--accent-on-dark);
+  /* The bright brand accent at full strength, regardless of surface */
+  --color-brand: var(--accent-on-dark);
+  --color-on-brand: var(--on-accent-on-dark);
+  --color-deep: #223022;
+  --color-muted: #5F665C;
+  --color-alternate: var(--color-cream-dark);
+}
+
+/* The accent adapts to the surface it sits on: one shade for light
+   sections, one for dark. Text/icons on an accent background use on-accent. */
+:root {
+  --accent-on-light: #4A6A12;
+  --on-accent-on-light: #E4FD97;
+  --accent-on-dark: #E4FD97;
+  --on-accent-on-dark: #2D3E2C;
+}
+
+.bg-charcoal,
+.bg-deep {
+  --color-accent: var(--accent-on-dark);
+  --color-on-accent: var(--on-accent-on-dark);
+  --color-cta: var(--accent-on-dark);
+  --color-on-cta: var(--on-accent-on-dark);
+  /* "white" on dark surfaces is the page's light background, not pure white */
+  --color-white: var(--color-cream);
+}
+
+.bg-cream,
+.bg-cream-dark,
+.bg-white {
+  --color-accent: var(--accent-on-light);
+  --color-on-accent: var(--on-accent-on-light);
+  --color-cta: var(--color-charcoal);
+  --color-on-cta: var(--accent-on-dark);
+}
+
+/* Highlighted words in headings on light surfaces get a lime label.
+   On dark surfaces (incl. the dark hero card) they stay plain lime text. */
+em.text-accent:not(:is(.bg-charcoal, .bg-deep) *) {
+  padding: 0 0.28em 0.04em;
+  border-radius: 0.28em;
+  background: var(--color-brand);
+  color: var(--color-on-brand);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* the label needs room, so those headings get a bit more line-height */
+:is(h1, h2, h3):has(em.text-accent):not(:is(.bg-charcoal, .bg-deep) *) {
+  line-height: 1.32;
 }
 
 html {
@@ -28,7 +81,7 @@ body {
 
 ::selection {
   background-color: var(--color-accent);
-  color: white;
+  color: var(--color-on-accent);
 }
 
 /* Editorial horizontal rule */
@@ -36,14 +89,14 @@ body {
   height: 1px;
   max-width: 200px;
   margin: 0 auto;
-  background: linear-gradient(to right, transparent, rgba(26,26,26,0.12), transparent);
+  background: linear-gradient(to right, transparent, color-mix(in srgb, var(--color-charcoal) 12%, transparent), transparent);
 }
 
 .editorial-line-light {
   height: 1px;
   max-width: 200px;
   margin: 0 auto;
-  background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent);
+  background: linear-gradient(to right, transparent, color-mix(in srgb, var(--color-white) 8%, transparent), transparent);
 }
 
 /* Hide scrollbar while keeping scroll functionality */
