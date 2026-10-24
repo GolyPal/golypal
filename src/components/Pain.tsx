@@ -137,10 +137,10 @@ export default function Pain() {
                 key={point.number}
                 className="w-full flex-none snap-start rounded-2xl border border-white/[0.06] bg-white/[0.03] p-8 backdrop-blur-sm"
               >
-                <span className="mb-4 block font-mono text-sm tracking-wider text-accent/60">
+                <span className="mb-4 block font-mono text-sm tracking-wider text-white">
                   {point.number}
                 </span>
-                <h3 className="mb-3 font-serif text-xl font-semibold leading-tight text-white">
+                <h3 className="mb-3 font-serif text-xl font-semibold leading-tight text-accent">
                   {point.label}
                 </h3>
                 <p className="leading-[1.75] text-white">{point.description}</p>
@@ -164,12 +164,12 @@ export default function Pain() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.7, delay: i * 0.1 }}
-              className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.03] p-8 backdrop-blur-sm transition-colors duration-500 hover:border-accent/20 hover:bg-white/[0.05] lg:p-10"
+              className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.03] p-8 backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-accent/40 hover:bg-white/[0.06] hover:shadow-[0_16px_40px_rgba(0,0,0,0.25)] lg:p-10"
             >
-              <span className="mb-4 block font-mono text-sm tracking-wider text-accent/60">
+              <span className="mb-4 block font-mono text-sm tracking-wider text-white">
                 {point.number}
               </span>
-              <h3 className="mb-3 font-serif text-xl font-semibold leading-tight text-white lg:text-2xl">
+              <h3 className="mb-3 font-serif text-xl font-semibold leading-tight text-accent lg:text-2xl">
                 {point.label}
               </h3>
               <p className="leading-[1.75] text-white">{point.description}</p>
