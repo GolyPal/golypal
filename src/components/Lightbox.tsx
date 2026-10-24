@@ -15,7 +15,7 @@ interface LightboxProps {
  * Full-screen lightbox rendered via React Portal into div#root so it always
  * sits above Framer Motion animated sections (stacking contexts).
  *
- * The backdrop is always in the DOM — CSS opacity + pointer-events control
+ * The backdrop is always in the DOM, CSS opacity + pointer-events control
  * visibility. No AnimatePresence / mount-unmount needed, which avoids the
  * known Framer Motion portal exit-animation bug (element stays in DOM
  * after exit completes).
@@ -71,7 +71,7 @@ export default function Lightbox({
         <X size={20} />
       </button>
 
-      {/* Content — stops backdrop click, gets scale animation on open */}
+      {/* Content, stops backdrop click, gets scale animation on open */}
       <motion.div
         animate={isOpen ? { scale: 1, opacity: 1 } : { scale: 0.96, opacity: 0 }}
         transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}

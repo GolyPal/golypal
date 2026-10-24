@@ -21,7 +21,7 @@ const benefits = [
     ),
     title: 'AI vizualizace místo stagingu',
     description:
-      'Neplaťte desítky tisíc za drahý staging. Každý prázdný prostor ukáži jako zařízený interiér — za zlomek ceny a\u00A0pár desítek minut.',
+      'Neplaťte desítky tisíc za drahý staging. Každý prázdný prostor ukáži jako zařízený interiér, a to za zlomek ceny a\u00A0pár desítek minut.',
   },
   {
     icon: (
@@ -42,7 +42,7 @@ const benefits = [
     ),
     title: 'Víc zájemců, žádná sleva',
     description:
-      'Bez zájemců přijde tlak na slevu — a\u00A0prodávající začne nervovat. Rychlejší prodej chrání vztah s\u00A0prodávajícím i\u00A0vaši reputaci.',
+      'Bez zájemců přijde tlak na slevu a\u00A0prodávající začne nervovat. Rychlejší prodej chrání vztah s\u00A0prodávajícím i\u00A0vaši reputaci.',
   },
   {
     icon: (
@@ -60,7 +60,7 @@ const benefits = [
 export default function Benefits() {
   return (
     <section id="benefits" className="relative bg-cream py-24 lg:py-32">
-      {/* Top decorative divider — gradient fade from dark section */}
+      {/* Top decorative divider, gradient fade from dark section */}
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-deep/10 to-transparent" />
 
       <div className="relative mx-auto max-w-[1400px] px-6 lg:px-16">

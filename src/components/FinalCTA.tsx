@@ -47,7 +47,7 @@ export default function FinalCTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.9, delay: 0.15 }}
-            className="mx-auto mt-6 max-w-md text-base leading-[1.85] text-white/50 lg:text-[17px]"
+            className="mx-auto mt-6 max-w-md text-base leading-[1.85] text-white lg:text-[17px]"
           >
             Řekněte mi o sobě víc a já se vám ozvu zpět do 24h. Stačí vyplnit krátký minutový formulář.
           </motion.p>
@@ -77,7 +77,7 @@ export default function FinalCTA() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, delay: 0.35 }}
-            className="mt-6 text-[13px] text-white/30"
+            className="mt-6 text-[13px] text-white/55"
           >
             Odpovídám do 24 hodin. Bez závazků, bez poplatků.
           </motion.p>

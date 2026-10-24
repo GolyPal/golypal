@@ -7,7 +7,7 @@ const steps = [
     number: '1',
     title: 'Vyplňte formulář',
     description:
-      'Řekněte mi o sobě pár věcí — zabere to necelou minutu. Ozvu se vám do 24 hodin.',
+      'Řekněte mi o sobě pár věcí. Zabere to necelou minutu. Ozvu se vám do 24 hodin.',
   },
   {
     number: '2',

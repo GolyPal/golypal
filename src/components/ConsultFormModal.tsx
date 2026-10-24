@@ -221,7 +221,7 @@ export default function ConsultFormModal() {
                   </div>
 
                   <div className="flex flex-col px-8 pb-10 pt-8 sm:px-12 sm:pb-12">
-                    {/* Fixed-height content area — prevents modal from resizing between steps */}
+                    {/* Fixed-height content area, prevents modal from resizing between steps */}
                     <div className="h-[340px] overflow-y-auto overflow-x-hidden">
                       <AnimatePresence mode="wait" custom={dir}>
                         <motion.div
@@ -461,7 +461,7 @@ function StepLocation({ value, onChange }: { value: string; onChange: (v: string
         Kde působíte?
       </h2>
       <p className="mb-7 text-[14px] leading-[1.7] text-warm-gray">
-        Město, kraj nebo region — ať vím, jestli se to logisticky potkám. Klidně přeskočte.
+        Město, kraj nebo region, ať vím, jestli se to logisticky potkám. Klidně přeskočte.
       </p>
       <input
         type="text"
@@ -514,7 +514,7 @@ function StepSource({ value, onChange }: { value: string; onChange: (v: string) 
         Jak jste se o mně dozvěděli?
       </h2>
       <p className="mb-7 text-[14px] leading-[1.7] text-warm-gray">
-        Čistě pro moji informaci — pomáhá mi vědět, co funguje.
+        Čistě pro moji informaci. Pomáhá mi vědět, co funguje.
       </p>
       <div className="flex flex-wrap gap-2.5">
         {sourceOptions.map(opt => {

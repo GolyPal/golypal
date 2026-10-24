@@ -132,7 +132,7 @@ export default function PrivacyPolicyModal() {
                     <p>
                       Osobní údaje uchovávám po dobu nezbytně nutnou k vyřízení vaší
                       poptávky, nejdéle však 2 roky od jejich poskytnutí, nebo do
-                      odvolání vašeho souhlasu — podle toho, co nastane dříve.
+                      odvolání vašeho souhlasu, podle toho, co nastane dříve.
                     </p>
                   </section>
 
@@ -148,7 +148,7 @@ export default function PrivacyPolicyModal() {
                         'na výmaz osobních údajů („právo být zapomenut"),',
                         'na omezení zpracování,',
                         'na přenositelnost údajů,',
-                        'kdykoli odvolat udělený souhlas — bez dopadu na zákonnost zpracování před odvoláním.',
+                        'kdykoli odvolat udělený souhlas, a to bez dopadu na zákonnost zpracování před odvoláním.',
                       ].map((item) => (
                         <li key={item} className="flex gap-2">
                           <span className="mt-[0.4em] h-1 w-1 flex-none rounded-full bg-accent" />
@@ -161,7 +161,7 @@ export default function PrivacyPolicyModal() {
                       <a href="mailto:info@golasvisuals.com" className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors">
                         info@golasvisuals.com
                       </a>
-                      . Máte také právo podat stížnost u dozorového orgánu —{' '}
+                      . Máte také právo podat stížnost u dozorového orgánu,{' '}
                       <a
                         href="https://www.uoou.cz"
                         target="_blank"

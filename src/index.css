@@ -79,6 +79,12 @@ body {
   background-color: var(--color-cream);
 }
 
+/* Playfair Display defaults to old-style figures (6 and 8 rise, 3/4/5/7/9
+   drop below the line), which looks uneven in stats. Use lining figures. */
+.font-serif {
+  font-variant-numeric: lining-nums;
+}
+
 ::selection {
   background-color: var(--color-accent);
   color: var(--color-on-accent);

@@ -19,7 +19,7 @@ export default function Footer() {
             </a>
             <p className="mt-5 max-w-xs text-sm leading-[1.8] text-warm-gray">
               Vizuální produkce pro realitní makléře. Fotografie, video
-              a&nbsp;AI vizualizace — vše pod jednou střechou.
+              a&nbsp;AI vizualizace. Vše pod jednou střechou.
             </p>
           </div>
 

@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section className="bg-cream px-4 pt-20 pb-4 lg:px-6 lg:pt-24 lg:pb-6">
       <div className="relative min-h-[calc(100vh-8.5rem)] overflow-hidden rounded-2xl bg-charcoal">
-        {/* Background photo — covers entire card */}
+        {/* Background photo, covers entire card */}
         <div className="absolute inset-0">
           <img
             src="/images/hero.png"
@@ -49,23 +49,23 @@ export default function Hero() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-              className="mt-6 flex flex-col items-center gap-2.5 text-[13px] text-white/80 lg:text-sm"
+              className="mt-6 flex flex-col items-center gap-2.5 text-[13px] text-white lg:text-sm"
             >
               <p>
                 <Wand2 size={15} className="mr-2.5 inline-block -translate-y-px text-accent" strokeWidth={1.5} />
-                <span><span className="font-semibold text-white">AI vizualizace</span> — plný potenciál nemovitosti bez stagingu za desetitisíce</span>
+                <span><span className="font-semibold text-white">AI vizualizace</span>: plný potenciál nemovitosti bez stagingu za desetitisíce</span>
               </p>
               <p>
                 <Video size={15} className="mr-2.5 inline-block -translate-y-px text-accent" strokeWidth={1.5} />
-                <span><span className="font-semibold text-white">Videa</span> — stavěná na zastavení scrollu s tisíci zhlédnutími</span>
+                <span><span className="font-semibold text-white">Videa</span>: stavěná na zastavení scrollu s tisíci zhlédnutími</span>
               </p>
               <p>
                 <Camera size={15} className="mr-2.5 inline-block -translate-y-px text-accent" strokeWidth={1.5} />
-                <span><span className="font-semibold text-white">Fotky</span> — ne z mobilu, ne průměrné, ne jako ostatní</span>
+                <span><span className="font-semibold text-white">Fotky</span>: ne z mobilu, ne průměrné, ne jako ostatní</span>
               </p>
               <p>
                 <FileText size={15} className="mr-2.5 inline-block -translate-y-px text-accent" strokeWidth={1.5} />
-                <span><span className="font-semibold text-white">Scripty</span> — první 3 sekundy rozhodují. Řeknu vám přesně co říct.</span>
+                <span><span className="font-semibold text-white">Scripty</span>: první 3 sekundy rozhodují. Řeknu vám přesně co říct.</span>
               </p>
             </motion.div>
           </div>

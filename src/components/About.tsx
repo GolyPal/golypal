@@ -34,7 +34,7 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* Bio text — right */}
+          {/* Bio text, right */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -54,7 +54,7 @@ export default function About() {
                 vyšší ceny.
               </p>
               <p>
-                Rozumím tomu, co makléř potřebuje — rychlost, spolehlivost
+                Rozumím tomu, co makléř potřebuje: rychlost, spolehlivost
                 a&nbsp;materiály, které rovnou fungují. Proto dodávám do
                 5&nbsp;dnů, komunikuji jasně a&nbsp;držím se dohodnutých
                 termínů.

@@ -33,7 +33,7 @@ function BeforeAfterSlider({
       try {
         el.setPointerCapture(e.pointerId)
       } catch {
-        /* capture can fail on some touch edge cases — fine, move handler still works */
+        /* capture can fail on some touch edge cases, fine, move handler still works */
       }
       updatePosition(e.clientX)
     },
@@ -70,7 +70,7 @@ function BeforeAfterSlider({
       ref={containerRef}
       className="relative aspect-[16/10] w-full cursor-ew-resize select-none overflow-hidden rounded-lg"
       // touch-action: none prevents the browser from claiming horizontal swipes as
-      // scroll/back-navigation — without it Safari steals pointermove events and the
+      // scroll/back-navigation, without it Safari steals pointermove events and the
       // slider handle "sticks" partway across.
       style={{ touchAction: 'none' }}
       onPointerDown={onPointerDown}
@@ -141,7 +141,7 @@ function AICarousel() {
 
   return (
     <div className="relative w-full">
-      {/* Media wrapper — relative so expand button can overlay */}
+      {/* Media wrapper, relative so expand button can overlay */}
       <div className="relative">
         <AnimatePresence mode="wait">
           <motion.div
@@ -169,7 +169,7 @@ function AICarousel() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Expand button — sibling of slider so pointer drag on slider isn't stolen.
+        {/* Expand button, sibling of slider so pointer drag on slider isn't stolen.
             z-20 to sit above BeforeAfterSlider's z-10 labels. */}
         <button
           type="button"
@@ -203,7 +203,7 @@ function AICarousel() {
         </div>
       </div>
 
-      {/* Lightbox — large view of current item. Slider keeps drag functionality,
+      {/* Lightbox, large view of current item. Slider keeps drag functionality,
           video gets native controls for scrubbing. */}
       <Lightbox
         isOpen={lightboxOpen}
@@ -296,9 +296,9 @@ const services = [
 
 /* ── Bonus panel: hook example + reels covers ── */
 const covers = [
-  { img: '/images/cover-1.jpg', alt: 'Reels cover — byt 3+1, Ostrava, ul. Nádražní' },
-  { img: '/images/cover-2.jpg', alt: 'Reels cover — byt 3+1, Český Těšín, ul. Čapková' },
-  { img: '/images/cover-3.jpg', alt: 'Reels cover — rodinný dům 2×2+1, Dolní Lomná' },
+  { img: '/images/cover-1.jpg', alt: 'Reels cover: byt 3+1, Ostrava, ul. Nádražní' },
+  { img: '/images/cover-2.jpg', alt: 'Reels cover: byt 3+1, Český Těšín, ul. Čapková' },
+  { img: '/images/cover-3.jpg', alt: 'Reels cover: rodinný dům 2×2+1, Dolní Lomná' },
 ]
 
 function BonusPanel() {
@@ -308,8 +308,8 @@ function BonusPanel() {
         <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.15em] text-accent">
           Ukázka hooku
         </p>
-        <p className="font-serif text-lg italic leading-relaxed text-white/80 lg:text-xl">
-          „Čtyři pokoje. Osmdesát metrů m². Jedna otázka — proč tady ještě nebydlíte?"
+        <p className="font-serif text-lg italic leading-relaxed text-white lg:text-xl">
+          „Čtyři pokoje. Osmdesát metrů. Jedna otázka: proč tady ještě nebydlíte?"
         </p>
       </div>
       <div className="mt-4 grid grid-cols-3 gap-3">
@@ -387,7 +387,7 @@ function PhotoCarousel() {
         </button>
       </div>
 
-      {/* Lightbox — full-size photo + prev/next */}
+      {/* Lightbox, full-size photo + prev/next */}
       <Lightbox
         isOpen={lightboxOpen}
         onClose={() => setLightboxOpen(false)}
@@ -555,7 +555,7 @@ export default function Solution() {
       className="bg-deep py-24 lg:py-32"
     >
       <div className="mx-auto w-full max-w-[1400px] px-6 lg:px-16">
-          {/* Section header — compact for sticky */}
+          {/* Section header, compact for sticky */}
           <div className="mb-3 flex items-center gap-6">
             <div className="editorial-line-light flex-1" />
           </div>
@@ -565,14 +565,14 @@ export default function Solution() {
               AI vizualizace. Video. Foto.
               {' '}<em className="text-accent">Vše, co potřebujete.</em>
             </h2>
-            <p className="mx-auto mt-4 text-[15px] leading-[1.85] text-white/60">
+            <p className="mx-auto mt-4 text-[15px] leading-[1.85] text-white">
               Žádné koordinování, žádný stres. Předáte mi klíče a{'\u00A0'}za{'\u00A0'}5{'\u00A0'}dnů dostanete kompletní podklady.
             </p>
           </div>
 
-          {/* Accordion + Visual layout — fills remaining space */}
+          {/* Accordion + Visual layout, fills remaining space */}
           <div className="grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-12">
-            {/* Left — Accordion */}
+            {/* Left, Accordion */}
             <div className="lg:col-span-5">
               <div className="space-y-0">
                 {services.map((service, index) => {
@@ -638,11 +638,11 @@ export default function Solution() {
                             transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
                             className="overflow-hidden"
                           >
-                            <p className="pb-5 pl-[3.75rem] pr-4 text-[15px] leading-[1.85] text-white/60">
+                            <p className="pb-5 pl-[3.75rem] pr-4 text-[15px] leading-[1.85] text-white">
                               {service.description}
                             </p>
 
-                            {/* Mobile visual — shown only on small screens */}
+                            {/* Mobile visual, shown only on small screens */}
                             <div className="mb-4 pl-[3.75rem] pr-4 lg:hidden">
                               <VisualPanel type={service.visual} />
                             </div>
@@ -661,7 +661,7 @@ export default function Solution() {
 
             </div>
 
-            {/* Right — Visual panel (desktop only)
+            {/* Right, Visual panel (desktop only)
                 All panels stay mounted so the video preloads immediately.
                 Visibility is controlled via opacity + pointer-events. */}
             <div className="relative hidden lg:col-span-7 min-h-[500px] lg:flex lg:items-center lg:justify-center">

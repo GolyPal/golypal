@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 const testimonials = [
   {
     quote:
-      'S Pavlem spolupracuji při prezentaci nemovitostí a jeho práci můžu jednoznačně doporučit. Díky jeho fotkám a videím mají naše zakázky výrazně lepší ohlas — videa dosahují vyšší sledovanosti a pomáhají oslovit širší publikum. Oceňuji hlavně jeho spolehlivost, rychlost a schopnost přicházet s vlastními nápady, které posouvají prezentaci nemovitostí na vyšší úroveň.',
+      'S Pavlem spolupracuji při prezentaci nemovitostí a jeho práci můžu jednoznačně doporučit. Díky jeho fotkám a videím mají naše zakázky výrazně lepší ohlas. Videa dosahují vyšší sledovanosti a pomáhají oslovit širší publikum. Oceňuji hlavně jeho spolehlivost, rychlost a schopnost přicházet s vlastními nápady, které posouvají prezentaci nemovitostí na vyšší úroveň.',
     name: 'Adam Kadlubiec',
     role: 'Realitní makléř, Gentleman Reality',
     initial: 'A',
@@ -18,7 +18,7 @@ const testimonials = [
   },
   {
     quote:
-      'S panem Golasowskim jsme realizovali focení našich firemních prostor. Díky jeho práci máme kvalitní vizuální materiály, které využíváme napříč marketingem — od webu po kampaně. Fotografie pomohly sjednotit naši prezentaci a posunout ji na úroveň, která odpovídá našemu postavení na trhu. Spolupráce byla profesionální a bezproblémová.',
+      'S panem Golasowskim jsme realizovali focení našich firemních prostor. Díky jeho práci máme kvalitní vizuální materiály, které využíváme napříč marketingem, od webu po kampaně. Fotografie pomohly sjednotit naši prezentaci a posunout ji na úroveň, která odpovídá našemu postavení na trhu. Spolupráce byla profesionální a bezproblémová.',
     name: 'Karireal\u00A0a.s.',
     role: 'Autorizovaný dealer Škoda a VW',
     initial: 'K',
@@ -80,7 +80,7 @@ function TestimonialCard({
         &ldquo;
       </span>
 
-      <blockquote className="flex-1 font-serif text-[15px] font-light italic leading-[1.75] text-white/80 lg:text-base">
+      <blockquote className="flex-1 font-serif text-[15px] font-light italic leading-[1.75] text-white lg:text-base">
         {t.quote}
       </blockquote>
 

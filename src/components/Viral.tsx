@@ -42,7 +42,7 @@ function useLoopCounter(max: number, durationMs: number = 10000) {
 export default function Viral() {
   const sectionRef = useRef<HTMLDivElement>(null)
 
-  // Responsive slide offset — on mobile cards stack below phone instead of sliding out.
+  // Responsive slide offset, on mobile cards stack below phone instead of sliding out.
   const [offset, setOffset] = useState(410)
   const [isMobile, setIsMobile] = useState(false)
 
@@ -114,7 +114,7 @@ export default function Viral() {
         </motion.div>
 
         {/* Phone + floating cards
-            Mobile (< sm): flex column — phone on top, cards in row below.
+            Mobile (< sm): flex column, phone on top, cards in row below.
             Desktop (sm+): absolute positioning, cards slide out from behind phone on scroll. */}
         <div className="relative mx-auto flex max-w-5xl flex-col items-center gap-8 sm:block sm:min-h-[600px]">
 
@@ -142,11 +142,11 @@ export default function Viral() {
             </div>
           </motion.div>
 
-          {/* Cards wrapper — on mobile it's a flex row; on desktop `contents` makes it
+          {/* Cards wrapper, on mobile it's a flex row; on desktop `contents` makes it
               disappear so the children can be absolutely positioned by the grandparent. */}
           <div className="flex w-full max-w-sm justify-center gap-3 sm:contents">
 
-            {/* Likes card — slides left on desktop, sits statically on mobile */}
+            {/* Likes card, slides left on desktop, sits statically on mobile */}
             <motion.div
               style={
                 isMobile
@@ -184,7 +184,7 @@ export default function Viral() {
               </div>
             </motion.div>
 
-            {/* Views card — slides right on desktop, sits statically on mobile */}
+            {/* Views card, slides right on desktop, sits statically on mobile */}
             <motion.div
               style={
                 isMobile

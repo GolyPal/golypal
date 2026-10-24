@@ -6,13 +6,13 @@ const painPoints = [
     number: '01',
     label: 'Nemovitost leží na trhu',
     description:
-      'Inzerát zapadne mezi stovky podobných. Prázdný byt, průměrné fotky z\u00A0mobilu — kupující scrollují dál. S\u00A0každým týdnem roste tlak na slevu.',
+      'Inzerát zapadne mezi stovky podobných. Prázdný byt, průměrné fotky z\u00A0mobilu. Kupující scrollují dál. S\u00A0každým týdnem roste tlak na slevu.',
   },
   {
     number: '02',
     label: 'Konkurence vás předbíhá',
     description:
-      'Ostatní makléři mají na sítích profesionální videa a\u00A0tisíce zhlédnutí. Vy nevíte jak na to — nebo nemáte čas to řešit.',
+      'Ostatní makléři mají na sítích profesionální videa a\u00A0tisíce zhlédnutí. Vy nevíte, jak na to, nebo nemáte čas to řešit.',
   },
   {
     number: '03',
@@ -24,7 +24,7 @@ const painPoints = [
     number: '04',
     label: 'Před kamerou to nejde',
     description:
-      'Ztuhnete, výsledek vypadá amatérsky a\u00A0poškozuje váš brand. Nevíte, co říct — a\u00A0přitom video je dnes to, co prodává.',
+      'Ztuhnete, výsledek vypadá amatérsky a\u00A0poškozuje váš brand. Nevíte, co říct. A\u00A0přitom video je dnes to, co prodává.',
   },
 ]
 
@@ -85,7 +85,7 @@ export default function Pain() {
 
   return (
     <section id="problem" className="relative overflow-hidden bg-deep py-24 lg:py-32">
-      {/* Subtle radial glow — hidden on mobile */}
+      {/* Subtle radial glow, hidden on mobile */}
       <div className="pointer-events-none absolute inset-0 hidden sm:block">
         <div className="absolute left-1/2 top-0 h-[600px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/[0.04] blur-[120px]" />
       </div>
@@ -113,7 +113,7 @@ export default function Pain() {
           <h2 className="font-serif text-[clamp(1.6rem,3.5vw,2.6rem)] font-medium leading-[1.05] tracking-[-0.01em] text-white">
             Poznáváte se?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-[1.85] text-white/50">
+          <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-[1.85] text-white">
             Fotíte na mobil, staging neřešíte a&nbsp;videa neděláte vůbec.
             Výsledek? Nemovitost leží na trhu, prodávající tlačí na slevu
             a&nbsp;provize klesá.
@@ -123,7 +123,7 @@ export default function Pain() {
         {/* ── MOBILE: horizontal snap scroll ── */}
         <div className="sm:hidden">
           {/*
-            No negative margins — scroll container stays within the section's
+            No negative margins, scroll container stays within the section's
             px-6 padding. Each card is w-full (= full container width) so
             exactly one card is visible per snap. No risk of page-level
             horizontal overflow on Safari.
@@ -143,7 +143,7 @@ export default function Pain() {
                 <h3 className="mb-3 font-serif text-xl font-semibold leading-tight text-white">
                   {point.label}
                 </h3>
-                <p className="leading-[1.75] text-white/45">{point.description}</p>
+                <p className="leading-[1.75] text-white">{point.description}</p>
               </div>
             ))}
           </div>
@@ -172,7 +172,7 @@ export default function Pain() {
               <h3 className="mb-3 font-serif text-xl font-semibold leading-tight text-white lg:text-2xl">
                 {point.label}
               </h3>
-              <p className="leading-[1.75] text-white/45">{point.description}</p>
+              <p className="leading-[1.75] text-white">{point.description}</p>
             </motion.div>
           ))}
         </div>
