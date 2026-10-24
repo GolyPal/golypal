@@ -1,6 +1,89 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Eye, Heart, ArrowDown } from 'lucide-react'
+import { Eye, Heart, ArrowDown, ChevronLeft, ChevronRight } from 'lucide-react'
+
+/* ── Pavel's top 3 reels shown in the phone ── */
+const phoneReels = [1, 2, 3].map((n) => ({
+  src: `/videos/top-${n}.mp4`,
+  poster: `/videos/top-${n}-poster.jpg`,
+}))
+
+/* Stories-style player: progress bars on top, auto-advance on end,
+   tap left/right half or use the arrows below to switch. */
+function PhoneReels() {
+  const [idx, setIdx] = useState(0)
+  const [progress, setProgress] = useState(0)
+  const total = phoneReels.length
+
+  const go = (next: number) => {
+    setProgress(0)
+    setIdx((next + total) % total)
+  }
+
+  return (
+    <>
+      <div className="relative overflow-hidden rounded-[2.5rem] border-[6px] border-neutral-900 bg-black shadow-[0_20px_60px_rgba(0,0,0,0.15)]">
+        <div className="absolute left-1/2 top-2 z-30 h-6 w-24 -translate-x-1/2 rounded-full bg-black" />
+
+        {/* Progress bars */}
+        <div className="absolute inset-x-4 top-10 z-30 flex gap-1.5">
+          {phoneReels.map((_, i) => (
+            <div key={i} className="h-[3px] flex-1 overflow-hidden rounded-full bg-white/30">
+              <div
+                className="h-full rounded-full bg-white"
+                style={{ width: i < idx ? '100%' : i === idx ? `${progress * 100}%` : '0%' }}
+              />
+            </div>
+          ))}
+        </div>
+
+        <div className="aspect-[9/19] w-full overflow-hidden bg-black">
+          <video
+            key={idx}
+            src={phoneReels[idx].src}
+            poster={phoneReels[idx].poster}
+            autoPlay
+            muted
+            playsInline
+            onTimeUpdate={(e) => {
+              const v = e.currentTarget
+              if (v.duration) setProgress(v.currentTime / v.duration)
+            }}
+            onEnded={() => go(idx + 1)}
+            className="h-full w-full object-cover"
+          />
+        </div>
+
+        {/* Tap zones: left half = previous, right half = next */}
+        <button type="button" aria-label="Předchozí video" onClick={() => go(idx - 1)} className="absolute inset-y-0 left-0 z-20 w-1/2 cursor-w-resize" />
+        <button type="button" aria-label="Další video" onClick={() => go(idx + 1)} className="absolute inset-y-0 right-0 z-20 w-1/2 cursor-e-resize" />
+      </div>
+
+      {/* Arrows + counter */}
+      <div className="mt-5 flex items-center justify-center gap-3 sm:absolute sm:inset-x-0 sm:top-full">
+        <button
+          type="button"
+          onClick={() => go(idx - 1)}
+          aria-label="Předchozí video"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-charcoal/15 text-charcoal/60 transition-colors hover:border-charcoal/40 hover:text-charcoal"
+        >
+          <ChevronLeft size={16} />
+        </button>
+        <span className="min-w-[44px] text-center text-[13px] font-medium text-charcoal">
+          {idx + 1} / {total}
+        </span>
+        <button
+          type="button"
+          onClick={() => go(idx + 1)}
+          aria-label="Další video"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-charcoal/15 text-charcoal/60 transition-colors hover:border-charcoal/40 hover:text-charcoal"
+        >
+          <ChevronRight size={16} />
+        </button>
+      </div>
+    </>
+  )
+}
 
 /* ── Animated counter hook ── */
 function useLoopCounter(max: number, durationMs: number = 10000) {
@@ -126,20 +209,7 @@ export default function Viral() {
             transition={{ duration: 0.9, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
             className="relative z-20 w-[240px] sm:absolute sm:left-1/2 sm:top-1/2 sm:w-[280px] sm:-translate-x-1/2 sm:-translate-y-1/2 lg:w-[320px]"
           >
-            <div className="relative overflow-hidden rounded-[2.5rem] border-[6px] border-neutral-900 bg-black shadow-[0_20px_60px_rgba(0,0,0,0.15)]">
-              <div className="absolute left-1/2 top-2 z-30 h-6 w-24 -translate-x-1/2 rounded-full bg-black" />
-              <div className="aspect-[9/19] w-full overflow-hidden bg-black">
-                <video
-                  src="/videos/uvodni_reel.mp4"
-                  poster="/videos/uvodni_reel-poster.jpg"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            </div>
+            <PhoneReels />
           </motion.div>
 
           {/* Cards wrapper, on mobile it's a flex row; on desktop `contents` makes it
@@ -231,7 +301,7 @@ export default function Viral() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8 }}
-          className="mt-16 flex flex-col items-center gap-3"
+          className="mt-16 flex flex-col items-center gap-3 sm:mt-36"
         >
           <button
             type="button"
