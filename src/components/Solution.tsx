@@ -588,7 +588,7 @@ export default function Solution() {
                         {/* Number */}
                         <span
                           className={`mt-1 font-serif text-sm transition-colors duration-300 ${
-                            isActive ? 'text-accent' : 'text-white/30'
+                            'text-white'
                           }`}
                         >
                           {service.number}
@@ -615,7 +615,7 @@ export default function Solution() {
                         <div className="flex-1 min-w-0">
                           <h3
                             className={`font-serif text-xl font-medium tracking-tight transition-colors duration-300 lg:text-2xl ${
-                              isActive ? 'text-white' : 'text-white/50 group-hover:text-white/70'
+                              isActive ? 'text-accent' : 'text-accent/50 group-hover:text-accent/80'
                             }`}
                           >
                             {service.title}

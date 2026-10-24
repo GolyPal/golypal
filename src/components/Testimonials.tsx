@@ -80,7 +80,7 @@ function TestimonialCard({
         &ldquo;
       </span>
 
-      <blockquote className="flex-1 font-serif text-[15px] font-light italic leading-[1.75] text-white lg:text-base">
+      <blockquote className="flex-1 text-[15px] leading-[1.8] text-white lg:text-[16px]">
         {t.quote}
       </blockquote>
 
