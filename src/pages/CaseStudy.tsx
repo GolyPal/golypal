@@ -303,7 +303,7 @@ export default function CaseStudy() {
           </div>
 
           <p className="mx-auto mt-12 max-w-2xl text-center font-serif text-[clamp(1.1rem,2vw,1.35rem)] italic leading-[1.6] text-white">
-            Přesně takhle funguje <K>osobní brand</K> v praxi: jedna úspěšná prezentace prodá nemovitost a zároveň makléři přivede dalšího klienta.
+            Přesně takhle funguje <K>osobní brand</K> v praxi: jedna úspěšná prezentace prodá nemovitost a zároveň makléři <K>přivede dalšího klienta</K>.
           </p>
         </div>
       </section>
@@ -322,7 +322,6 @@ export default function CaseStudy() {
                 Každý takový komentář znamenal <strong className="font-semibold text-charcoal">zájemce</strong>, kterému <strong className="font-semibold text-charcoal">automaticky odešly kompletní informace</strong> o domě. Pod komentáři vidíte i odpovědi. Ty za Adama poslala automatizace.
               </p>
 
-              {/* Draft written from Pavel's notes, must be approved by Adam before launch */}
               <figure className="mt-10 border-l-2 border-charcoal pl-6 lg:pl-8">
                 <blockquote className="font-serif text-[clamp(1.1rem,1.8vw,1.3rem)] italic leading-[1.7] text-charcoal">
                   „Na jedno video mi přišlo přes třicet poptávek a díky klíčovému slovu v komentářích jsem nikoho nemusel ručně obepisovat. Dům jsem prodal do měsíce, a když se kupující snažili smlouvat o slevě, měl jsem v ruce silné argumenty. A navíc se mi ze stejné obce ozvala další rodina, že chce prodávat přese mě.“
