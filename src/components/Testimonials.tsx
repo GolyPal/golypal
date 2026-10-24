@@ -11,6 +11,13 @@ const testimonials = [
   },
   {
     quote:
+      'S Pavlem spolupracuji zhruba čtyři měsíce. V realitách teprve začínám, takže jsem nečekal, že moje videa budou mít hned takový dosah. Už od prvního videa se ale dostávají k tisícům lidí. A hlavně: hned u prvního videa se mi ozval klient na pozemek, který dlouhé měsíce ležel ladem a nikdo o něj neměl zájem. Pavel přesně ví, jak nemovitost natočit, aby zaujala, a celé to vezme za mě od začátku do konce.',
+    name: 'Jindřich Raszyk',
+    role: 'Realitní makléř, BO Reality',
+    initial: 'J',
+  },
+  {
+    quote:
       'S Pavlem spolupracuji už několik let v rámci Slash PR a jeho práci můžu jednoznačně doporučit. V poslední době se podílí i na developerských projektech, kde efektivně využívá AI k oživení vizualizací a posouvá jejich prezentaci na výrazně vyšší úroveň. Díky tomu působí projekty realističtěji, atraktivněji a mají silnější dopad na klienty. Oceňuji také jeho spolehlivost a schopnost dodat kvalitní výsledek včas.',
     name: 'Markéta Dvořáčková',
     role: 'Managing Partner, Slash PR',
@@ -205,7 +212,13 @@ export default function Testimonials() {
         {/* ── DESKTOP: 2×2 grid, all cards visible at once ── */}
         <div className="hidden sm:grid sm:grid-cols-2 sm:gap-5 lg:gap-6">
           {testimonials.map((t, i) => (
-            <TestimonialCard key={t.name} t={t} delay={i * 0.1} />
+            // with an odd count the last card spans both columns so no card sits alone
+            <div
+              key={t.name}
+              className={testimonials.length % 2 === 1 && i === testimonials.length - 1 ? 'sm:col-span-2' : ''}
+            >
+              <TestimonialCard t={t} delay={i * 0.1} />
+            </div>
           ))}
         </div>
       </div>
