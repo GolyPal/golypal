@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Eye, Heart, ArrowDown, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Eye, Heart, ArrowDown, ChevronLeft, ChevronRight, Volume2, VolumeX } from 'lucide-react'
 
 /* ── Pavel's top 3 reels shown in the phone ── */
 const phoneReels = [1, 2, 3].map((n) => ({
@@ -9,10 +9,14 @@ const phoneReels = [1, 2, 3].map((n) => ({
 }))
 
 /* Stories-style player: progress bars on top, auto-advance on end,
-   tap left/right half or use the arrows below to switch. */
+   tap left/right half or use the arrows below to switch. Starts muted
+   (autoplay policy) with an unmute button; pauses when scrolled away. */
 function PhoneReels() {
   const [idx, setIdx] = useState(0)
   const [progress, setProgress] = useState(0)
+  const [muted, setMuted] = useState(true)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const wrapRef = useRef<HTMLDivElement>(null)
   const total = phoneReels.length
 
   const go = (next: number) => {
@@ -20,9 +24,31 @@ function PhoneReels() {
     setIdx((next + total) % total)
   }
 
+  const toggleMute = () => {
+    const v = videoRef.current
+    if (v) v.muted = !muted
+    setMuted((m) => !m)
+  }
+
+  useEffect(() => {
+    const el = wrapRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const v = videoRef.current
+        if (!v) return
+        if (entry.isIntersecting) v.play().catch(() => {})
+        else v.pause()
+      },
+      { threshold: 0.4 },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
-      <div className="relative overflow-hidden rounded-[2.5rem] border-[6px] border-neutral-900 bg-black shadow-[0_20px_60px_rgba(0,0,0,0.15)]">
+      <div ref={wrapRef} className="relative overflow-hidden rounded-[2.5rem] border-[6px] border-neutral-900 bg-black shadow-[0_20px_60px_rgba(0,0,0,0.15)]">
         <div className="absolute left-1/2 top-2 z-30 h-6 w-24 -translate-x-1/2 rounded-full bg-black" />
 
         {/* Progress bars */}
@@ -40,11 +66,13 @@ function PhoneReels() {
         <div className="aspect-[9/19] w-full overflow-hidden bg-black">
           <video
             key={idx}
+            ref={videoRef}
             src={phoneReels[idx].src}
             poster={phoneReels[idx].poster}
             autoPlay
-            muted
+            muted={muted}
             playsInline
+            onLoadedMetadata={(e) => { e.currentTarget.muted = muted }}
             onTimeUpdate={(e) => {
               const v = e.currentTarget
               if (v.duration) setProgress(v.currentTime / v.duration)
@@ -57,6 +85,15 @@ function PhoneReels() {
         {/* Tap zones: left half = previous, right half = next */}
         <button type="button" aria-label="Předchozí video" onClick={() => go(idx - 1)} className="absolute inset-y-0 left-0 z-20 w-1/2 cursor-w-resize" />
         <button type="button" aria-label="Další video" onClick={() => go(idx + 1)} className="absolute inset-y-0 right-0 z-20 w-1/2 cursor-e-resize" />
+
+        <button
+          type="button"
+          onClick={toggleMute}
+          aria-label={muted ? 'Zapnout zvuk' : 'Vypnout zvuk'}
+          className="absolute bottom-4 right-4 z-30 flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white/90 backdrop-blur-sm transition-colors hover:border-white/50 hover:bg-black/60"
+        >
+          {muted ? <VolumeX size={17} /> : <Volume2 size={17} />}
+        </button>
       </div>
 
       {/* Arrows + counter */}
