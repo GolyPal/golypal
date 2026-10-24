@@ -6,7 +6,7 @@ const testimonials = [
     quote:
       'S Pavlem spolupracuji při prezentaci nemovitostí a jeho práci můžu jednoznačně doporučit. Díky jeho fotkám a videím mají naše zakázky výrazně lepší ohlas. Videa dosahují vyšší sledovanosti a pomáhají oslovit širší publikum. Oceňuji hlavně jeho spolehlivost, rychlost a schopnost přicházet s vlastními nápady, které posouvají prezentaci nemovitostí na vyšší úroveň.',
     name: 'Adam Kadlubiec',
-    role: 'Realitní makléř, Gentleman Reality',
+    role: 'Realitní makléř, Gentlemen Reality',
     initial: 'A',
   },
   {
