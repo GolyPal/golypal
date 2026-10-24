@@ -25,13 +25,6 @@ const testimonials = [
   },
   {
     quote:
-      'S panem Golasowskim jsme realizovali focení našich firemních prostor. Díky jeho práci máme kvalitní vizuální materiály, které využíváme napříč marketingem, od webu po kampaně. Fotografie pomohly sjednotit naši prezentaci a posunout ji na úroveň, která odpovídá našemu postavení na trhu. Spolupráce byla profesionální a bezproblémová.',
-    name: 'Karireal\u00A0a.s.',
-    role: 'Autorizovaný dealer Škoda a VW',
-    initial: 'K',
-  },
-  {
-    quote:
       'Spolupráce s Pavlem byla perfektní. Profi chování na místě a všechny následné požadavky na finální úpravy rychle a ochotně zapracovával. U nás i u klienta naprostá spokojenost.',
     name: 'Ondřej Kaloud',
     role: 'Social Media Manager',
