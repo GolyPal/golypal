@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion'
-import { Eye, Heart, MessageCircle, Repeat, Send, ArrowDown, ChevronLeft, ChevronRight, Volume2, VolumeX, type LucideIcon } from 'lucide-react'
+import { Eye, Heart, MessageCircle, Repeat, Send, TrendingUp, ArrowDown, ChevronLeft, ChevronRight, Volume2, VolumeX, type LucideIcon } from 'lucide-react'
 
 /* ── Pavel's top 3 reels shown in the phone ── */
 const phoneReels = [1, 2, 3].map((n) => ({
@@ -165,6 +165,80 @@ function useLoopCounter(max: number, durationMs: number = 10000) {
   return { value, popped }
 }
 
+/* ── Likes / Views card, styled like Instagram Insights ──
+   A week of bars (Po–Ne) grows upwards one after another as the number
+   counts up; once it lands, a trend chip pops in the corner. Both cards
+   share this component, so they are always the same size. */
+const WEEK = [0.22, 0.3, 0.26, 0.42, 0.55, 0.72, 1]
+
+function InsightsCard({
+  icon: Icon,
+  label,
+  value,
+  max,
+  popped,
+  growth,
+  filled = false,
+}: {
+  icon: LucideIcon
+  label: string
+  value: number
+  max: number
+  popped: boolean
+  growth: string
+  filled?: boolean
+}) {
+  const p = value / max
+  const done = value >= max
+  return (
+    <div
+      className="flex w-full flex-col rounded-2xl bg-brand p-4 shadow-[0_8px_32px_color-mix(in_srgb,var(--color-on-brand)_18%,transparent)] transition-transform duration-300 sm:h-[224px] sm:w-[240px] sm:px-6 sm:pb-5 sm:pt-6"
+      style={{ transform: popped ? 'scale(1.12)' : 'scale(1)' }}
+    >
+      <div className="mb-2 flex items-start justify-between gap-2 sm:mb-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-on-brand/10 sm:h-10 sm:w-10">
+            <Icon
+              size={16}
+              className={`text-on-brand transition-transform duration-300 sm:size-[18px] ${filled ? 'fill-on-brand' : ''} ${popped ? 'scale-125' : 'scale-100'}`}
+            />
+          </div>
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-on-brand/80 sm:text-xs">{label}</p>
+        </div>
+        <span
+          className={`hidden items-center gap-1 rounded-full bg-on-brand px-2 py-0.5 text-[11px] font-semibold text-brand transition-[opacity,scale] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] sm:inline-flex ${
+            done ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
+          }`}
+        >
+          <TrendingUp size={11} strokeWidth={2.5} />
+          {growth}
+        </span>
+      </div>
+      <p className="font-serif text-2xl font-bold tracking-tight text-on-brand sm:text-4xl">
+        {value.toLocaleString('cs-CZ')}
+      </p>
+      {/* each bar starts once the one before it is done, so the week fills left to right */}
+      <div className="mt-3 flex h-8 items-end gap-1 sm:mt-auto sm:h-12 sm:gap-1.5">
+        {WEEK.map((h, i) => {
+          const grow = Math.max(0, Math.min(1, (p - i / WEEK.length) * WEEK.length))
+          return (
+            <div key={i} className="flex h-full flex-1 items-end rounded-[3px] bg-on-brand/10">
+              <div
+                className={`w-full rounded-[3px] ${i === WEEK.length - 1 ? 'bg-on-brand' : 'bg-on-brand/45'}`}
+                style={{ height: `${h * grow * 100}%` }}
+              />
+            </div>
+          )
+        })}
+      </div>
+      <div className="mt-1.5 flex justify-between text-[10px] font-medium text-on-brand/75">
+        <span>Po</span>
+        <span>Ne</span>
+      </div>
+    </div>
+  )
+}
+
 /* ── Background scatter of faint Instagram action icons ──
    Purely decorative, behind the Likes/Views cards: small, 25 % opacity,
    flying out from behind the phone together with the cards. x / y are the
@@ -267,8 +341,6 @@ export default function Viral() {
   const { value: likes, popped: likesPopped } = useLoopCounter(1000, 5000)
   const { value: views, popped: viewsPopped } = useLoopCounter(100000, 5000)
 
-  const likesProgress = likes / 1000
-  const viewsProgress = views / 100000
 
 
   return (
@@ -343,29 +415,15 @@ export default function Viral() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="flex-1 sm:flex-none sm:absolute sm:left-1/2 sm:top-[38%] sm:z-10 sm:-ml-[10px] sm:-translate-y-1/2"
             >
-              <div
-                className="w-full overflow-hidden rounded-2xl bg-brand p-4 shadow-[0_8px_32px_color-mix(in_srgb,var(--color-on-brand)_18%,transparent)] transition-transform duration-300 sm:w-[220px] sm:px-7 sm:py-6"
-                style={{ transform: likesPopped ? 'scale(1.12)' : 'scale(1)' }}
-              >
-                <div className="mb-2 flex items-center gap-2 sm:mb-3 sm:gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-on-brand/10 sm:h-10 sm:w-10">
-                    <Heart
-                      size={16}
-                      className={`fill-on-brand text-on-brand transition-transform duration-300 sm:size-[18px] ${likesPopped ? 'scale-125' : 'scale-100'}`}
-                    />
-                  </div>
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-on-brand/80 sm:text-xs">Likes</p>
-                </div>
-                <p className={`font-serif text-2xl font-bold tracking-tight transition-colors duration-300 sm:text-4xl text-on-brand`}>
-                  {likes.toLocaleString('cs-CZ')}
-                </p>
-                <div className="mt-2 h-[3px] w-full overflow-hidden rounded-full bg-on-brand/15 sm:mt-3">
-                  <div
-                    className={`h-full rounded-full transition-none bg-on-brand`}
-                    style={{ width: `${likesProgress * 100}%` }}
-                  />
-                </div>
-              </div>
+              <InsightsCard
+                icon={Heart}
+                label="Likes"
+                value={likes}
+                max={1000}
+                popped={likesPopped}
+                growth="+312 %"
+                filled
+              />
             </motion.div>
 
             {/* Views card, slides right on desktop, sits statically on mobile */}
@@ -381,29 +439,14 @@ export default function Viral() {
               transition={{ duration: 0.6, delay: 0.35 }}
               className="flex-1 sm:flex-none sm:absolute sm:right-1/2 sm:top-[38%] sm:z-10 sm:-mr-[10px] sm:-translate-y-1/2"
             >
-              <div
-                className="w-full overflow-hidden rounded-2xl bg-brand p-4 shadow-[0_8px_32px_color-mix(in_srgb,var(--color-on-brand)_18%,transparent)] transition-transform duration-300 sm:w-[220px] sm:px-7 sm:py-6"
-                style={{ transform: viewsPopped ? 'scale(1.12)' : 'scale(1)' }}
-              >
-                <div className="mb-2 flex items-center gap-2 sm:mb-3 sm:gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-on-brand/10 sm:h-10 sm:w-10">
-                    <Eye
-                      size={16}
-                      className={`text-on-brand transition-transform duration-300 sm:size-[18px] ${viewsPopped ? 'scale-125' : 'scale-100'}`}
-                    />
-                  </div>
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-on-brand/80 sm:text-xs">Views</p>
-                </div>
-                <p className={`font-serif text-2xl font-bold tracking-tight transition-colors duration-300 sm:text-4xl text-on-brand`}>
-                  {views.toLocaleString('cs-CZ')}
-                </p>
-                <div className="mt-2 h-[3px] w-full overflow-hidden rounded-full bg-on-brand/15 sm:mt-3">
-                  <div
-                    className={`h-full rounded-full transition-none bg-on-brand`}
-                    style={{ width: `${viewsProgress * 100}%` }}
-                  />
-                </div>
-              </div>
+              <InsightsCard
+                icon={Eye}
+                label="Views"
+                value={views}
+                max={100000}
+                popped={viewsPopped}
+                growth="+548 %"
+              />
             </motion.div>
 
           </div>
