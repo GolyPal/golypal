@@ -191,6 +191,8 @@ export default function Viral() {
     offset: ['start end', 'end start'],
   })
 
+  // The slide-out is tied to scroll, so the visitor drives it; it stays on
+  // even with "reduce motion" (Pavel wants it). Only the counting loop stops.
   // Both cards use identical timing so they slide out in perfect sync
   // Animation completes before phone reaches center (~0.42 scroll progress)
   const likesX = useTransform(scrollYProgress, [0.28, 0.42], [0, -offset])
@@ -267,9 +269,7 @@ export default function Viral() {
               style={
                 isMobile
                   ? undefined
-                  : reduceMotion
-                    ? { x: -offset, rotate: -6 }
-                    : { x: likesX, opacity: likesOpacity, rotate: likesRotate }
+                  : { x: likesX, opacity: likesOpacity, rotate: likesRotate }
               }
               initial={isMobile ? { opacity: 0, y: 20 } : undefined}
               whileInView={isMobile ? { opacity: 1, y: 0 } : undefined}
@@ -307,9 +307,7 @@ export default function Viral() {
               style={
                 isMobile
                   ? undefined
-                  : reduceMotion
-                    ? { x: offset, rotate: 6 }
-                    : { x: viewsX, opacity: viewsOpacity, rotate: viewsRotate }
+                  : { x: viewsX, opacity: viewsOpacity, rotate: viewsRotate }
               }
               initial={isMobile ? { opacity: 0, y: 20 } : undefined}
               whileInView={isMobile ? { opacity: 1, y: 0 } : undefined}
