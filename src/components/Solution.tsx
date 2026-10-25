@@ -127,11 +127,11 @@ function BeforeAfterSlider({
 
 /* ── AI Showcase Carousel ── */
 const aiShowcases = [
-  { type: 'slider' as const, before: '/images/ai-pred.jpg', after: '/images/ai-po.jpg', label: 'AI staging interiéru' },
+  { type: 'slider' as const, before: '/images/ai-pred.webp', after: '/images/ai-po.webp', label: 'AI staging interiéru' },
   { type: 'video' as const, src: '/videos/hero.mp4', label: 'AI vizualizace prostoru' },
-  { type: 'slider' as const, before: '/images/ai-pred-2.jpg', after: '/images/ai-po-2.jpg', label: 'AI redesign interiéru' },
+  { type: 'slider' as const, before: '/images/ai-pred-2.webp', after: '/images/ai-po-2.webp', label: 'AI redesign interiéru' },
   { type: 'video' as const, src: '/videos/ai-vizualizace.mp4', label: 'AI vizualizace prostoru' },
-  { type: 'slider' as const, before: '/images/ai-pred-3.jpg', after: '/images/ai-po-3.jpg', label: 'AI staging interiéru' },
+  { type: 'slider' as const, before: '/images/ai-pred-3.webp', after: '/images/ai-po-3.webp', label: 'AI staging interiéru' },
 ]
 
 function AICarousel() {
@@ -303,9 +303,9 @@ const services = [
 
 /* ── Bonus panel: hook example + reels covers ── */
 const covers = [
-  { img: '/images/cover-1.jpg', alt: 'Reels cover: byt 3+1, Ostrava, ul. Nádražní' },
-  { img: '/images/cover-2.jpg', alt: 'Reels cover: byt 3+1, Český Těšín, ul. Čapková' },
-  { img: '/images/cover-3.jpg', alt: 'Reels cover: rodinný dům 2×2+1, Dolní Lomná' },
+  { img: '/images/cover-1.webp', alt: 'Reels cover: byt 3+1, Ostrava, ul. Nádražní' },
+  { img: '/images/cover-2.webp', alt: 'Reels cover: byt 3+1, Český Těšín, ul. Čapková' },
+  { img: '/images/cover-3.webp', alt: 'Reels cover: rodinný dům 2×2+1, Dolní Lomná' },
 ]
 
 function BonusPanel() {
@@ -338,11 +338,11 @@ function BonusPanel() {
 
 /* ── Photo Carousel ── */
 const photos = [
-  { src: '/images/foto-sluzba-3.jpg', label: 'Profesionální fotografie' },
-  { src: '/images/foto-sluzba-4.jpg', label: 'Profesionální fotografie' },
-  { src: '/images/foto-sluzba-5.jpg', label: 'Profesionální fotografie' },
-  { src: '/images/foto-sluzba-6.jpg', label: 'Profesionální fotografie' },
-  { src: '/images/foto-sluzba-2.jpg', label: 'Exteriérová fotografie' },
+  { src: '/images/foto-sluzba-3.webp', label: 'Profesionální fotografie' },
+  { src: '/images/foto-sluzba-4.webp', label: 'Profesionální fotografie' },
+  { src: '/images/foto-sluzba-5.webp', label: 'Profesionální fotografie' },
+  { src: '/images/foto-sluzba-6.webp', label: 'Profesionální fotografie' },
+  { src: '/images/foto-sluzba-2.webp', label: 'Exteriérová fotografie' },
 ]
 
 function PhotoCarousel() {

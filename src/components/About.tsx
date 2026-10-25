@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion'
+import { Mail, Phone } from 'lucide-react'
+import { InstagramIcon, LinkedInIcon } from './SocialIcons'
 
 export default function About() {
   return (
@@ -26,7 +28,7 @@ export default function About() {
           >
             <div className="relative overflow-hidden rounded-2xl">
               <img
-                src="/images/pavel.jpg"
+                src="/images/pavel.webp"
                 alt="Pavel Golasowski s fotoaparátem"
                 loading="lazy"
                 className="aspect-[3/4] w-full object-cover"
@@ -64,6 +66,29 @@ export default function About() {
                 A&nbsp;můj úkol je vyprávět ho tak, aby se prodal.
               </p>
             </div>
+
+            {/* Direct contact, so nobody has to scroll to the footer */}
+            <ul className="mt-10 grid gap-3 border-t border-charcoal/10 pt-8 sm:grid-cols-2">
+              {[
+                { href: 'mailto:info@golasvisuals.com', label: 'info@golasvisuals.com', icon: <Mail size={17} strokeWidth={1.75} /> },
+                { href: 'tel:+420737248144', label: '+420 737 248 144', icon: <Phone size={17} strokeWidth={1.75} /> },
+                { href: 'https://www.instagram.com/golypal/', label: 'Instagram', icon: <InstagramIcon size={17} />, external: true },
+                { href: 'https://www.linkedin.com/in/pavel-golasowski-b11889136/', label: 'LinkedIn', icon: <LinkedInIcon size={17} />, external: true },
+              ].map((c) => (
+                <li key={c.href}>
+                  <a
+                    href={c.href}
+                    {...(c.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    className="group inline-flex items-center gap-3 text-[15px] font-medium text-charcoal transition-colors hover:text-accent"
+                  >
+                    <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full border border-charcoal/15 transition-colors group-hover:border-accent/50">
+                      {c.icon}
+                    </span>
+                    {c.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
 
           </motion.div>
         </div>

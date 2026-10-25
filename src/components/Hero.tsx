@@ -22,13 +22,9 @@ function Tile({ className = '', delay, children }: { className?: string; delay: 
   )
 }
 
-function Chip({ children, lime = false }: { children: ReactNode; lime?: boolean }) {
+function Chip({ children }: { children: ReactNode }) {
   return (
-    <span
-      className={`absolute left-3 top-3 rounded-full px-2.5 py-1 text-[11px] font-medium ${
-        lime ? 'bg-brand font-semibold text-on-brand' : 'bg-black/50 text-white backdrop-blur-sm'
-      }`}
-    >
+    <span className="absolute left-3 top-3 rounded-full bg-brand px-2.5 py-1 text-[11px] font-semibold text-on-brand">
       {children}
     </span>
   )
@@ -74,7 +70,8 @@ export default function Hero() {
         {/* Same padding on all four sides; the content sets the height */}
         <div className="mx-auto grid max-w-[1400px] items-center gap-10 p-6 sm:p-10 lg:grid-cols-12 lg:gap-12 lg:p-14">
           {/* Copy */}
-          <div className="flex flex-col gap-6 lg:col-span-5">
+          {/* Phones (copy only, no bento): centred. Tablet and up: left-aligned */}
+          <div className="flex flex-col items-center gap-6 text-center md:items-start md:text-left lg:col-span-5">
             <span className="inline-flex w-fit items-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-4 py-2 text-[13px] font-medium tracking-wide text-white/90 sm:rounded-full">
               <span className="inline-block h-1.5 w-1.5 flex-none rounded-full bg-accent" />
               <span>
@@ -92,8 +89,12 @@ export default function Hero() {
 
             <ul className="grid gap-2.5 text-[14px] leading-snug text-white lg:text-[15px]">
               {bullets.map(({ Icon, title, text }) => (
-                <li key={title} className="flex gap-2.5">
-                  <Icon size={15} strokeWidth={1.5} className="mt-[3px] flex-none text-white" />
+                <li key={title} className="md:flex md:gap-2.5">
+                  <Icon
+                    size={15}
+                    strokeWidth={1.5}
+                    className="mr-2 inline-block flex-none -translate-y-px text-white md:mr-0 md:mt-[3px] md:translate-y-0"
+                  />
                   <span>
                     <span className="font-semibold text-accent">{title}</span>: {text}
                   </span>
@@ -101,7 +102,7 @@ export default function Hero() {
               ))}
             </ul>
 
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-1">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 pt-1 md:justify-start">
               <button
                 type="button"
                 onClick={openConsult}
@@ -125,7 +126,7 @@ export default function Hero() {
               <Chip>Reel</Chip>
             </Tile>
             <Tile className="col-span-2" delay={60}>
-              <img src="/images/foto-sluzba-3.jpg" alt="Profesionální fotografie kuchyně" fetchPriority="high" className="h-full w-full object-cover" />
+              <img src="/images/foto-sluzba-3.webp" alt="Profesionální fotografie kuchyně" fetchPriority="high" className="h-full w-full object-cover" />
               <Chip>Foto</Chip>
             </Tile>
             <Tile className="bg-brand" delay={120}>
@@ -138,8 +139,8 @@ export default function Hero() {
               </div>
             </Tile>
             <Tile className="col-span-2" delay={180}>
-              <img src="/images/ai-po.jpg" alt="AI vizualizace zařízeného obývacího pokoje" className="h-full w-full object-cover" />
-              <Chip lime>AI vizualizace</Chip>
+              <img src="/images/ai-po.webp" alt="AI vizualizace zařízeného obývacího pokoje" className="h-full w-full object-cover" />
+              <Chip>AI vizualizace</Chip>
             </Tile>
             <Tile className="row-span-2 bg-black" delay={240}>
               <HeroReel src="/videos/Reel-2.mp4" label="Ukázka reelu z Dynamických videí" />
@@ -155,7 +156,7 @@ export default function Hero() {
               </div>
             </Tile>
             <Tile className="col-span-2" delay={360}>
-              <img src="/images/foto-sluzba-5.jpg" alt="Fotografie obývacího pokoje" className="h-full w-full object-cover" />
+              <img src="/images/foto-sluzba-5.webp" alt="Fotografie obývacího pokoje" className="h-full w-full object-cover" />
               <Chip>Foto</Chip>
             </Tile>
           </div>

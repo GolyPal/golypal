@@ -6,17 +6,6 @@ export default function FinalCTA() {
   const { open: openConsult } = useConsultForm()
   return (
     <section id="konzultace" className="relative overflow-hidden bg-charcoal py-24 lg:py-32">
-      {/* Background image */}
-      <div className="absolute inset-0">
-        <img
-          src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?auto=format&fit=crop&w=2000&q=80"
-          alt=""
-          className="h-full w-full object-cover opacity-10"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-charcoal via-charcoal/95 to-charcoal/80" />
-      </div>
-
       <div className="relative mx-auto max-w-[1400px] px-6 lg:px-16">
         {/* Editorial section header */}
         <motion.div

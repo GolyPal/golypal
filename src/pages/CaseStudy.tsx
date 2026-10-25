@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { useConsultForm } from '../context/ConsultFormContext'
+import { usePageMeta } from '../hooks/usePageMeta'
 
 /* Phone reel with sound toggle. Autoplays muted (browser policy); the
    button lets visitors unmute. Pauses when scrolled out of view so the
@@ -73,6 +74,12 @@ function K({ children }: { children: ReactNode }) {
 
 export default function CaseStudy() {
   const { open: openConsult } = useConsultForm()
+  usePageMeta({
+    title: 'Případová studie: dům prodaný přes sociální sítě do 30 dnů | Pavel Golasowski',
+    description:
+      'Jeden reel, 28 300 zhlédnutí a přes 30 poptávek. Jak video pro dvougenerační dům v Mostech u Jablunkova pomohlo prodat nemovitost do 30 dnů.',
+    path: '/pripadova-studie',
+  })
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -154,7 +161,7 @@ export default function CaseStudy() {
 
           <div className="mx-auto max-w-[960px] overflow-hidden rounded-2xl border border-charcoal/10 shadow-[0_12px_40px_rgba(0,0,0,0.08)]">
             <img
-              src="/images/mosty-pozemek.jpg"
+              src="/images/mosty-pozemek.webp"
               alt="Letecký snímek nemovitosti v Mostech u Jablunkova s vyznačeným rodinným domem 7+2, garáží a pozemkem 1 271 m²"
               loading="lazy"
               className="block w-full"
@@ -335,7 +342,7 @@ export default function CaseStudy() {
             <div className="lg:col-span-5">
               <figure className="mx-auto max-w-[360px]">
                 <img
-                  src="/images/mosty-komentare.jpg"
+                  src="/images/mosty-komentare.webp"
                   alt="Komentáře pod videem: lidé píšou „Mosty“ a dostávají automatickou odpověď"
                   loading="lazy"
                   className="w-full rounded-xl border border-charcoal/10 shadow-[0_12px_40px_rgba(0,0,0,0.08)]"

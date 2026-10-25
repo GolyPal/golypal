@@ -120,6 +120,12 @@ export default function PrivacyPolicyModal() {
                       doložek (SCC). Vaše údaje nepředávám žádné jiné třetí straně ani
                       je nevyužívám k marketingovým účelům.
                     </p>
+                    <p className="mt-3">
+                      Web běží na hostingu společnosti Vercel Inc. (USA), která při
+                      zobrazení stránek zpracovává technické údaje (IP adresu, typ
+                      prohlížeče, čas přístupu) v provozních záznamech serveru, a to
+                      rovněž na základě standardních smluvních doložek (SCC).
+                    </p>
                   </section>
 
                   <section>
@@ -176,16 +182,14 @@ export default function PrivacyPolicyModal() {
                       Soubory cookies
                     </h3>
                     <p>
-                      Tento web nepoužívá analytické ani sledovací cookies. Technické
-                      soubory cookies nezbytné pro správné zobrazení webu (např. fonty
-                      načítané ze serverů Google) mohou přenášet IP adresu návštěvníka
-                      na servery třetí strany. Tyto přenosy se řídí zásadami ochrany
-                      soukromí Google.
+                      Tento web nepoužívá žádné cookies, analytické ani sledovací nástroje.
+                      Písma, fotografie i videa se načítají přímo z tohoto webu, ne ze
+                      serverů třetích stran.
                     </p>
                   </section>
 
-                  <p className="text-[12px] text-warm-gray/60">
-                    Tyto zásady jsou účinné od 22. 4. 2026.
+                  <p className="text-[12px] text-warm-gray">
+                    Tyto zásady jsou účinné od 25. 10. 2026.
                   </p>
                 </div>
               </div>
