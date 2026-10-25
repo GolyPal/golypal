@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion'
-import { Eye, Heart, MessageCircle, Repeat, Send, TrendingUp, ArrowDown, ChevronLeft, ChevronRight, Volume2, VolumeX, type LucideIcon } from 'lucide-react'
+import { Eye, Heart, MessageCircle, Repeat, Send, TrendingUp, ChevronLeft, ChevronRight, Volume2, VolumeX, type LucideIcon } from 'lucide-react'
 
 /* ── Pavel's top 3 reels shown in the phone ── */
 const phoneReels = [1, 2, 3].map((n) => ({
@@ -490,23 +490,8 @@ export default function Viral() {
           </div>
         </div>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8 }}
-          className="mt-16 flex flex-col items-center gap-3 sm:mt-36"
-        >
-          <button
-            type="button"
-            onClick={() => document.getElementById('konzultace')?.scrollIntoView({ behavior: 'smooth' })}
-            className="group inline-flex items-center gap-3 rounded-full bg-cta px-8 py-4 text-sm font-semibold tracking-wide text-on-cta shadow-[0_8px_32px_color-mix(in_srgb,var(--color-cta)_30%,transparent)] transition-all duration-300 hover:bg-cta/90 hover:shadow-[0_12px_40px_color-mix(in_srgb,var(--color-cta)_45%,transparent)] hover:scale-[1.02]"
-          >
-            Mám zájem spolupracovat
-            <ArrowDown size={15} className="transition-transform duration-300 group-hover:translate-y-0.5" />
-          </button>
-        </motion.div>
+        {/* Room for the phone's arrows, which hang below the stage on sm+ */}
+        <div aria-hidden="true" className="hidden sm:block sm:h-24" />
 
       </div>
     </section>

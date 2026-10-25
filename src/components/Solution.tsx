@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Camera, Video, Wand2, Gift, ChevronLeft, ChevronRight, Maximize2, Volume2, VolumeX } from 'lucide-react'
+import { Camera, Video, Wand2, Gift, ChevronLeft, ChevronRight, Maximize2, Volume2, VolumeX, ArrowRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import Lightbox from './Lightbox'
 import { useMediaQuery } from '../hooks/useMediaQuery'
 
@@ -686,6 +687,19 @@ export default function Solution() {
                 })}
               </div>
 
+              {/* Proof right under the services: the case study */}
+              <div className="mt-8 border-t border-white/10 pt-8">
+                <p className="text-[15px] leading-[1.7] text-white">
+                  Jak jeden reel pomohl prodat dům v&nbsp;Mostech u&nbsp;Jablunkova do&nbsp;30&nbsp;dnů?
+                </p>
+                <Link
+                  to="/pripadova-studie"
+                  className="group mt-4 inline-flex items-center gap-3 rounded-full border border-accent/50 px-6 py-3 text-sm font-semibold text-accent transition-[background-color,border-color,scale] duration-200 hover:border-accent hover:bg-accent/10 active:scale-[0.97]"
+                >
+                  Přečíst případovou studii
+                  <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+                </Link>
+              </div>
             </div>
 
             {/* Right, Visual panel (desktop only)

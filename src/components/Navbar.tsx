@@ -1,6 +1,6 @@
 import { useState, useEffect, type ReactNode } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Mail, Menu, Phone, X } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import { useConsultForm } from '../context/ConsultFormContext'
 import Logo from './Logo'
@@ -145,6 +145,24 @@ export default function Navbar() {
               >
                 Konzultace zdarma
               </button>
+
+              {/* Direct contact under a light divider */}
+              <div className="mt-6 flex flex-col gap-1 border-t border-charcoal/10 pt-5">
+                <a
+                  href="mailto:info@golasvisuals.com"
+                  className="flex items-center gap-3 rounded-lg px-4 py-2.5 text-[15px] text-warm-gray transition-colors hover:text-charcoal"
+                >
+                  <Mail size={17} strokeWidth={1.75} />
+                  info@golasvisuals.com
+                </a>
+                <a
+                  href="tel:+420737248144"
+                  className="flex items-center gap-3 rounded-lg px-4 py-2.5 text-[15px] text-warm-gray transition-colors hover:text-charcoal"
+                >
+                  <Phone size={17} strokeWidth={1.75} />
+                  +420 737 248 144
+                </a>
+              </div>
             </div>
           </motion.div>
         )}

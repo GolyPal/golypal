@@ -51,6 +51,14 @@ export default function Footer() {
                     </SectionLink>
                   </li>
                 ))}
+                <li>
+                  <Link
+                    to="/pripadova-studie"
+                    className="text-sm text-warm-gray transition-colors hover:text-charcoal"
+                  >
+                    Případová studie
+                  </Link>
+                </li>
               </ul>
             </div>
 

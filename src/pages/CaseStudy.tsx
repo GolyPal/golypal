@@ -75,7 +75,7 @@ function K({ children }: { children: ReactNode }) {
 export default function CaseStudy() {
   const { open: openConsult } = useConsultForm()
   usePageMeta({
-    title: 'Případová studie: dům prodaný přes sociální sítě do 30 dnů | Pavel Golasowski',
+    title: 'Případová studie: dům prodaný přes sociální sítě do 30 dnů | GolasVisuals',
     description:
       'Jeden reel, 28 300 zhlédnutí a přes 30 poptávek. Jak video pro dvougenerační dům v Mostech u Jablunkova pomohlo prodat nemovitost do 30 dnů.',
     path: '/pripadova-studie',
