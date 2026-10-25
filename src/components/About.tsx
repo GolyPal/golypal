@@ -56,7 +56,7 @@ export default function About() {
               <p>
                 Rozumím tomu, co makléř potřebuje: rychlost, spolehlivost
                 a&nbsp;materiály, které rovnou fungují. Proto dodávám do
-                5&nbsp;dnů, komunikuji jasně a&nbsp;držím se dohodnutých
+                7&nbsp;dnů, komunikuji jasně a&nbsp;držím se dohodnutých
                 termínů.
               </p>
               <p>
