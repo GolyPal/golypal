@@ -266,6 +266,43 @@ const scatter: ScatterIcon[] = [
   { icon: Send, value: '519', x: 445, y: 320, rotate: 11, size: 24 },
 ]
 
+/* Phones: a smaller set in the gutters beside the phone. They spread out
+   from behind it once, when the phone comes into view. x / y are from the
+   phone's centre (the 240 px phone is ~518 px tall). */
+const scatterMobile: ScatterIcon[] = [
+  { icon: Heart, value: '2 431', x: -150, y: -200, rotate: -10, size: 22 },
+  { icon: Send, value: '864', x: -148, y: -70, rotate: 7, size: 18 },
+  { icon: MessageCircle, value: '317', x: -152, y: 65, rotate: -6, size: 19, flip: true },
+  { icon: Repeat, value: '1 205', x: -148, y: 195, rotate: 8, size: 19 },
+  { icon: Heart, value: '18 400', x: 150, y: -150, rotate: 9, size: 22 },
+  { icon: Repeat, value: '742', x: 148, y: -20, rotate: -7, size: 18 },
+  { icon: Send, value: '3 250', x: 152, y: 110, rotate: 6, size: 19 },
+  { icon: MessageCircle, value: '96', x: 148, y: 225, rotate: -9, size: 18, flip: true },
+]
+
+function MobileScatter() {
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-[259px] -z-10 sm:hidden">
+      {scatterMobile.map((item, i) => {
+        const Icon = item.icon
+        return (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, x: 0, y: 0, rotate: 0 }}
+            whileInView={{ opacity: 0.25, x: item.x, y: item.y, rotate: item.rotate }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.9, delay: 0.3 + i * 0.04, ease: [0.23, 1, 0.32, 1] }}
+            className="absolute left-0 top-0 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-0.5 text-charcoal"
+          >
+            <Icon size={item.size} strokeWidth={1.75} className={item.flip ? '-scale-x-100' : undefined} />
+            <span className="whitespace-nowrap text-[10px] font-semibold tabular-nums">{item.value}</span>
+          </motion.div>
+        )
+      })}
+    </div>
+  )
+}
+
 function ScatteredIcon({
   item,
   index,
@@ -297,7 +334,7 @@ function ScatteredIcon({
         strokeWidth={1.75}
         className={item.flip ? '-scale-x-100' : undefined}
       />
-      <span className="text-[11px] font-semibold tabular-nums lg:text-xs">{item.value}</span>
+      <span className="whitespace-nowrap text-[11px] font-semibold tabular-nums lg:text-xs">{item.value}</span>
     </motion.div>
   )
 }
@@ -390,6 +427,7 @@ export default function Viral() {
             className="relative z-20 w-[240px] sm:absolute sm:left-1/2 sm:top-1/2 sm:w-[280px] sm:-translate-x-1/2 sm:-translate-y-1/2 lg:w-[320px]"
           >
             <PhoneReels />
+            <MobileScatter />
           </motion.div>
 
           {/* Faint icon scatter behind the cards (desktop only) */}

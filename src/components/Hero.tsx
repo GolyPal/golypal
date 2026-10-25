@@ -93,9 +93,9 @@ export default function Hero() {
             <ul className="grid gap-2.5 text-[14px] leading-snug text-white lg:text-[15px]">
               {bullets.map(({ Icon, title, text }) => (
                 <li key={title} className="flex gap-2.5">
-                  <Icon size={15} strokeWidth={1.5} className="mt-[3px] flex-none text-accent" />
+                  <Icon size={15} strokeWidth={1.5} className="mt-[3px] flex-none text-white" />
                   <span>
-                    <span className="font-semibold">{title}</span>: {text}
+                    <span className="font-semibold text-accent">{title}</span>: {text}
                   </span>
                 </li>
               ))}

@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowDown } from 'lucide-react'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 
 const steps = [
   {
@@ -25,12 +26,36 @@ const steps = [
     number: '4',
     title: 'Focení a natáčení',
     description:
-      'Nemovitost nafotím a natočím. Fotky dodám do 2–3 dnů, video i s reels cover do 7 dnů. Všechny výstupy optimalizuji na sítě i Sreality.',
+      'Nemovitost nafotím a natočím. Všechny materiály dodám do 7 dnů, optimalizované na sítě i Sreality.',
   },
 ]
 
 export default function Process() {
   const [hovered, setHovered] = useState<number | null>(null)
+  // Desktop lights the steps on hover. Touch has no hover, so on phones the
+  // steps light up one by one as they scroll past the lower third of the
+  // screen (and switch back off when scrolled back up).
+  const canHover = useMediaQuery('(min-width: 768px)')
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  useEffect(() => {
+    if (canHover) return
+    const lit = new Set<number>()
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const i = stepRefs.current.indexOf(entry.target as HTMLDivElement)
+          if (entry.isIntersecting) lit.add(i)
+          else lit.delete(i)
+        }
+        setHovered(lit.size ? Math.max(...lit) : null)
+      },
+      // the zone runs from far above the screen down to 35 % from its bottom
+      { rootMargin: '100% 0px -35% 0px' },
+    )
+    stepRefs.current.forEach((el) => el && observer.observe(el))
+    return () => observer.disconnect()
+  }, [canHover])
 
   return (
     <section id="proces" className="bg-cream py-24 lg:py-32">
@@ -62,7 +87,7 @@ export default function Process() {
         {/* Timeline steps */}
         <div
           className="relative grid gap-12 md:grid-cols-4 md:gap-6 lg:gap-10"
-          onMouseLeave={() => setHovered(null)}
+          onMouseLeave={() => canHover && setHovered(null)}
         >
           {/* Connecting lines (desktop) */}
           {[0, 1, 2].map((lineIndex) => (
@@ -101,8 +126,11 @@ export default function Process() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6, delay: i * 0.12 }}
+                ref={(el) => {
+                  stepRefs.current[i] = el
+                }}
                 className="cursor-default text-center"
-                onMouseEnter={() => setHovered(i)}
+                onMouseEnter={() => canHover && setHovered(i)}
               >
                 {/* Number box */}
                 <div
@@ -114,14 +142,14 @@ export default function Process() {
                     backgroundColor: isActive
                       ? 'var(--color-cta)'
                       : 'var(--color-cream-dark)',
-                    transitionDelay: isActive ? `${i * 150}ms` : '0ms',
+                    transitionDelay: isActive && canHover ? `${i * 150}ms` : '0ms',
                   }}
                 >
                   <span
                     className="font-serif text-xl font-medium transition-colors duration-500 ease-out"
                     style={{
                       color: isActive ? 'var(--color-on-cta)' : 'var(--color-charcoal)',
-                      transitionDelay: isActive ? `${i * 150}ms` : '0ms',
+                      transitionDelay: isActive && canHover ? `${i * 150}ms` : '0ms',
                     }}
                   >
                     {step.number}
@@ -135,7 +163,7 @@ export default function Process() {
                     color: isActive
                       ? 'var(--color-charcoal)'
                       : 'var(--color-charcoal)',
-                    transitionDelay: isActive ? `${i * 150}ms` : '0ms',
+                    transitionDelay: isActive && canHover ? `${i * 150}ms` : '0ms',
                   }}
                 >
                   {step.title}
