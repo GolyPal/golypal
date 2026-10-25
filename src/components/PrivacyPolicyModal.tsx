@@ -71,8 +71,8 @@ export default function PrivacyPolicyModal() {
                       Správce osobních údajů
                     </h3>
                     <p>
-                      Pavel Golasowski, IČO: 08438927, Hrádek 390,
-                      e-mail:{' '}
+                      Pavel Golasowski, IČO: 08438927, se sídlem Hrádek 390, 739 97 Hrádek,
+                      e‑mail:{' '}
                       <a href="mailto:info@golasvisuals.com" className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors">
                         info@golasvisuals.com
                       </a>
@@ -80,9 +80,10 @@ export default function PrivacyPolicyModal() {
                       <a href="tel:+420737248144" className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors">
                         +420 737 248 144
                       </a>
+                      .
                     </p>
                     <p className="mt-1">
-                      Zapsán v živnostenském rejstříku vedeném příslušným živnostenským úřadem.
+                      Fyzická osoba podnikající, zapsaná v živnostenském rejstříku vedeném Městským úřadem Třinec.
                     </p>
                   </section>
 
@@ -91,10 +92,7 @@ export default function PrivacyPolicyModal() {
                       Jaké osobní údaje zpracovávám
                     </h3>
                     <p>
-                      Prostřednictvím poptávkového formuláře na tomto webu shromažďuji tyto
-                      osobní údaje: jméno a příjmení, telefonní číslo, e-mailovou adresu,
-                      odkaz na sociální sítě, oblast působení a orientační počet zakázek
-                      měsíčně.
+                      Prostřednictvím poptávkového formuláře: jméno a příjmení, telefon, e-mail, odkaz na sociální sítě (nepovinný) a vaše odpovědi z dotazníku, tedy roli v realitách, jak aktuálně řešíte foto a video, typy nemovitostí, oblast působení, orientační počet zakázek měsíčně a odkud jste se o mně dozvěděli. Při odeslání formuláře a při zobrazení webu se navíc zpracovávají technické údaje, jako je IP adresa a typ prohlížeče.
                     </p>
                   </section>
 
@@ -103,28 +101,34 @@ export default function PrivacyPolicyModal() {
                       Účel a právní základ zpracování
                     </h3>
                     <p>
-                      Údaje zpracovávám výhradně za účelem zodpovězení vaší poptávky
-                      a domluvení nezávazné konzultace. Právním základem je váš souhlas
-                      podle čl. 6 odst. 1 písm. a) nařízení GDPR (Nařízení Evropského
-                      parlamentu a Rady (EU) 2016/679).
+                      Údaje zpracovávám, abych mohl odpovědět na vaši poptávku, domluvit nezávaznou konzultaci a připravit nabídku spolupráce. Jde o kroky před případným uzavřením smlouvy, které provádím na vaši žádost, tedy podle čl. 6 odst. 1 písm. b) nařízení (EU) 2016/679 (GDPR). Pokud spolupráce vznikne, zpracovávám údaje dále pro plnění smlouvy a pro splnění zákonných povinností, například účetních a daňových.
+                    </p>
+                    <p className="mt-3">
+                      Údaje nevyužívám k zasílání obchodních sdělení ani k marketingu. Nedochází k automatizovanému rozhodování ani profilování.
                     </p>
                   </section>
 
                   <section>
                     <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-charcoal">
-                      Příjemci a zpracovatelé
+                      Je poskytnutí údajů povinné?
                     </h3>
                     <p>
-                      Odeslaný formulář zpracovává společnost Formspree, Inc. (USA) jako
-                      zpracovatel ve smyslu čl. 28 GDPR na základě standardních smluvních
-                      doložek (SCC). Vaše údaje nepředávám žádné jiné třetí straně ani
-                      je nevyužívám k marketingovým účelům.
+                      Poskytnutí údajů je dobrovolné a nevyplývá ze zákona. Bez jména, telefonu a e-mailu vám ale nemohu na poptávku odpovědět. Nepovinné odpovědi v dotazníku můžete přeskočit.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-charcoal">
+                      Příjemci a předávání mimo EU
+                    </h3>
+                    <p>
+                      Odeslaný formulář pro mě technicky zpracovává společnost Formspree, Inc. (USA), která poptávky doručuje na můj e-mail a ukládá je v archivu formuláře. Formspree je zpracovatelem ve smyslu čl. 28 GDPR a předání údajů do USA je zajištěno standardními smluvními doložkami schválenými Evropskou komisí (čl. 46 GDPR).
                     </p>
                     <p className="mt-3">
-                      Web běží na hostingu společnosti Vercel Inc. (USA), která při
-                      zobrazení stránek zpracovává technické údaje (IP adresu, typ
-                      prohlížeče, čas přístupu) v provozních záznamech serveru, a to
-                      rovněž na základě standardních smluvních doložek (SCC).
+                      Web je provozován na hostingu společnosti Vercel Inc. (USA), která při zobrazení stránek zpracovává technické údaje v provozních záznamech serveru. Vercel je certifikován v rámci EU-U.S. Data Privacy Framework, pro který Evropská komise vydala rozhodnutí o odpovídající ochraně (čl. 45 GDPR).
+                    </p>
+                    <p className="mt-3">
+                      Poptávky dostávám do e-mailové schránky u společnosti Apple (iCloud). Jiným třetím stranám vaše údaje nepředávám.
                     </p>
                   </section>
 
@@ -133,9 +137,7 @@ export default function PrivacyPolicyModal() {
                       Doba uchovávání
                     </h3>
                     <p>
-                      Osobní údaje uchovávám po dobu nezbytně nutnou k vyřízení vaší
-                      poptávky, nejdéle však 2 roky od jejich poskytnutí, nebo do
-                      odvolání vašeho souhlasu, podle toho, co nastane dříve.
+                      Údaje z poptávky uchovávám po dobu nezbytnou k jejímu vyřízení, nejdéle 2 roky od odeslání, pokud nevznikne spolupráce. Pokud spolupráce vznikne, uchovávám je po dobu jejího trvání a poté jen v rozsahu a po dobu, kterou vyžadují právní předpisy (např. účetní a daňové).
                     </p>
                   </section>
 
@@ -143,15 +145,15 @@ export default function PrivacyPolicyModal() {
                     <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-charcoal">
                       Vaše práva
                     </h3>
-                    <p>Jako subjekt údajů máte právo:</p>
+                    <p>Máte právo:</p>
                     <ul className="mt-2 space-y-1 pl-4">
                       {[
                         'na přístup ke svým osobním údajům,',
                         'na opravu nepřesných nebo neúplných údajů,',
-                        'na výmaz osobních údajů („právo být zapomenut"),',
+                        'na výmaz osobních údajů („právo být zapomenut“),',
                         'na omezení zpracování,',
                         'na přenositelnost údajů,',
-                        'kdykoli odvolat udělený souhlas, a to bez dopadu na zákonnost zpracování před odvoláním.',
+                        'vznést námitku proti zpracování.',
                       ].map((item) => (
                         <li key={item} className="flex gap-2">
                           <span className="mt-[0.4em] h-1 w-1 flex-none rounded-full bg-accent" />
@@ -160,20 +162,21 @@ export default function PrivacyPolicyModal() {
                       ))}
                     </ul>
                     <p className="mt-3">
-                      Žádost uplatněte na{' '}
+                      Žádost stačí poslat na{' '}
                       <a href="mailto:info@golasvisuals.com" className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors">
                         info@golasvisuals.com
                       </a>
-                      . Máte také právo podat stížnost u dozorového orgánu,{' '}
+                      , vyřídím ji bez zbytečného odkladu, nejpozději do jednoho měsíce. Máte také
+                      právo podat stížnost u dozorového úřadu, kterým je{' '}
                       <a
-                        href="https://www.uoou.cz"
+                        href="https://uoou.gov.cz"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors"
                       >
-                        Úřadu pro ochranu osobních údajů (www.uoou.cz)
+                        Úřad pro ochranu osobních údajů
                       </a>
-                      .
+                      , Pplk. Sochora 27, 170 00 Praha 7.
                     </p>
                   </section>
 
@@ -182,9 +185,7 @@ export default function PrivacyPolicyModal() {
                       Soubory cookies
                     </h3>
                     <p>
-                      Tento web nepoužívá žádné cookies, analytické ani sledovací nástroje.
-                      Písma, fotografie i videa se načítají přímo z tohoto webu, ne ze
-                      serverů třetích stran.
+                      Tento web nepoužívá žádné cookies ani analytické či sledovací nástroje. Písma, fotografie i videa se načítají přímo z tohoto webu, ne ze serverů třetích stran.
                     </p>
                   </section>
 

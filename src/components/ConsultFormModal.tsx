@@ -20,7 +20,6 @@ type FormState = {
   phone: string
   email: string
   company: string
-  gdprConsent: boolean
 }
 
 const initialState: FormState = {
@@ -34,7 +33,6 @@ const initialState: FormState = {
   phone: '',
   email: '',
   company: '',
-  gdprConsent: false,
 }
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
@@ -107,7 +105,7 @@ export default function ConsultFormModal() {
     if (step === 4) return true // optional
     if (step === 5) return true // optional
     if (step === 6) return form.source !== ''
-    if (step === 7) return form.name.trim() !== '' && form.phone.trim() !== '' && form.email.trim() !== '' && form.gdprConsent
+    if (step === 7) return form.name.trim() !== '' && form.phone.trim() !== '' && form.email.trim() !== ''
     return false
   }
 
@@ -261,7 +259,6 @@ export default function ConsultFormModal() {
                             <StepContact
                               form={form}
                               onChange={(k, v) => setForm(p => ({ ...p, [k]: v }))}
-                              onGdprChange={v => setForm(p => ({ ...p, gdprConsent: v }))}
                               onOpenPrivacy={openPrivacy}
                               firstInputRef={firstInputRef}
                             />
@@ -549,13 +546,11 @@ function StepSource({ value, onChange }: { value: string; onChange: (v: string) 
 function StepContact({
   form,
   onChange,
-  onGdprChange,
   onOpenPrivacy,
   firstInputRef,
 }: {
   form: FormState
   onChange: (k: keyof FormState, v: string) => void
-  onGdprChange: (v: boolean) => void
   onOpenPrivacy: () => void
   firstInputRef: React.RefObject<HTMLInputElement | null>
 }) {
@@ -610,33 +605,20 @@ function StepContact({
           />
         </Field>
 
-        {/* GDPR consent */}
-        <label className="flex cursor-pointer items-start gap-3 pt-1">
+        {/* Information notice, not a consent box: answering an enquiry is a
+            pre-contractual step (GDPR art. 6(1)(b)), so no consent is needed */}
+        <p className="pt-1 text-[12.5px] leading-[1.6] text-warm-gray">
+          Odesláním poptávky berete na vědomí, že vaše údaje zpracuji za účelem odpovědi
+          na poptávku podle{' '}
           <button
             type="button"
-            role="checkbox"
-            aria-checked={form.gdprConsent}
-            onClick={() => onGdprChange(!form.gdprConsent)}
-            className={`mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded border transition-all ${
-              form.gdprConsent
-                ? 'border-accent bg-accent'
-                : 'border-charcoal/25 bg-transparent hover:border-charcoal/40'
-            }`}
+            onClick={onOpenPrivacy}
+            className="underline underline-offset-2 transition-colors hover:text-charcoal"
           >
-            {form.gdprConsent && <Check size={11} className="text-on-accent" strokeWidth={2.5} />}
+            Zásad ochrany osobních údajů
           </button>
-          <span className="text-[12.5px] leading-[1.6] text-warm-gray">
-            Souhlasím se zpracováním osobních údajů dle{' '}
-            <button
-              type="button"
-              onClick={onOpenPrivacy}
-              className="underline underline-offset-2 transition-colors hover:text-charcoal"
-            >
-              Zásad ochrany osobních údajů
-            </button>
-            .<span className="ml-1 text-accent">*</span>
-          </span>
-        </label>
+          .
+        </p>
       </div>
     </div>
   )
