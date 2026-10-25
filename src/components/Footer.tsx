@@ -3,6 +3,28 @@ import { Link } from 'react-router-dom'
 import { usePrivacyPolicy } from '../context/PrivacyPolicyContext'
 import { SectionLink } from './Navbar'
 
+/* Lucide dropped its brand icons, so these two are drawn in the same
+   24px outline style as Mail / Phone next to them */
+function InstagramIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="2" y="2" width="20" height="20" rx="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  )
+}
+
+function LinkedInIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect x="2" y="9" width="4" height="12" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  )
+}
+
 export default function Footer() {
   const year = new Date().getFullYear()
   const { open: openPrivacy } = usePrivacyPolicy()
@@ -21,7 +43,7 @@ export default function Footer() {
               Pavel Golasowski
             </Link>
             <p className="mt-5 max-w-xs text-sm leading-[1.8] text-warm-gray">
-              Vizuální produkce pro realitní makléře. Fotografie, video
+              Vizuální produkce pro realitní makléře. Video, fotografie
               a&nbsp;AI vizualizace. Vše pod jednou střechou.
             </p>
           </div>
@@ -57,8 +79,8 @@ export default function Footer() {
               </h4>
               <ul className="space-y-3">
                 {[
+                  'Reels',
                   'Fotografie',
-                  'Videoprohlídky',
                   'AI vizualizace',
                   'Virtuální staging',
                 ].map((item) => (
@@ -90,6 +112,28 @@ export default function Footer() {
                   >
                     <Phone size={13} />
                     +420 737 248 144
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.instagram.com/golypal/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-warm-gray transition-colors hover:text-charcoal"
+                  >
+                    <InstagramIcon />
+                    Instagram
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/pavel-golasowski-b11889136/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-warm-gray transition-colors hover:text-charcoal"
+                  >
+                    <LinkedInIcon />
+                    LinkedIn
                   </a>
                 </li>
               </ul>

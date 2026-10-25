@@ -381,7 +381,7 @@ function StepMedia({ value, onChange }: { value: string[]; onChange: (v: string)
   return (
     <div>
       <h2 className="mb-2 font-serif text-[clamp(1.35rem,3vw,1.85rem)] font-medium leading-[1.1] tracking-[-0.01em] text-charcoal">
-        Jak aktuálně řešíte foto a video?
+        Jak aktuálně řešíte video a foto?
       </h2>
       <p className="mb-7 text-[14px] leading-[1.7] text-warm-gray">
         Lze vybrat víc možností.

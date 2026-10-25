@@ -268,14 +268,6 @@ function AICarousel() {
 const services = [
   {
     number: '01',
-    icon: Wand2,
-    title: 'AI vizualizace & staging',
-    description:
-      'Ukažte potenciál prázdných prostor i vizuální renovace. AI staging a redesign, které promění představy v realitu.',
-    visual: 'ai-carousel' as const,
-  },
-  {
-    number: '02',
     icon: Video,
     title: 'Dynamická videa',
     description:
@@ -283,12 +275,20 @@ const services = [
     visual: 'video' as const,
   },
   {
-    number: '03',
+    number: '02',
     icon: Camera,
     title: 'Profesionální fotografie',
     description:
       'Interiér, exteriér a\u00A0detaily. Upravené fotografie připravené rovnou k\u00A0nahrání na Sreality i\u00A0sítě.',
     visual: 'photo' as const,
+  },
+  {
+    number: '03',
+    icon: Wand2,
+    title: 'AI vizualizace & staging',
+    description:
+      'Ukažte potenciál prázdných prostor i vizuální renovace. AI staging a redesign, které promění představy v realitu.',
+    visual: 'ai-carousel' as const,
   },
   {
     number: '+',
@@ -588,7 +588,7 @@ export default function Solution() {
 
           <div className="mb-6 text-center">
             <h2 className="font-serif text-[clamp(1.6rem,3.5vw,2.6rem)] font-medium leading-[1.05] tracking-[-0.01em] text-white">
-              AI vizualizace. Video. Foto.
+              Video. Foto. AI vizualizace.
               {' '}<em className="text-accent">Vše, co potřebujete.</em>
             </h2>
             <p className="mx-auto mt-4 text-[15px] leading-[1.85] text-white">

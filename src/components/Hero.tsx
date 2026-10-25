@@ -4,10 +4,10 @@ import { useConsultForm } from '../context/ConsultFormContext'
 import { useMediaQuery } from '../hooks/useMediaQuery'
 
 const bullets = [
-  { Icon: Wand2, title: 'AI vizualizace', text: 'plný potenciál nemovitosti bez stagingu za desetitisíce' },
   { Icon: Video, title: 'Videa', text: 'stavěná na zastavení scrollu s tisíci zhlédnutími' },
   { Icon: Camera, title: 'Fotky', text: 'ne z mobilu, ne průměrné, ne jako ostatní' },
-  { Icon: FileText, title: 'Scripty', text: 'první 3 sekundy rozhodují. Řeknu vám přesně co říct.' },
+  { Icon: Wand2, title: 'AI vizualizace', text: 'plný potenciál nemovitosti bez stagingu za desetitisíce' },
+  { Icon: FileText, title: 'Scripty', text: 'první 3 sekundy rozhodují. Řeknu vám přesně, jak zaujmout.' },
 ]
 
 /* One bento cell. Cells fade/scale in one after another on load. */

@@ -49,7 +49,7 @@ export default function About() {
             <div className="mt-10 space-y-6 text-base leading-[1.85] text-warm-gray lg:text-[17px]">
               <p>
                 Specializuji se na vizuální produkci pro realitní segment.
-                Propojuji profesionální fotografii, video a&nbsp;nejnovější AI
+                Propojuji video, profesionální fotografii a&nbsp;nejnovější AI
                 technologie, abych makléřům pomohl prodávat rychleji a&nbsp;za
                 vyšší ceny.
               </p>
