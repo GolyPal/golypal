@@ -75,8 +75,10 @@ export default function Hero() {
           <div className="flex flex-col items-center gap-6 text-center md:items-start md:text-left lg:col-span-5">
             <span className="inline-flex w-fit items-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-4 py-2 text-[13px] font-medium tracking-wide text-white/90 sm:rounded-full">
               <span className="inline-block h-1.5 w-1.5 flex-none rounded-full bg-accent" />
-              <span>
-                Pro makléře, kterým přestalo stačit <span className="font-semibold text-accent">&ldquo;nějak se to prodá&rdquo;</span>
+              {/* centred, so a two-line wrap sits evenly between the dots */}
+              <span className="text-center">
+                Pro makléře, kterým přestalo stačit {/* the quote never splits: it fits on the line or moves down whole */}
+                <span className="whitespace-nowrap font-semibold text-accent">&ldquo;nějak se to prodá&rdquo;</span>
               </span>
               <span className="inline-block h-1.5 w-1.5 flex-none rounded-full bg-accent" />
             </span>
@@ -135,7 +137,7 @@ export default function Hero() {
               <div className="flex h-full flex-col justify-between p-4">
                 <p className="text-[11px] font-semibold uppercase tracking-wider text-on-brand/80">Zhlédnutí</p>
                 <div>
-                  <p className="font-serif text-[clamp(1.6rem,2.4vw,2rem)] font-bold leading-none text-on-brand">443&nbsp;000</p>
+                  <p className="font-serif text-[clamp(1.35rem,2.1vw,2rem)] font-bold leading-none text-on-brand">443&nbsp;000</p>
                   <p className="mt-1.5 text-[12px] font-medium leading-snug text-on-brand/80">top reel</p>
                 </div>
               </div>
@@ -162,7 +164,7 @@ export default function Hero() {
               <div className="flex h-full flex-col justify-between p-4">
                 <p className="text-[11px] font-semibold uppercase tracking-wider text-white/80">Poptávky</p>
                 <div>
-                  <p className="font-serif text-[clamp(1.6rem,2.4vw,2rem)] font-bold leading-none text-accent">30+</p>
+                  <p className="font-serif text-[clamp(1.35rem,2.1vw,2rem)] font-bold leading-none text-accent">30+</p>
                   <p className="mt-1.5 text-[12px] font-medium leading-snug text-white/80">z jednoho videa</p>
                 </div>
               </div>
