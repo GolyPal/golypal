@@ -2,6 +2,7 @@ import { useEffect, useRef, type ReactNode } from 'react'
 import { ArrowRight, Camera, Video, Wand2, FileText } from 'lucide-react'
 import { useConsultForm } from '../context/ConsultFormContext'
 import { useMediaQuery } from '../hooks/useMediaQuery'
+import { ctaArrowRight, ctaClass } from './cta'
 
 const bullets = [
   { Icon: Video, title: 'Videa', text: 'stavěná na zastavení scrollu s tisíci zhlédnutími.' },
@@ -107,10 +108,10 @@ export default function Hero() {
               <button
                 type="button"
                 onClick={openConsult}
-                className="group inline-flex items-center gap-3 rounded-full bg-cta px-7 py-3.5 text-sm font-semibold tracking-wide text-on-cta transition-[background-color,scale] duration-200 hover:bg-cta/90 active:scale-[0.97]"
+                className={ctaClass()}
               >
                 Konzultace zdarma
-                <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+                <ArrowRight size={15} className={ctaArrowRight} />
               </button>
             </div>
           </div>

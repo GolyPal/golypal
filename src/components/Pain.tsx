@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowDown } from 'lucide-react'
+import { ctaArrowDown, ctaClass } from './cta'
 
 const painPoints = [
   {
@@ -178,10 +179,10 @@ export default function Pain() {
           <button
             type="button"
             onClick={() => document.getElementById('konzultace')?.scrollIntoView({ behavior: 'smooth' })}
-            className="group inline-flex items-center gap-3 rounded-full bg-cta px-8 py-4 text-sm font-semibold tracking-wide text-on-cta shadow-[0_8px_32px_color-mix(in_srgb,var(--color-cta)_30%,transparent)] transition-all duration-300 hover:bg-cta/90 hover:shadow-[0_12px_40px_color-mix(in_srgb,var(--color-cta)_45%,transparent)] hover:scale-[1.02]"
+            className={ctaClass()}
           >
             Mám zájem spolupracovat
-            <ArrowDown size={15} className="transition-transform duration-300 group-hover:translate-y-0.5" />
+            <ArrowDown size={15} className={ctaArrowDown} />
           </button>
         </motion.div>
       </div>

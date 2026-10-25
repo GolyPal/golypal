@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { useConsultForm } from '../context/ConsultFormContext'
+import { ctaArrowRight, ctaClass } from './cta'
 
 export default function FinalCTA() {
   const { open: openConsult } = useConsultForm()
@@ -36,9 +37,9 @@ export default function FinalCTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.9, delay: 0.15 }}
-            className="mx-auto mt-6 max-w-md text-base leading-[1.85] text-white lg:text-[17px]"
+            className="mx-auto mt-6 max-w-xl text-base leading-[1.85] text-white [text-wrap:balance] lg:text-[17px]"
           >
-            Řekněte mi o sobě víc a já se vám ozvu zpět do 24h. Stačí vyplnit krátký minutový formulář.
+            Řekněte mi o sobě víc. Stačí vyplnit krátký minutový formulář.
           </motion.p>
 
           <motion.div
@@ -51,25 +52,15 @@ export default function FinalCTA() {
             <button
               type="button"
               onClick={openConsult}
-              className="group inline-flex items-center justify-center gap-3 rounded-full bg-white px-10 py-4.5 text-sm font-semibold tracking-wide text-charcoal transition-all duration-300 hover:bg-white/90"
+              className={ctaClass()}
             >
               Konzultace zdarma
               <ArrowRight
                 size={16}
-                className="transition-transform duration-300 group-hover:translate-x-1"
+                className={ctaArrowRight}
               />
             </button>
           </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, delay: 0.35 }}
-            className="mt-6 text-[13px] text-subtle"
-          >
-            Odpovídám do 24 hodin. Bez závazků, bez poplatků.
-          </motion.p>
         </div>
       </div>
     </section>

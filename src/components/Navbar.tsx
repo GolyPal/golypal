@@ -4,6 +4,7 @@ import { Mail, Menu, Phone, X } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import { useConsultForm } from '../context/ConsultFormContext'
 import Logo from './Logo'
+import { ctaClass } from './cta'
 
 const navLinks = [
   { label: 'Služby', href: '/#sluzby' },
@@ -90,7 +91,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={openConsult}
-              className="whitespace-nowrap rounded-full bg-cta px-6 py-2.5 text-[13px] font-semibold tracking-wide text-on-cta transition-colors duration-300 hover:bg-cta/85 xl:px-7"
+              className={ctaClass('sm')}
             >
               Konzultace zdarma
             </button>
@@ -141,7 +142,7 @@ export default function Navbar() {
                   setMobileOpen(false)
                   openConsult()
                 }}
-                className="mt-4 rounded-full bg-cta px-6 py-3.5 text-center text-sm font-semibold text-on-cta transition-colors hover:bg-cta/85"
+                className={`${ctaClass()} mt-4 w-full`}
               >
                 Konzultace zdarma
               </button>

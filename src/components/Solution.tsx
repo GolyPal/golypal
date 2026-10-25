@@ -4,6 +4,7 @@ import { Camera, Video, Wand2, Gift, ChevronLeft, ChevronRight, Maximize2, Volum
 import { Link } from 'react-router-dom'
 import Lightbox from './Lightbox'
 import { useMediaQuery } from '../hooks/useMediaQuery'
+import { ctaArrowRight, ctaSecondaryClass } from './cta'
 
 /* ── Before / After Slider ── */
 function BeforeAfterSlider({
@@ -694,10 +695,10 @@ export default function Solution() {
                 </p>
                 <Link
                   to="/pripadova-studie"
-                  className="group mt-4 inline-flex items-center gap-3 rounded-full border border-accent/50 px-6 py-3 text-sm font-semibold text-accent transition-[background-color,border-color,scale] duration-200 hover:border-accent hover:bg-accent/10 active:scale-[0.97]"
+                  className={`${ctaSecondaryClass} mt-4`}
                 >
                   Přečíst případovou studii
-                  <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+                  <ArrowRight size={15} className={ctaArrowRight} />
                 </Link>
               </div>
             </div>

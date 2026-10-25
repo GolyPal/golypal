@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { ArrowLeft, ArrowRight, Check, Volume2, VolumeX } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { useConsultForm } from '../context/ConsultFormContext'
 import { usePageMeta } from '../hooks/usePageMeta'
+import { ctaArrowRight, ctaClass } from '../components/cta'
 
 /* Phone reel with sound toggle. Autoplays muted (browser policy); the
    button lets visitors unmute. Pauses when scrolled out of view so the
@@ -130,17 +130,14 @@ export default function CaseStudy() {
           </div>
 
           <div className="mt-12 flex flex-col items-center gap-3">
-            <motion.button
+            <button
               type="button"
               onClick={openConsult}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="group inline-flex items-center gap-3 rounded-full bg-cta px-8 py-4 text-[13px] font-semibold tracking-wide text-on-cta transition-colors duration-300 hover:bg-cta/90"
+              className={ctaClass()}
             >
               Mám zájem o spolupráci
-              <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
-            </motion.button>
-            <p className="text-[12px] text-subtle">Nezávazná konzultace · Zdarma · Do 24 hodin</p>
+              <ArrowRight size={15} className={ctaArrowRight} />
+            </button>
           </div>
         </div>
       </section>
@@ -369,19 +366,14 @@ export default function CaseStudy() {
               <p className="mt-4 text-[14px] leading-[1.8] text-white">
                 Vyplňte poptávkový formulář a pojďme nezávazně probrat, jestli může společná spolupráce dávat smysl i pro vás.
               </p>
-              <motion.button
+              <button
                 type="button"
                 onClick={openConsult}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="group mt-8 inline-flex items-center gap-3 rounded-full bg-cta px-8 py-4 text-[13px] font-semibold tracking-wide text-on-cta transition-colors duration-300 hover:bg-cta/90"
+                className={`${ctaClass()} mt-8`}
               >
                 Mám zájem o spolupráci
-                <ArrowRight size={14} />
-              </motion.button>
-              <p className="mt-3 text-[12px] text-subtle">
-                Nezávazná konzultace · Zdarma · Do 24 hodin
-              </p>
+                <ArrowRight size={15} className={ctaArrowRight} />
+              </button>
             </div>
 
             <div className="lg:col-span-7">

@@ -71,7 +71,7 @@ export default function PrivacyPolicyModal() {
                       Správce osobních údajů
                     </h3>
                     <p>
-                      Pavel Golasowski, IČO: 08438927, se sídlem Hrádek 390, 739 97 Hrádek,
+                      Pavel Golasowski, IČO: 08438927, se sídlem Hrádek 390, 739&nbsp;97 Hrádek,
                       e‑mail:{' '}
                       <a href="mailto:info@golasvisuals.com" className="text-charcoal underline underline-offset-2 hover:text-accent transition-colors">
                         info@golasvisuals.com
@@ -83,7 +83,7 @@ export default function PrivacyPolicyModal() {
                       .
                     </p>
                     <p className="mt-1">
-                      Fyzická osoba podnikající, zapsaná v živnostenském rejstříku vedeném Živnostenským úřadem Třinec, Smetanova 498, 739 61 Třinec.
+                      Fyzická osoba podnikající, zapsaná v živnostenském rejstříku vedeném Živnostenským úřadem Třinec, Smetanova 498, 739&nbsp;61 Třinec.
                     </p>
                   </section>
 
