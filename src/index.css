@@ -177,6 +177,23 @@ body {
   }
 }
 
+/* Hero AI tile: empty room -> AI version and back, on a loop.
+   Clip and line share timing so the line always rides the edge. */
+@keyframes wipe-clip {
+  0%, 12% { clip-path: inset(0 100% 0 0); }
+  45%, 70% { clip-path: inset(0 0 0 0); }
+  96%, 100% { clip-path: inset(0 100% 0 0); }
+}
+@keyframes wipe-line {
+  0%, 12% { translate: 0 0; opacity: 0; }
+  14% { opacity: 1; }
+  45% { translate: 100% 0; opacity: 1; }
+  47%, 70% { translate: 100% 0; opacity: 0; }
+  72% { translate: 100% 0; opacity: 1; }
+  94% { opacity: 1; }
+  96%, 100% { translate: 0 0; opacity: 0; }
+}
+
 /* Hero bento cells: fade and settle in, one after another */
 @keyframes tile-in {
   from { opacity: 0; scale: 0.96; }

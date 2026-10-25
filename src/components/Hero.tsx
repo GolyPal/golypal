@@ -139,7 +139,17 @@ export default function Hero() {
               </div>
             </Tile>
             <Tile className="col-span-2" delay={180}>
-              <img src="/images/ai-po.webp" alt="AI vizualizace zařízeného obývacího pokoje" className="h-full w-full object-cover" />
+              {/* Automatic before/after: the furnished AI version wipes in over
+                  the empty room behind a lime line, holds, and wipes back */}
+              <img src="/images/ai-pred.webp" alt="Prázdný obývací pokoj před AI vizualizací" className="absolute inset-0 h-full w-full object-cover" />
+              <img
+                src="/images/ai-po.webp"
+                alt="Stejný pokoj po AI vizualizaci"
+                className="absolute inset-0 h-full w-full object-cover [animation:wipe-clip_8s_cubic-bezier(0.77,0,0.175,1)_infinite]"
+              />
+              <div aria-hidden="true" className="pointer-events-none absolute inset-0 [animation:wipe-line_8s_cubic-bezier(0.77,0,0.175,1)_infinite]">
+                <div className="h-full w-[3px] -translate-x-1/2 bg-brand shadow-[0_0_16px_rgba(228,253,151,0.7)]" />
+              </div>
               <Chip>AI vizualizace</Chip>
             </Tile>
             <Tile className="row-span-2 bg-black" delay={240}>
