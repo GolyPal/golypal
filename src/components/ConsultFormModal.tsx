@@ -72,8 +72,10 @@ export default function ConsultFormModal() {
     }
   }, [step])
 
+  // Closing (Escape, the X) keeps the answers, so reopening continues where
+  // the visitor left off. Only a sent enquiry starts the form over.
   useEffect(() => {
-    if (isOpen) return
+    if (isOpen || status !== 'success') return
     const t = window.setTimeout(() => {
       setForm(initialState)
       setStatus('idle')
@@ -82,7 +84,7 @@ export default function ConsultFormModal() {
       setDir(1)
     }, 400)
     return () => window.clearTimeout(t)
-  }, [isOpen])
+  }, [isOpen, status])
 
   const goTo = (next: number) => {
     setDir(next > step ? 1 : -1)
