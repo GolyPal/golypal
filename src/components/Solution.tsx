@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Camera, Video, Wand2, Gift, ChevronLeft, ChevronRight, Maximize2, Volume2, VolumeX } from 'lucide-react'
 import Lightbox from './Lightbox'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 
 /* ── Before / After Slider ── */
 function BeforeAfterSlider({
@@ -80,6 +81,8 @@ function BeforeAfterSlider({
       <img
         src={after}
         alt="Po AI vizualizaci"
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 h-full w-full object-cover"
         draggable={false}
       />
@@ -90,6 +93,8 @@ function BeforeAfterSlider({
         <img
           src={before}
           alt="Před AI vizualizací"
+          loading="lazy"
+          decoding="async"
           className="absolute inset-0 h-full w-full object-cover"
           draggable={false}
         />
@@ -183,19 +188,21 @@ function AICarousel() {
 
       {/* Navigation */}
       <div className="mt-4 flex items-center justify-between">
-        <p className="text-sm text-white/40">{item.label}</p>
+        <p className="text-sm text-subtle">{item.label}</p>
         <div className="flex items-center gap-3">
-          <span className="text-xs text-white/30">
+          <span className="text-xs text-subtle">
             {current + 1} / {total}
           </span>
           <button
             onClick={prev}
+            aria-label="Předchozí ukázka"
             className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-white/15 text-white/50 transition-colors hover:border-accent/40 hover:text-accent"
           >
             <ChevronLeft size={16} />
           </button>
           <button
             onClick={next}
+            aria-label="Další ukázka"
             className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-white/15 text-white/50 transition-colors hover:border-accent/40 hover:text-accent"
           >
             <ChevronRight size={16} />
@@ -324,7 +331,7 @@ function BonusPanel() {
           </div>
         ))}
       </div>
-      <p className="mt-4 text-sm text-white/40">Reels Cover · ukázky</p>
+      <p className="mt-4 text-sm text-subtle">Reels Cover · ukázky</p>
     </div>
   )
 }
@@ -378,7 +385,7 @@ function PhotoCarousel() {
 
       {/* Arrows */}
       <div className="mt-3 flex items-center justify-end gap-2">
-        <span className="mr-2 text-xs text-white/30">{current + 1} / {total}</span>
+        <span className="mr-2 text-xs text-subtle">{current + 1} / {total}</span>
         <button onClick={prev} className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 text-white/50 transition hover:border-white/30 hover:text-white" aria-label="Předchozí">
           <ChevronLeft size={16} />
         </button>
@@ -439,7 +446,7 @@ function PhotoCarousel() {
 /* ── Video Carousel ── */
 const reels = ['/videos/Reel-3.mp4', '/videos/Reel-2.mp4', '/videos/Reel.mp4']
 
-function VideoCarousel() {
+function VideoCarousel({ active }: { active: boolean }) {
   const [current, setCurrent] = useState(0)
   const [muted, setMuted] = useState(true)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -454,7 +461,9 @@ function VideoCarousel() {
     setMuted((m) => !m)
   }
 
-  // Pause playback (and therefore audio) when the carousel scrolls out of view.
+  // Play only while the panel is the open one AND on screen. Switching to
+  // another service pauses and re-mutes it, so no sound comes from a panel
+  // nobody can see.
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
@@ -462,14 +471,28 @@ function VideoCarousel() {
       ([entry]) => {
         const v = videoRef.current
         if (!v) return
-        if (entry.isIntersecting) v.play().catch(() => {})
+        if (entry.isIntersecting && active) v.play().catch(() => {})
         else v.pause()
       },
       { threshold: 0.4 },
     )
     observer.observe(el)
     return () => observer.disconnect()
-  }, [])
+  }, [active])
+
+  // Leaving the panel re-mutes it, so it never comes back playing loud
+  const [wasActive, setWasActive] = useState(active)
+  if (active !== wasActive) {
+    setWasActive(active)
+    if (!active) setMuted(true)
+  }
+
+  useEffect(() => {
+    const v = videoRef.current
+    if (active || !v) return
+    v.pause()
+    v.muted = true
+  }, [active])
 
   return (
     <div ref={containerRef} className="flex h-full flex-col items-center justify-center">
@@ -483,7 +506,7 @@ function VideoCarousel() {
                 ref={videoRef}
                 src={reels[current]}
                 poster={reels[current].replace('.mp4', '-poster.jpg')}
-                autoPlay
+                autoPlay={active}
                 loop
                 muted={muted}
                 playsInline
@@ -516,7 +539,7 @@ function VideoCarousel() {
         >
           <ChevronLeft size={16} />
         </button>
-        <span className="min-w-[44px] text-center text-xs text-white/40">
+        <span className="min-w-[44px] text-center text-xs text-subtle">
           {current + 1} / {total}
         </span>
         <button
@@ -532,14 +555,14 @@ function VideoCarousel() {
 }
 
 /* ── Visual panels ── */
-function VisualPanel({ type }: { type: (typeof services)[number]['visual'] }) {
+function VisualPanel({ type, active }: { type: (typeof services)[number]['visual']; active: boolean }) {
   switch (type) {
     case 'ai-carousel':
       return <AICarousel />
     case 'photo':
       return <PhotoCarousel />
     case 'video':
-      return <VideoCarousel />
+      return <VideoCarousel active={active} />
     case 'bonus':
       return <BonusPanel />
   }
@@ -548,6 +571,9 @@ function VisualPanel({ type }: { type: (typeof services)[number]['visual'] }) {
 /* ── Main component ── */
 export default function Solution() {
   const [active, setActive] = useState(0)
+  // Mobile shows each visual inside the accordion, desktop in the right
+  // column. Only one of the two is mounted, so nothing loads or plays twice.
+  const isDesktop = useMediaQuery('(min-width: 1024px)')
 
   return (
     <section
@@ -583,14 +609,12 @@ export default function Solution() {
                     <div key={service.number}>
                       <button
                         onClick={() => setActive(index)}
+                        aria-expanded={isActive}
+                        aria-controls={`sluzba-${index}`}
                         className="group flex w-full cursor-pointer items-start gap-5 py-5 text-left transition-colors"
                       >
                         {/* Number */}
-                        <span
-                          className={`mt-1 font-serif text-sm transition-colors duration-300 ${
-                            'text-white'
-                          }`}
-                        >
+                        <span className="mt-1 font-serif text-sm text-white">
                           {service.number}
                         </span>
 
@@ -615,7 +639,7 @@ export default function Solution() {
                         <div className="flex-1 min-w-0">
                           <h3
                             className={`font-serif text-xl font-medium tracking-tight transition-colors duration-300 lg:text-2xl ${
-                              isActive ? 'text-accent' : 'text-accent/50 group-hover:text-accent/80'
+                              isActive ? 'text-accent' : 'text-accent/60 group-hover:text-accent/80'
                             }`}
                           >
                             {service.title}
@@ -632,6 +656,7 @@ export default function Solution() {
                       <AnimatePresence initial={false}>
                         {isActive && (
                           <motion.div
+                            id={`sluzba-${index}`}
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: 'auto', opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
@@ -642,10 +667,12 @@ export default function Solution() {
                               {service.description}
                             </p>
 
-                            {/* Mobile visual, shown only on small screens */}
-                            <div className="mb-4 pl-[3.75rem] pr-4 lg:hidden">
-                              <VisualPanel type={service.visual} />
-                            </div>
+                            {/* Mobile visual, rendered only on small screens */}
+                            {!isDesktop && (
+                              <div className="mb-4 pl-[3.75rem] pr-4">
+                                <VisualPanel type={service.visual} active />
+                              </div>
+                            )}
                           </motion.div>
                         )}
                       </AnimatePresence>
@@ -663,25 +690,29 @@ export default function Solution() {
 
             {/* Right, Visual panel (desktop only)
                 All panels stay mounted so the video preloads immediately.
-                Visibility is controlled via opacity + pointer-events. */}
-            <div className="relative hidden lg:col-span-7 min-h-[500px] lg:flex lg:items-center lg:justify-center">
-              {services.map((service, index) => (
-                <motion.div
-                  key={service.number}
-                  animate={{
-                    opacity: active === index ? 1 : 0,
-                    y: active === index ? 0 : 16,
-                  }}
-                  transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="absolute inset-0 flex items-center justify-center"
-                  style={{ pointerEvents: active === index ? 'auto' : 'none' }}
-                >
-                  <div className="w-full">
-                    <VisualPanel type={service.visual} />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+                Hidden ones are faded out and inert (no clicks, no Tab stops),
+                and the video panel pauses itself when it isn't the open one. */}
+            {isDesktop && (
+              <div className="relative col-span-7 flex min-h-[500px] items-center justify-center">
+                {services.map((service, index) => (
+                  <motion.div
+                    key={service.number}
+                    animate={{
+                      opacity: active === index ? 1 : 0,
+                      y: active === index ? 0 : 16,
+                    }}
+                    transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+                    className="absolute inset-0 flex items-center justify-center"
+                    style={{ pointerEvents: active === index ? 'auto' : 'none' }}
+                    inert={active !== index}
+                  >
+                    <div className="w-full">
+                      <VisualPanel type={service.visual} active={active === index} />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
     </section>

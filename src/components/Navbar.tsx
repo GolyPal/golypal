@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, type ReactNode } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
@@ -11,12 +11,41 @@ const navLinks = [
   { label: 'O mně', href: '/#o-mne' },
 ]
 
+/* On the home page a plain hash link, so smooth scroll works without reload.
+   Elsewhere a router Link: the home page mounts and scrolls to the hash. */
+export function SectionLink({
+  href,
+  className,
+  onClick,
+  children,
+}: {
+  href: string
+  className: string
+  onClick?: () => void
+  children: ReactNode
+}) {
+  const isHome = useLocation().pathname === '/'
+  return isHome ? (
+    <a href={href.replace('/', '')} className={className} onClick={onClick}>
+      {children}
+    </a>
+  ) : (
+    <Link to={href} className={className} onClick={onClick}>
+      {children}
+    </Link>
+  )
+}
+
+const desktopLinkClass =
+  'relative isolate whitespace-nowrap text-[13px] font-medium uppercase tracking-[0.08em] text-warm-gray transition-colors duration-300 hover:text-on-brand before:absolute before:-inset-x-4 before:-inset-y-2 before:-z-10 before:scale-90 before:rounded-full before:bg-brand before:opacity-0 before:transition-[opacity,scale] before:duration-300 hover:before:scale-100 hover:before:opacity-100 xl:tracking-[0.12em]'
+
+const mobileLinkClass =
+  'block rounded-lg px-4 py-3.5 text-[15px] font-medium text-warm-gray transition-colors hover:bg-brand hover:text-on-brand'
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const { open: openConsult } = useConsultForm()
-  const location = useLocation()
-  const isHome = location.pathname === '/'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
@@ -24,15 +53,12 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // On home page use hash-only links so smooth scroll works without reload
-  const linkHref = (hash: string) => isHome ? hash.replace('/', '') : hash
-
   return (
     <motion.nav
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,box-shadow] duration-500 ${
         scrolled
           ? 'bg-cream/95 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]'
           : 'bg-cream'
@@ -42,31 +68,27 @@ export default function Navbar() {
         <div className="flex h-20 items-center justify-between lg:h-24">
           <Link
             to="/"
-            className="font-serif text-xl font-semibold tracking-tight text-charcoal transition-colors duration-300 lg:text-2xl"
+            onClick={() => window.scrollTo({ top: 0 })}
+            className="whitespace-nowrap font-serif text-xl font-semibold tracking-tight text-charcoal transition-colors duration-300 xl:text-2xl"
           >
             Pavel Golasowski
           </Link>
 
-          <div className="hidden items-center gap-10 md:flex lg:gap-12">
+          {/* Full nav only from lg: between 768 and 1024 px it didn't fit and
+              wrapped onto two lines, so tablets keep the menu button. */}
+          <div className="hidden items-center gap-7 lg:flex xl:gap-12">
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={linkHref(link.href)}
-                className="relative isolate text-[13px] font-medium uppercase tracking-[0.12em] text-warm-gray transition-colors duration-300 hover:text-on-brand before:absolute before:-inset-x-4 before:-inset-y-2 before:-z-10 before:scale-90 before:rounded-full before:bg-brand before:opacity-0 before:transition-all before:duration-300 hover:before:scale-100 hover:before:opacity-100"
-              >
+              <SectionLink key={link.href} href={link.href} className={desktopLinkClass}>
                 {link.label}
-              </a>
+              </SectionLink>
             ))}
-            <Link
-              to="/pripadova-studie"
-              className="relative isolate text-[13px] font-medium uppercase tracking-[0.12em] text-warm-gray transition-colors duration-300 hover:text-on-brand before:absolute before:-inset-x-4 before:-inset-y-2 before:-z-10 before:scale-90 before:rounded-full before:bg-brand before:opacity-0 before:transition-all before:duration-300 hover:before:scale-100 hover:before:opacity-100"
-            >
+            <Link to="/pripadova-studie" className={desktopLinkClass}>
               Případová studie
             </Link>
             <button
               type="button"
               onClick={openConsult}
-              className="rounded-full bg-cta px-7 py-2.5 text-[13px] font-semibold tracking-wide text-on-cta transition-all duration-300 hover:bg-cta/85"
+              className="whitespace-nowrap rounded-full bg-cta px-6 py-2.5 text-[13px] font-semibold tracking-wide text-on-cta transition-colors duration-300 hover:bg-cta/85 xl:px-7"
             >
               Konzultace zdarma
             </button>
@@ -74,8 +96,9 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="text-charcoal transition-colors md:hidden"
-            aria-label="Menu"
+            className="-mr-2 flex h-11 w-11 items-center justify-center text-charcoal transition-colors lg:hidden"
+            aria-label={mobileOpen ? 'Zavřít menu' : 'Menu'}
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -89,35 +112,27 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="overflow-hidden bg-cream/98 backdrop-blur-xl md:hidden"
+            className="overflow-hidden bg-cream/98 backdrop-blur-xl lg:hidden"
           >
             <div className="flex flex-col gap-1 px-6 py-8">
-              {navLinks.map((link, i) => (
-                <motion.a
+              {[...navLinks, { label: 'Případová studie', href: '/pripadova-studie' }].map((link, i) => (
+                <motion.div
                   key={link.href}
-                  href={linkHref(link.href)}
-                  onClick={() => setMobileOpen(false)}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className="rounded-lg px-4 py-3.5 text-[15px] font-medium text-warm-gray transition-colors hover:bg-brand hover:text-on-brand"
                 >
-                  {link.label}
-                </motion.a>
+                  {link.href.startsWith('/#') ? (
+                    <SectionLink href={link.href} onClick={() => setMobileOpen(false)} className={mobileLinkClass}>
+                      {link.label}
+                    </SectionLink>
+                  ) : (
+                    <Link to={link.href} onClick={() => setMobileOpen(false)} className={mobileLinkClass}>
+                      {link.label}
+                    </Link>
+                  )}
+                </motion.div>
               ))}
-              <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: navLinks.length * 0.05 }}
-              >
-                <Link
-                  to="/pripadova-studie"
-                  onClick={() => setMobileOpen(false)}
-                  className="block rounded-lg px-4 py-3.5 text-[15px] font-medium text-warm-gray transition-colors hover:bg-brand hover:text-on-brand"
-                >
-                  Případová studie
-                </Link>
-              </motion.div>
               <button
                 type="button"
                 onClick={() => {

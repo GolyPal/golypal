@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { Eye, Heart, ArrowDown, ChevronLeft, ChevronRight, Volume2, VolumeX } from 'lucide-react'
 
 /* ── Pavel's top 3 reels shown in the phone ── */
@@ -123,17 +123,20 @@ function PhoneReels() {
 }
 
 /* ── Animated counter hook ── */
-function useLoopCounter(max: number, durationMs: number = 10000) {
+function useLoopCounter(max: number, durationMs: number = 10000, enabled = true) {
   const [value, setValue] = useState(0)
   const [popped, setPopped] = useState(false)
 
   useEffect(() => {
+    if (!enabled) return
     const fps = 30
     const interval = 1000 / fps
     const totalFrames = durationMs / interval
     const increment = max / totalFrames
     let frame = 0
     let timer: ReturnType<typeof setInterval>
+    let popTimer: ReturnType<typeof setTimeout>
+    let restartTimer: ReturnType<typeof setTimeout>
 
     const run = () => {
       frame = 0
@@ -146,17 +149,22 @@ function useLoopCounter(max: number, durationMs: number = 10000) {
         if (frame >= totalFrames) {
           clearInterval(timer)
           setPopped(true)
-          setTimeout(() => setPopped(false), 600)
-          setTimeout(run, 2000)
+          popTimer = setTimeout(() => setPopped(false), 600)
+          restartTimer = setTimeout(run, 2000)
         }
       }, interval)
     }
 
     run()
-    return () => clearInterval(timer)
-  }, [max, durationMs])
+    return () => {
+      clearInterval(timer)
+      clearTimeout(popTimer)
+      clearTimeout(restartTimer)
+    }
+  }, [max, durationMs, enabled])
 
-  return { value, popped }
+  // Reduced motion: show the final number, no counting loop
+  return enabled ? { value, popped } : { value: max, popped: false }
 }
 
 export default function Viral() {
@@ -193,8 +201,9 @@ export default function Viral() {
   const viewsOpacity = useTransform(scrollYProgress, [0.28, 0.34], [0, 1])
   const viewsRotate = useTransform(scrollYProgress, [0.28, 0.42], [0, 6])
 
-  const { value: likes, popped: likesPopped } = useLoopCounter(1000, 5000)
-  const { value: views, popped: viewsPopped } = useLoopCounter(100000, 5000)
+  const reduceMotion = useReducedMotion()
+  const { value: likes, popped: likesPopped } = useLoopCounter(1000, 5000, !reduceMotion)
+  const { value: views, popped: viewsPopped } = useLoopCounter(100000, 5000, !reduceMotion)
 
   const likesProgress = likes / 1000
   const viewsProgress = views / 100000
@@ -258,7 +267,9 @@ export default function Viral() {
               style={
                 isMobile
                   ? undefined
-                  : { x: likesX, opacity: likesOpacity, rotate: likesRotate }
+                  : reduceMotion
+                    ? { x: -offset, rotate: -6 }
+                    : { x: likesX, opacity: likesOpacity, rotate: likesRotate }
               }
               initial={isMobile ? { opacity: 0, y: 20 } : undefined}
               whileInView={isMobile ? { opacity: 1, y: 0 } : undefined}
@@ -277,7 +288,7 @@ export default function Viral() {
                       className={`fill-on-brand text-on-brand transition-transform duration-300 sm:size-[18px] ${likesPopped ? 'scale-125' : 'scale-100'}`}
                     />
                   </div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-on-brand/60 sm:text-xs">Likes</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-on-brand/80 sm:text-xs">Likes</p>
                 </div>
                 <p className={`font-serif text-2xl font-bold tracking-tight transition-colors duration-300 sm:text-4xl text-on-brand`}>
                   {likes.toLocaleString('cs-CZ')}
@@ -296,7 +307,9 @@ export default function Viral() {
               style={
                 isMobile
                   ? undefined
-                  : { x: viewsX, opacity: viewsOpacity, rotate: viewsRotate }
+                  : reduceMotion
+                    ? { x: offset, rotate: 6 }
+                    : { x: viewsX, opacity: viewsOpacity, rotate: viewsRotate }
               }
               initial={isMobile ? { opacity: 0, y: 20 } : undefined}
               whileInView={isMobile ? { opacity: 1, y: 0 } : undefined}
@@ -315,7 +328,7 @@ export default function Viral() {
                       className={`text-on-brand transition-transform duration-300 sm:size-[18px] ${viewsPopped ? 'scale-125' : 'scale-100'}`}
                     />
                   </div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-on-brand/60 sm:text-xs">Views</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-on-brand/80 sm:text-xs">Views</p>
                 </div>
                 <p className={`font-serif text-2xl font-bold tracking-tight transition-colors duration-300 sm:text-4xl text-on-brand`}>
                   {views.toLocaleString('cs-CZ')}

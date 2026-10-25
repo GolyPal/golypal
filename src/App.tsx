@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { MotionConfig } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Viral from './components/Viral'
@@ -17,6 +19,16 @@ import PrivacyPolicyModal from './components/PrivacyPolicyModal'
 import CaseStudy from './pages/CaseStudy'
 
 function HomePage() {
+  // Arriving from another page via /#sluzby etc.: the browser tries to jump
+  // before React has rendered the section, so scroll once it exists.
+  // Mount only; in-page hash links keep their native smooth scroll.
+  // instant: a smooth glide down the whole page from another route is slow.
+  useEffect(() => {
+    const hash = window.location.hash
+    if (!hash) return
+    document.getElementById(decodeURIComponent(hash.slice(1)))?.scrollIntoView({ behavior: 'instant' })
+  }, [])
+
   return (
     <div className="overflow-x-clip">
       <Navbar />
@@ -37,6 +49,8 @@ function HomePage() {
 function App() {
   return (
     <BrowserRouter>
+      {/* With "reduce motion" on, Framer drops transform animations and keeps fades */}
+      <MotionConfig reducedMotion="user">
       <PrivacyPolicyProvider>
         <ConsultFormProvider>
           <Routes>
@@ -47,6 +61,7 @@ function App() {
           <PrivacyPolicyModal />
         </ConsultFormProvider>
       </PrivacyPolicyProvider>
+      </MotionConfig>
     </BrowserRouter>
   )
 }

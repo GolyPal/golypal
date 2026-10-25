@@ -87,7 +87,7 @@ export default function CaseStudy() {
         <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
           <Link
             to="/"
-            className="mb-10 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-white/40 transition-colors hover:text-white/70"
+            className="mb-10 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-subtle transition-colors hover:text-white"
           >
             <ArrowLeft size={12} />
             Zpět na hlavní stránku
@@ -133,7 +133,7 @@ export default function CaseStudy() {
               Mám zájem o spolupráci
               <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
             </motion.button>
-            <p className="text-[12px] text-white/55">Nezávazná konzultace · Zdarma · Do 24 hodin</p>
+            <p className="text-[12px] text-subtle">Nezávazná konzultace · Zdarma · Do 24 hodin</p>
           </div>
         </div>
       </section>
@@ -372,7 +372,7 @@ export default function CaseStudy() {
                 Mám zájem o spolupráci
                 <ArrowRight size={14} />
               </motion.button>
-              <p className="mt-3 text-[12px] text-white/55">
+              <p className="mt-3 text-[12px] text-subtle">
                 Nezávazná konzultace · Zdarma · Do 24 hodin
               </p>
             </div>

@@ -22,6 +22,9 @@
   --color-deep: #223022;
   --color-muted: #5F665C;
   --color-alternate: var(--color-cream-dark);
+  /* Secondary text (captions, counters, roles). Adapts to the surface like
+     the accent and always clears WCAG AA, unlike ad-hoc /30-/60 opacities. */
+  --color-subtle: var(--subtle-on-light);
 }
 
 /* The accent adapts to the surface it sits on: one shade for light
@@ -31,6 +34,8 @@
   --on-accent-on-light: #E4FD97;
   --accent-on-dark: #E4FD97;
   --on-accent-on-dark: #2D3E2C;
+  --subtle-on-light: #5F665C;
+  --subtle-on-dark: color-mix(in srgb, #F7F7F3 65%, transparent);
 }
 
 .bg-charcoal,
@@ -39,6 +44,7 @@
   --color-on-accent: var(--on-accent-on-dark);
   --color-cta: var(--accent-on-dark);
   --color-on-cta: var(--on-accent-on-dark);
+  --color-subtle: var(--subtle-on-dark);
   /* "white" on dark surfaces is the page's light background, not pure white */
   --color-white: var(--color-cream);
 }
@@ -50,6 +56,7 @@
   --color-on-accent: var(--on-accent-on-light);
   --color-cta: var(--color-charcoal);
   --color-on-cta: var(--accent-on-dark);
+  --color-subtle: var(--subtle-on-light);
 }
 
 /* Highlighted words in headings on light surfaces get a lime label.
@@ -70,6 +77,12 @@ em.text-accent:not(:is(.bg-charcoal, .bg-deep) *) {
 
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {

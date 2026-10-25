@@ -77,7 +77,7 @@ export default function FinalCTA() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, delay: 0.35 }}
-            className="mt-6 text-[13px] text-white/55"
+            className="mt-6 text-[13px] text-subtle"
           >
             Odpovídám do 24 hodin. Bez závazků, bez poplatků.
           </motion.p>

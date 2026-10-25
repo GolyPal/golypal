@@ -95,7 +95,7 @@ function TestimonialCard({
           <p className="font-serif text-[15px] font-medium text-white">
             {t.name}
           </p>
-          <p className="mt-0.5 text-[11px] uppercase tracking-[0.2em] text-white/40">
+          <p className="mt-0.5 text-[11px] uppercase tracking-[0.2em] text-subtle">
             {t.role}
           </p>
         </div>

@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, Check, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useConsultForm } from '../context/ConsultFormContext'
 import { usePrivacyPolicy } from '../context/PrivacyPolicyContext'
+import { useDialogFocus } from '../hooks/useDialogFocus'
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xqewpkvg'
 
@@ -53,6 +54,9 @@ export default function ConsultFormModal() {
   const [status, setStatus] = useState<Status>('idle')
   const [errorMsg, setErrorMsg] = useState('')
   const firstInputRef = useRef<HTMLInputElement | null>(null)
+  const dialogRef = useRef<HTMLDivElement>(null)
+
+  useDialogFocus(dialogRef, isOpen, close)
 
   useEffect(() => {
     if (!isOpen) return
@@ -60,13 +64,6 @@ export default function ConsultFormModal() {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = prev }
   }, [isOpen])
-
-  useEffect(() => {
-    if (!isOpen) return
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') close() }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [isOpen, close])
 
   useEffect(() => {
     if (step === TOTAL_STEPS) {
@@ -179,9 +176,13 @@ export default function ConsultFormModal() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="consult-form-title"
-            className="fixed inset-0 z-[101] flex items-center justify-center px-4 py-6 sm:py-12"
+            className="fixed inset-0 z-[101] overflow-y-auto overscroll-contain"
           >
-            <div className="relative w-full max-w-[560px] bg-cream shadow-2xl overflow-hidden">
+            {/* min-h-full centres the card when it fits; on short screens
+                (iPhone SE in Safari) the whole dialog scrolls instead of
+                pushing the close and submit buttons off-screen. */}
+            <div className="flex min-h-full items-center justify-center px-4 py-6 sm:py-12">
+            <div ref={dialogRef} className="relative w-full max-w-[560px] bg-cream shadow-2xl overflow-hidden">
 
               <button
                 type="button"
@@ -309,6 +310,7 @@ export default function ConsultFormModal() {
                   </div>
                 </>
               )}
+            </div>
             </div>
           </motion.div>
         </>

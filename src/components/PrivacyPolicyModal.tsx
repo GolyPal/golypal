@@ -1,10 +1,14 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { X } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { usePrivacyPolicy } from '../context/PrivacyPolicyContext'
+import { useDialogFocus } from '../hooks/useDialogFocus'
 
 export default function PrivacyPolicyModal() {
   const { isOpen, close } = usePrivacyPolicy()
+  const dialogRef = useRef<HTMLDivElement>(null)
+
+  useDialogFocus(dialogRef, isOpen, close)
 
   useEffect(() => {
     if (!isOpen) return
@@ -12,13 +16,6 @@ export default function PrivacyPolicyModal() {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = prev }
   }, [isOpen])
-
-  useEffect(() => {
-    if (!isOpen) return
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') close() }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [isOpen, close])
 
   return (
     <AnimatePresence>
@@ -44,7 +41,7 @@ export default function PrivacyPolicyModal() {
             aria-labelledby="privacy-modal-title"
             className="fixed inset-0 z-[201] flex items-center justify-center px-4 py-8 sm:py-12"
           >
-            <div className="relative flex w-full max-w-[640px] flex-col bg-cream shadow-2xl max-h-[85vh]">
+            <div ref={dialogRef} className="relative flex w-full max-w-[640px] flex-col bg-cream shadow-2xl max-h-[85vh]">
               {/* Header */}
               <div className="flex-none border-b border-charcoal/8 px-8 pb-5 pt-10 sm:px-12">
                 <p className="text-[10px] uppercase tracking-[0.35em] text-accent">Právní informace</p>
