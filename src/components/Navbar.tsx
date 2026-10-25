@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import { useConsultForm } from '../context/ConsultFormContext'
+import Logo from './Logo'
 
 const navLinks = [
   { label: 'Služby', href: '/#sluzby' },
@@ -69,9 +70,10 @@ export default function Navbar() {
           <Link
             to="/"
             onClick={() => window.scrollTo({ top: 0 })}
-            className="whitespace-nowrap font-serif text-xl font-semibold tracking-tight text-charcoal transition-colors duration-300 xl:text-2xl"
+            aria-label="GolasVisuals, úvodní stránka"
+            className="text-charcoal"
           >
-            Pavel Golasowski
+            <Logo className="h-[22px] w-auto lg:h-6 xl:h-7" />
           </Link>
 
           {/* Full nav only from lg: between 768 and 1024 px it didn't fit and

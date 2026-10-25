@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { usePrivacyPolicy } from '../context/PrivacyPolicyContext'
 import { SectionLink } from './Navbar'
 import { InstagramIcon, LinkedInIcon } from './SocialIcons'
+import Logo from './Logo'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -17,9 +18,10 @@ export default function Footer() {
             <Link
               to="/"
               onClick={() => window.scrollTo({ top: 0 })}
-              className="font-serif text-2xl font-semibold tracking-tight text-charcoal"
+              aria-label="GolasVisuals, úvodní stránka"
+              className="inline-block text-charcoal"
             >
-              Pavel Golasowski
+              <Logo className="h-8 w-auto" />
             </Link>
             <p className="mt-5 max-w-xs text-sm leading-[1.8] text-warm-gray">
               Vizuální produkce pro realitní makléře. Video, fotografie
