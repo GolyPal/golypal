@@ -4,9 +4,9 @@ import { useConsultForm } from '../context/ConsultFormContext'
 import { useMediaQuery } from '../hooks/useMediaQuery'
 
 const bullets = [
-  { Icon: Video, title: 'Videa', text: 'stavěná na zastavení scrollu s tisíci zhlédnutími' },
-  { Icon: Camera, title: 'Fotky', text: 'ne z mobilu, ne průměrné, ne jako ostatní' },
-  { Icon: Wand2, title: 'AI vizualizace', text: 'plný potenciál nemovitosti bez stagingu za desetitisíce' },
+  { Icon: Video, title: 'Videa', text: 'stavěná na zastavení scrollu s tisíci zhlédnutími.' },
+  { Icon: Camera, title: 'Fotky', text: 'ne z mobilu, ne průměrné, ne jako ostatní.' },
+  { Icon: Wand2, title: 'AI vizualizace', text: 'plný potenciál nemovitosti bez stagingu za desetitisíce.' },
   { Icon: FileText, title: 'Scripty', text: 'první 3 sekundy rozhodují. Řeknu vám přesně, jak zaujmout.' },
 ]
 
@@ -153,7 +153,7 @@ export default function Hero() {
               <Chip>AI vizualizace</Chip>
             </Tile>
             <Tile className="row-span-2 bg-black" delay={240}>
-              <HeroReel src="/videos/Reel-2.mp4" label="Ukázka reelu z Dynamických videí" />
+              <HeroReel src="/videos/hero-reel.mp4" label="Ukázka reelu" />
               <Chip>Reel</Chip>
             </Tile>
             <Tile className="bg-deep border border-white/[0.08]" delay={300}>
