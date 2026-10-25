@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { Eye, Heart, ArrowDown, ChevronLeft, ChevronRight, Volume2, VolumeX } from 'lucide-react'
 
 /* ── Pavel's top 3 reels shown in the phone ── */
@@ -123,12 +123,11 @@ function PhoneReels() {
 }
 
 /* ── Animated counter hook ── */
-function useLoopCounter(max: number, durationMs: number = 10000, enabled = true) {
+function useLoopCounter(max: number, durationMs: number = 10000) {
   const [value, setValue] = useState(0)
   const [popped, setPopped] = useState(false)
 
   useEffect(() => {
-    if (!enabled) return
     const fps = 30
     const interval = 1000 / fps
     const totalFrames = durationMs / interval
@@ -161,10 +160,9 @@ function useLoopCounter(max: number, durationMs: number = 10000, enabled = true)
       clearTimeout(popTimer)
       clearTimeout(restartTimer)
     }
-  }, [max, durationMs, enabled])
+  }, [max, durationMs])
 
-  // Reduced motion: show the final number, no counting loop
-  return enabled ? { value, popped } : { value: max, popped: false }
+  return { value, popped }
 }
 
 export default function Viral() {
@@ -191,8 +189,8 @@ export default function Viral() {
     offset: ['start end', 'end start'],
   })
 
-  // The slide-out is tied to scroll, so the visitor drives it; it stays on
-  // even with "reduce motion" (Pavel wants it). Only the counting loop stops.
+  // The slide-out and the counters stay on even with "reduce motion"
+  // (Pavel wants them); the slide is tied to scroll, so the visitor drives it.
   // Both cards use identical timing so they slide out in perfect sync
   // Animation completes before phone reaches center (~0.42 scroll progress)
   const likesX = useTransform(scrollYProgress, [0.28, 0.42], [0, -offset])
@@ -203,9 +201,8 @@ export default function Viral() {
   const viewsOpacity = useTransform(scrollYProgress, [0.28, 0.34], [0, 1])
   const viewsRotate = useTransform(scrollYProgress, [0.28, 0.42], [0, 6])
 
-  const reduceMotion = useReducedMotion()
-  const { value: likes, popped: likesPopped } = useLoopCounter(1000, 5000, !reduceMotion)
-  const { value: views, popped: viewsPopped } = useLoopCounter(100000, 5000, !reduceMotion)
+  const { value: likes, popped: likesPopped } = useLoopCounter(1000, 5000)
+  const { value: views, popped: viewsPopped } = useLoopCounter(100000, 5000)
 
   const likesProgress = likes / 1000
   const viewsProgress = views / 100000
