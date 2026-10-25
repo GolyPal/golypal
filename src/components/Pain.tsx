@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 const painPoints = [
   {
     number: '01',
-    label: 'Nemovitost leží na trhu',
+    label: 'Nemovitost leží na trhu dlouho',
     description:
       'Inzerát zapadne mezi stovky podobných. Prázdný byt, průměrné fotky z\u00A0mobilu. Kupující scrollují dál. S\u00A0každým týdnem roste tlak na slevu.',
   },
@@ -16,7 +16,7 @@ const painPoints = [
   },
   {
     number: '03',
-    label: 'Prázdný byt neprodáte',
+    label: 'Prázdný byt lidi nepřitáhne',
     description:
       'Kupující si nedokáže představit život v\u00A0prázdném prostoru. Staging stojí 30–50\u00A0tisíc a\u00A0týden čekání. Bez něj to nejde.',
   },
@@ -24,7 +24,7 @@ const painPoints = [
     number: '04',
     label: 'Před kamerou to nejde',
     description:
-      'Ztuhnete, výsledek vypadá amatérsky a\u00A0poškozuje váš brand. Nevíte, co říct. A\u00A0přitom video je dnes to, co prodává.',
+      'Ztuhnete, výsledek vypadá amatérsky a\u00A0poškozuje váš brand. Nevíte, co říct. A\u00A0přitom byste opravdu chtěli.',
   },
 ]
 
@@ -111,13 +111,8 @@ export default function Pain() {
           className="mb-14 text-center lg:mb-16"
         >
           <h2 className="font-serif text-[clamp(1.6rem,3.5vw,2.6rem)] font-medium leading-[1.05] tracking-[-0.01em] text-white">
-            Poznáváte se?
+            <em className="text-accent">Poznáváte</em> se v&nbsp;tom?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-[1.85] text-white">
-            Fotíte na mobil, staging neřešíte a&nbsp;videa neděláte vůbec.
-            Výsledek? Nemovitost leží na trhu, prodávající tlačí na slevu
-            a&nbsp;provize klesá.
-          </p>
         </motion.div>
 
         {/* ── MOBILE: horizontal snap scroll ── */}
@@ -137,9 +132,6 @@ export default function Pain() {
                 key={point.number}
                 className="w-full flex-none snap-start rounded-2xl border border-white/[0.06] bg-white/[0.03] p-8 backdrop-blur-sm"
               >
-                <span className="mb-4 block font-mono text-sm tracking-wider text-white">
-                  {point.number}
-                </span>
                 <h3 className="mb-3 font-serif text-xl font-semibold leading-tight text-accent">
                   {point.label}
                 </h3>
@@ -166,9 +158,6 @@ export default function Pain() {
               transition={{ duration: 0.7, delay: i * 0.1 }}
               className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.03] p-8 backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-accent/40 hover:bg-white/[0.06] hover:shadow-[0_16px_40px_rgba(0,0,0,0.25)] lg:p-10"
             >
-              <span className="mb-4 block font-mono text-sm tracking-wider text-white">
-                {point.number}
-              </span>
               <h3 className="mb-3 font-serif text-xl font-semibold leading-tight text-accent lg:text-2xl">
                 {point.label}
               </h3>

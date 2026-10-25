@@ -75,8 +75,9 @@ export default function Hero() {
             <span className="inline-flex w-fit items-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-4 py-2 text-[13px] font-medium tracking-wide text-white/90 sm:rounded-full">
               <span className="inline-block h-1.5 w-1.5 flex-none rounded-full bg-accent" />
               <span>
-                Pro makléře, kterým přestalo stačit <span className="font-semibold text-accent">&ldquo;nějak to dopadne&rdquo;</span>
+                Pro makléře, kterým přestalo stačit <span className="font-semibold text-accent">&ldquo;nějak se to prodá&rdquo;</span>
               </span>
+              <span className="inline-block h-1.5 w-1.5 flex-none rounded-full bg-accent" />
             </span>
 
             <h1

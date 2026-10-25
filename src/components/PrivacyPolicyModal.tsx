@@ -83,7 +83,7 @@ export default function PrivacyPolicyModal() {
                       .
                     </p>
                     <p className="mt-1">
-                      Fyzická osoba podnikající, zapsaná v živnostenském rejstříku vedeném Městským úřadem Třinec.
+                      Fyzická osoba podnikající, zapsaná v živnostenském rejstříku vedeném Živnostenským úřadem Třinec, Smetanova 498, 739 61 Třinec.
                     </p>
                   </section>
 

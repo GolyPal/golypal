@@ -130,7 +130,7 @@ export default function Footer() {
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
             {/* Business details required on a website by § 435 of the Civil Code */}
             <p className="text-xs text-warm-gray">
-              IČO: 08438927 &middot; Hrádek 390, 739&nbsp;97 Hrádek &middot; zapsán v&nbsp;živnostenském rejstříku MěÚ Třinec
+              IČO: 08438927 &middot; Hrádek 390, 739&nbsp;97 Hrádek &middot; zapsán v&nbsp;živnostenském rejstříku, Živnostenský úřad Třinec
             </p>
             <button
               type="button"
