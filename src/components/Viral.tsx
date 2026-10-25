@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { Eye, Heart, ArrowDown, ChevronLeft, ChevronRight, Volume2, VolumeX } from 'lucide-react'
+import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { Eye, Heart, MessageCircle, Repeat, Send, ArrowDown, ChevronLeft, ChevronRight, Volume2, VolumeX, type LucideIcon } from 'lucide-react'
 
 /* ── Pavel's top 3 reels shown in the phone ── */
 const phoneReels = [1, 2, 3].map((n) => ({
@@ -165,6 +165,69 @@ function useLoopCounter(max: number, durationMs: number = 10000) {
   return { value, popped }
 }
 
+/* ── Background scatter of faint Instagram action icons ──
+   Purely decorative, behind the Likes/Views cards: small, 25 % opacity,
+   flying out from behind the phone together with the cards. x / y are the
+   landing spot from the phone's centre on large screens (scaled with the
+   cards' offset below that); they avoid the phone and both cards.
+   The numbers are illustrative; edit freely. */
+type ScatterIcon = { icon: LucideIcon; value: string; x: number; y: number; rotate: number; size: number; flip?: boolean }
+
+const scatter: ScatterIcon[] = [
+  { icon: Heart, value: '2 431', x: -250, y: -265, rotate: -12, size: 30 },
+  { icon: Send, value: '864', x: -405, y: -300, rotate: 8, size: 24 },
+  { icon: MessageCircle, value: '317', x: -480, y: -175, rotate: -6, size: 26, flip: true },
+  { icon: Repeat, value: '1 205', x: -215, y: 95, rotate: 10, size: 26 },
+  { icon: Heart, value: '18 400', x: -345, y: 150, rotate: 6, size: 34 },
+  { icon: MessageCircle, value: '96', x: -470, y: 60, rotate: -10, size: 24, flip: true },
+  { icon: Send, value: '3 250', x: -255, y: 285, rotate: -8, size: 28 },
+  { icon: Repeat, value: '742', x: -430, y: 275, rotate: 5, size: 24 },
+  { icon: MessageCircle, value: '1 178', x: 240, y: -275, rotate: 9, size: 28, flip: true },
+  { icon: Heart, value: '7 950', x: 385, y: -235, rotate: 12, size: 32 },
+  { icon: Repeat, value: '412', x: 480, y: -110, rotate: -7, size: 24 },
+  { icon: Send, value: '1 640', x: 230, y: 105, rotate: 7, size: 26 },
+  { icon: Heart, value: '12 600', x: 370, y: 165, rotate: -9, size: 30 },
+  { icon: MessageCircle, value: '258', x: 480, y: 55, rotate: 6, size: 24, flip: true },
+  { icon: Repeat, value: '2 090', x: 285, y: 300, rotate: -5, size: 26 },
+  { icon: Send, value: '519', x: 445, y: 320, rotate: 11, size: 24 },
+]
+
+function ScatteredIcon({
+  item,
+  index,
+  progress,
+  scale,
+}: {
+  item: ScatterIcon
+  index: number
+  progress: MotionValue<number>
+  scale: number
+}) {
+  // Same window as the cards, each icon a hair later than the one before
+  const from = 0.27 + (index % 8) * 0.006
+  const to = from + 0.15
+  const x = useTransform(progress, [from, to], [0, item.x * scale])
+  const y = useTransform(progress, [from, to], [0, item.y * scale])
+  const rotate = useTransform(progress, [from, to], [0, item.rotate])
+  const opacity = useTransform(progress, [from, from + 0.06], [0, 0.25])
+  const Icon = item.icon
+
+  return (
+    <motion.div
+      aria-hidden="true"
+      style={{ x, y, rotate, opacity }}
+      className="pointer-events-none absolute left-1/2 top-1/2 z-0 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1 text-charcoal"
+    >
+      <Icon
+        size={Math.round(item.size * (scale < 1 ? 0.8 : 1))}
+        strokeWidth={1.75}
+        className={item.flip ? '-scale-x-100' : undefined}
+      />
+      <span className="text-[11px] font-semibold tabular-nums lg:text-xs">{item.value}</span>
+    </motion.div>
+  )
+}
+
 export default function Viral() {
   const sectionRef = useRef<HTMLDivElement>(null)
 
@@ -256,6 +319,12 @@ export default function Viral() {
           >
             <PhoneReels />
           </motion.div>
+
+          {/* Faint icon scatter behind the cards (desktop only) */}
+          {!isMobile &&
+            scatter.map((item, i) => (
+              <ScatteredIcon key={i} item={item} index={i} progress={scrollYProgress} scale={offset / 410} />
+            ))}
 
           {/* Cards wrapper, on mobile it's a flex row; on desktop `contents` makes it
               disappear so the children can be absolutely positioned by the grandparent. */}
