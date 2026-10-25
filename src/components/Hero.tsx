@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode } from 'react'
-import { ArrowRight, ArrowDown, Camera, Video, Wand2, FileText } from 'lucide-react'
+import { ArrowRight, Camera, Video, Wand2, FileText } from 'lucide-react'
 import { useConsultForm } from '../context/ConsultFormContext'
 import { useMediaQuery } from '../hooks/useMediaQuery'
 
@@ -110,12 +110,6 @@ export default function Hero() {
                 Konzultace zdarma
                 <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
               </button>
-              <a
-                href="#sluzby"
-                className="inline-flex items-center gap-2 text-sm font-medium text-white/85 underline-offset-4 transition-colors hover:text-white hover:underline"
-              >
-                Ukázky práce <ArrowDown size={14} />
-              </a>
             </div>
           </div>
 
@@ -127,7 +121,7 @@ export default function Hero() {
           {showBento && (
           <div className="grid h-[520px] grid-cols-4 grid-rows-3 gap-3 lg:col-span-7 lg:h-[580px]">
             <Tile className="row-span-2 bg-black" delay={0}>
-              <HeroReel src="/videos/top-2.mp4" label="Ukázka reelu" />
+              <HeroReel src="/videos/Reel-4.mp4" label="Ukázka reelu" />
               <Chip>Reel</Chip>
             </Tile>
             <Tile className="col-span-2" delay={60}>
