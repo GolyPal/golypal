@@ -280,25 +280,35 @@ const scatterMobile: ScatterIcon[] = [
   { icon: MessageCircle, value: '96', x: 148, y: 225, rotate: -9, size: 18, flip: true },
 ]
 
-function MobileScatter() {
+/* One icon, flying out from behind the phone as the phone scrolls up
+   into view. Each starts a beat after the previous one. */
+function MobileScatterIcon({ item, index, progress }: { item: ScatterIcon; index: number; progress: MotionValue<number> }) {
+  const from = 0.2 + index * 0.06
+  const to = from + 0.38
+  const x = useTransform(progress, [from, to], [0, item.x])
+  const y = useTransform(progress, [from, to], [0, item.y])
+  const rotate = useTransform(progress, [from, to], [0, item.rotate])
+  const scale = useTransform(progress, [from, to], [0.8, 1])
+  const opacity = useTransform(progress, [from, from + 0.12], [0, 0.25])
+  const Icon = item.icon
+  return (
+    <motion.div
+      style={{ x, y, rotate, scale, opacity }}
+      className="absolute left-0 top-0 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-0.5 text-charcoal"
+    >
+      <Icon size={item.size} strokeWidth={1.75} className={item.flip ? '-scale-x-100' : undefined} />
+      <span className="whitespace-nowrap text-[10px] font-semibold tabular-nums">{item.value}</span>
+    </motion.div>
+  )
+}
+
+/* progress: 0 when the phone's top enters the screen, 1 when it's centred */
+function MobileScatter({ progress }: { progress: MotionValue<number> }) {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-[259px] -z-10 sm:hidden">
-      {scatterMobile.map((item, i) => {
-        const Icon = item.icon
-        return (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, x: 0, y: 0, rotate: 0 }}
-            whileInView={{ opacity: 0.25, x: item.x, y: item.y, rotate: item.rotate }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.9, delay: 0.3 + i * 0.04, ease: [0.23, 1, 0.32, 1] }}
-            className="absolute left-0 top-0 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-0.5 text-charcoal"
-          >
-            <Icon size={item.size} strokeWidth={1.75} className={item.flip ? '-scale-x-100' : undefined} />
-            <span className="whitespace-nowrap text-[10px] font-semibold tabular-nums">{item.value}</span>
-          </motion.div>
-        )
-      })}
+      {scatterMobile.map((item, i) => (
+        <MobileScatterIcon key={i} item={item} index={i} progress={progress} />
+      ))}
     </div>
   )
 }
@@ -375,6 +385,18 @@ export default function Viral() {
   const viewsOpacity = useTransform(scrollYProgress, [0.28, 0.34], [0, 1])
   const viewsRotate = useTransform(scrollYProgress, [0.28, 0.42], [0, 6])
 
+  // Phones: the icons fly out as the phone scrolls up to the middle, then
+  // the two cards slide in from the sides as their row does the same.
+  const phoneRef = useRef<HTMLDivElement>(null)
+  const cardsRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress: phoneProgress } = useScroll({ target: phoneRef, offset: ['start end', 'center center'] })
+  const { scrollYProgress: cardsProgress } = useScroll({ target: cardsRef, offset: ['start end', 'center center'] })
+  const mLikesX = useTransform(cardsProgress, [0.15, 0.85], ['-115%', '0%'])
+  const mViewsX = useTransform(cardsProgress, [0.15, 0.85], ['115%', '0%'])
+  const mLikesRotate = useTransform(cardsProgress, [0.15, 0.85], [-8, 0])
+  const mViewsRotate = useTransform(cardsProgress, [0.15, 0.85], [8, 0])
+  const mOpacity = useTransform(cardsProgress, [0.15, 0.5], [0, 1])
+
   const { value: likes, popped: likesPopped } = useLoopCounter(1000, 5000)
   const { value: views, popped: viewsPopped } = useLoopCounter(100000, 5000)
 
@@ -420,6 +442,7 @@ export default function Viral() {
 
           {/* Phone mockup */}
           <motion.div
+            ref={phoneRef}
             initial={{ opacity: 0, scale: 0.92 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.2 }}
@@ -427,7 +450,7 @@ export default function Viral() {
             className="relative z-20 w-[240px] sm:absolute sm:left-1/2 sm:top-1/2 sm:w-[280px] sm:-translate-x-1/2 sm:-translate-y-1/2 lg:w-[320px]"
           >
             <PhoneReels />
-            <MobileScatter />
+            <MobileScatter progress={phoneProgress} />
           </motion.div>
 
           {/* Faint icon scatter behind the cards (desktop only) */}
@@ -438,19 +461,16 @@ export default function Viral() {
 
           {/* Cards wrapper, on mobile it's a flex row; on desktop `contents` makes it
               disappear so the children can be absolutely positioned by the grandparent. */}
-          <div className="flex w-full max-w-sm justify-center gap-3 sm:contents">
+          <div ref={cardsRef} className="flex w-full max-w-sm justify-center gap-3 sm:contents">
 
-            {/* Likes card, slides left on desktop, sits statically on mobile */}
+            {/* Likes card: slides out left from behind the phone on desktop,
+                slides in from the left edge on phones */}
             <motion.div
               style={
                 isMobile
-                  ? undefined
+                  ? { x: mLikesX, rotate: mLikesRotate, opacity: mOpacity }
                   : { x: likesX, opacity: likesOpacity, rotate: likesRotate }
               }
-              initial={isMobile ? { opacity: 0, y: 20 } : undefined}
-              whileInView={isMobile ? { opacity: 1, y: 0 } : undefined}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
               className="flex-1 sm:flex-none sm:absolute sm:left-1/2 sm:top-[38%] sm:z-10 sm:-ml-[10px] sm:-translate-y-1/2"
             >
               <InsightsCard
@@ -464,17 +484,13 @@ export default function Viral() {
               />
             </motion.div>
 
-            {/* Views card, slides right on desktop, sits statically on mobile */}
+            {/* Views card: right on desktop, in from the right edge on phones */}
             <motion.div
               style={
                 isMobile
-                  ? undefined
+                  ? { x: mViewsX, rotate: mViewsRotate, opacity: mOpacity }
                   : { x: viewsX, opacity: viewsOpacity, rotate: viewsRotate }
               }
-              initial={isMobile ? { opacity: 0, y: 20 } : undefined}
-              whileInView={isMobile ? { opacity: 1, y: 0 } : undefined}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
               className="flex-1 sm:flex-none sm:absolute sm:right-1/2 sm:top-[38%] sm:z-10 sm:-mr-[10px] sm:-translate-y-1/2"
             >
               <InsightsCard
