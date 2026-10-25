@@ -126,6 +126,12 @@ body {
   }
 }
 
+/* Hero bento cells: fade and settle in, one after another */
+@keyframes tile-in {
+  from { opacity: 0; scale: 0.96; }
+  to { opacity: 1; scale: 1; }
+}
+
 /* Parallax-like image zoom on scroll */
 @keyframes subtle-zoom {
   from { transform: scale(1); }
