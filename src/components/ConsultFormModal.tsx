@@ -5,7 +5,7 @@ import { useConsultForm } from '../context/ConsultFormContext'
 import { usePrivacyPolicy } from '../context/PrivacyPolicyContext'
 import { useDialogFocus } from '../hooks/useDialogFocus'
 
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xqewpkvg'
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mbggdnpz'
 
 const TOTAL_STEPS = 7
 
@@ -127,6 +127,9 @@ export default function ConsultFormModal() {
         method: 'POST',
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          // Formspree special fields: mail subject, and "Reply" goes straight to the client
+          _subject: `Nová poptávka z webu: ${form.name.trim()}`,
+          _replyto: form.email.trim(),
           'Kdo jsem': form.role,
           'Aktuální řešení foto/video': form.mediaStatus.join(', '),
           'Typ nemovitostí': form.propertyType.join(', '),
