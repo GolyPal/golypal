@@ -25,7 +25,7 @@ const steps = [
     number: '4',
     title: 'Focení a natáčení',
     description:
-      'Když se domluvíme, nemovitost nafotím a natočím. Všechny materiály dodám do 7 dnů, optimalizované na sítě i Sreality.',
+      'Když se domluvíme, nemovitost nafotím a natočím. Všechny materiály dodám do 7 dnů, optimalizované na sociální sítě i webovky.',
   },
 ]
 
