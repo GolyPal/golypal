@@ -560,7 +560,7 @@ function StepContact({
         Vaše kontaktní údaje
       </h2>
       <p className="mb-7 text-[14px] leading-[1.7] text-warm-gray">
-        Ozvu se vám do 24 hodin.
+        Brzy se vám ozvu.
       </p>
       <div className="space-y-5">
         <Field label="Jméno a příjmení" required>
@@ -658,7 +658,7 @@ function SuccessState({ onClose }: { onClose: () => void }) {
       >
         <p className="mb-3 text-[10px] uppercase tracking-[0.4em] text-accent">Odesláno</p>
         <h2 className="font-serif text-[clamp(1.5rem,3vw,2rem)] font-medium leading-[1.15] tracking-[-0.01em] text-charcoal">
-          Díky, ozvu se <em className="text-accent">do 24&nbsp;hodin</em>
+          Díky, <em className="text-accent">brzy se ozvu</em>
         </h2>
         <p className="mx-auto mt-4 max-w-md text-[14px] leading-[1.7] text-warm-gray">
           Vaši poptávku jsem dostal. Mezitím si klidně pusťte moje poslední videa nebo se podívejte na reference.

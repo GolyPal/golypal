@@ -8,26 +8,24 @@ const steps = [
   {
     number: '1',
     title: 'Vyplňte formulář',
-    description:
-      'Řekněte mi o sobě pár věcí. Zabere to necelou minutu. Ozvu se vám do 24 hodin.',
+    description: 'Řekněte mi o sobě pár věcí. Zabere to necelou minutu.',
   },
   {
     number: '2',
-    title: 'Konzultace',
-    description:
-      'Sejdeme se (klidně online) a probereme, jak pracujete, jaké nemovitosti nabízíte a kam chcete posunout svou prezentaci. Cílem je zjistit, jestli si vzájemně sedneme a má smysl jít do toho.',
+    title: 'Ozvu se vám',
+    description: 'Brzy se vám ozvu. Pak si zavoláme nebo se potkáme, klidně i online.',
   },
   {
     number: '3',
-    title: 'Nastavení spolupráce',
+    title: 'Pobavíme se',
     description:
-      'Pokud se domluvíme, že do toho jdeme spolu, nastavíme si formát spolupráce na míru. Tak, aby to fungovalo dlouhodobě.',
+      'Probereme, jaké nemovitosti nabízíte a co potřebujete. Uvidíme, jestli si sedneme a jak vám můžu pomoct.',
   },
   {
     number: '4',
     title: 'Focení a natáčení',
     description:
-      'Nemovitost nafotím a natočím. Všechny materiály dodám do 7 dnů, optimalizované na sítě i Sreality.',
+      'Když se domluvíme, nemovitost nafotím a natočím. Všechny materiály dodám do 7 dnů, optimalizované na sítě i Sreality.',
   },
 ]
 
