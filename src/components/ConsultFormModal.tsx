@@ -67,6 +67,15 @@ export default function ConsultFormModal() {
     return () => { document.body.style.overflow = prev }
   }, [isOpen])
 
+  // Videos behind the form keep decoding and painting, which on phones made
+  // taps in the form lag: pause the ones that play and resume them on close
+  useEffect(() => {
+    if (!isOpen) return
+    const playing = [...document.querySelectorAll('video')].filter(v => !v.paused)
+    playing.forEach(v => v.pause())
+    return () => playing.forEach(v => { v.play().catch(() => {}) })
+  }, [isOpen])
+
   useEffect(() => {
     if (step === TOTAL_STEPS) {
       const t = window.setTimeout(() => firstInputRef.current?.focus(), 200)

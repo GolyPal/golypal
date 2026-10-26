@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
-import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { motion, useInView, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { useConsultForm } from '../context/ConsultFormContext'
 import { Eye, Heart, MessageCircle, Repeat, Send, TrendingUp, ChevronLeft, ChevronRight, Volume2, VolumeX, type LucideIcon } from 'lucide-react'
 
 /* ── Pavel's top 3 reels shown in the phone ── */
@@ -123,11 +124,13 @@ function PhoneReels() {
 }
 
 /* ── Animated counter hook ── */
-function useLoopCounter(max: number, durationMs: number = 10000) {
+function useLoopCounter(max: number, durationMs: number = 10000, running = true) {
   const [value, setValue] = useState(0)
   const [popped, setPopped] = useState(false)
 
   useEffect(() => {
+    // Ticks 30× a second, so it only runs while someone can see it
+    if (!running) return
     const fps = 30
     const interval = 1000 / fps
     const totalFrames = durationMs / interval
@@ -160,7 +163,7 @@ function useLoopCounter(max: number, durationMs: number = 10000) {
       clearTimeout(popTimer)
       clearTimeout(restartTimer)
     }
-  }, [max, durationMs])
+  }, [max, durationMs, running])
 
   return { value, popped }
 }
@@ -174,24 +177,28 @@ const WEEK = [0.22, 0.3, 0.26, 0.42, 0.55, 0.72, 1]
 function InsightsCard({
   icon: Icon,
   label,
-  value,
   max,
-  popped,
   growth,
   filled = false,
 }: {
   icon: LucideIcon
   label: string
-  value: number
   max: number
-  popped: boolean
   growth: string
   filled?: boolean
 }) {
+  // The counter lives here, so each tick redraws only this card, and it
+  // stops while the card is off screen or the enquiry form is open (on
+  // phones it otherwise kept the whole page busy and made taps lag)
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref)
+  const { isOpen: formOpen } = useConsultForm()
+  const { value, popped } = useLoopCounter(max, 5000, inView && !formOpen)
   const p = value / max
   const done = value >= max
   return (
     <div
+      ref={ref}
       className="flex w-full flex-col rounded-2xl bg-brand p-4 shadow-[0_8px_32px_color-mix(in_srgb,var(--color-on-brand)_18%,transparent)] transition-transform duration-300 sm:h-[224px] sm:w-[240px] sm:px-6 sm:pb-5 sm:pt-6"
       style={{ transform: popped ? 'scale(1.12)' : 'scale(1)' }}
     >
@@ -403,8 +410,6 @@ export default function Viral() {
   // the cards transparent until far too late
   const mOpacity = useTransform(cardsProgress, (p) => Math.min(1, Math.max(0, p / 0.35)))
 
-  const { value: likes, popped: likesPopped } = useLoopCounter(1000, 5000)
-  const { value: views, popped: viewsPopped } = useLoopCounter(100000, 5000)
 
 
 
@@ -482,9 +487,7 @@ export default function Viral() {
               <InsightsCard
                 icon={Heart}
                 label="Likes"
-                value={likes}
                 max={1000}
-                popped={likesPopped}
                 growth="+312 %"
                 filled
               />
@@ -502,9 +505,7 @@ export default function Viral() {
               <InsightsCard
                 icon={Eye}
                 label="Views"
-                value={views}
                 max={100000}
-                popped={viewsPopped}
                 growth="+548 %"
               />
             </motion.div>
