@@ -356,7 +356,7 @@ export default function CaseStudy() {
       {/* ── CTA ── */}
       <section className="bg-deep py-16 lg:py-24">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-16">
-          {/* Phones centre everything; from sm up the text sits left */}
+          {/* Phones centre the heading block; from sm up it sits left */}
           <div className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
             <div className="text-center sm:text-left lg:col-span-5">
               <div className="editorial-line-light mb-7 sm:ml-0!" />
@@ -378,14 +378,14 @@ export default function CaseStudy() {
             </div>
 
             <div className="lg:col-span-7">
-              <ul className="space-y-6 sm:space-y-4">
+              <ul className="space-y-4">
                 {[
                   <>Děláte už nějaký obsah, sami nebo s kameramanem, ale vidíte, že <K>to nejede, jak by mělo</K>. Videa mají pár tisíc zhlédnutí a lajky od kolegů z branže, ale nikoho mimo bublinu.</>,
                   <>Chcete, aby video nemovitosti nebylo jen hezká prezentace, ale <K>přivádělo vám skutečné poptávky</K> a pomáhalo prodat.</>,
                   <>Chcete <K>budovat osobní brand</K>. Ne kvůli ješitnosti, ale aby si vás majitelé pamatovali dřív, než zvednou telefon, a vybrali si vás, protože vás znají.</>,
                   <><K>Nechcete řešit produkci</K>. Hledáte někoho, kdo přijde, navnímá prostor, nafotí, natočí a pošle vám <K>hotový výstup</K>, který stačí nahrát.</>,
                 ].map((item, i) => (
-                  <li key={i} className="flex flex-col items-center gap-2 text-center sm:flex-row sm:items-start sm:gap-3 sm:text-left">
+                  <li key={i} className="flex items-start gap-3">
                     <span className="mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full bg-accent/15">
                       <Check size={10} strokeWidth={2.5} className="text-accent" />
                     </span>
