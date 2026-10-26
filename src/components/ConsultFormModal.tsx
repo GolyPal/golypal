@@ -38,10 +38,13 @@ const initialState: FormState = {
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
 
+// Steps swap one after the other (mode "wait"), so both halves stay short:
+// a quick fade out and a slightly longer slide in, about 0.3 s in total
+const ease = [0.22, 1, 0.36, 1] as const
 const variants = {
-  enter: (dir: number) => ({ x: dir > 0 ? 48 : -48, opacity: 0 }),
-  center: { x: 0, opacity: 1 },
-  exit: (dir: number) => ({ x: dir > 0 ? -48 : 48, opacity: 0 }),
+  enter: (dir: number) => ({ x: dir > 0 ? 24 : -24, opacity: 0 }),
+  center: { x: 0, opacity: 1, transition: { duration: 0.2, ease } },
+  exit: (dir: number) => ({ x: dir > 0 ? -24 : 24, opacity: 0, transition: { duration: 0.1, ease } }),
 }
 
 export default function ConsultFormModal() {
@@ -66,7 +69,7 @@ export default function ConsultFormModal() {
 
   useEffect(() => {
     if (step === TOTAL_STEPS) {
-      const t = window.setTimeout(() => firstInputRef.current?.focus(), 300)
+      const t = window.setTimeout(() => firstInputRef.current?.focus(), 200)
       return () => window.clearTimeout(t)
     }
   }, [step])
@@ -172,7 +175,7 @@ export default function ConsultFormModal() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={close}
-            className="fixed inset-0 z-[100] bg-charcoal/70 backdrop-blur-sm"
+            className="fixed inset-0 z-[100] bg-charcoal/80"
             aria-hidden="true"
           />
 
@@ -212,7 +215,7 @@ export default function ConsultFormModal() {
                       Vyplňte prosím krátký dotazník
                     </h2>
                     <p className="mt-1 text-[13px] text-warm-gray/70">
-                      Řekněte mi o sobě víc a já se vám ozvu zpět do 24h.
+                      Řekněte mi o sobě víc a já se vám brzy ozvu.
                     </p>
                   </div>
 
@@ -240,7 +243,6 @@ export default function ConsultFormModal() {
                           initial="enter"
                           animate="center"
                           exit="exit"
-                          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                         >
                           {step === 1 && (
                             <StepRole value={form.role} onChange={v => setForm(p => ({ ...p, role: v }))} />
@@ -294,7 +296,7 @@ export default function ConsultFormModal() {
                         type="button"
                         onClick={handleNext}
                         disabled={!canProceed() || status === 'sending'}
-                        className="group inline-flex items-center gap-3 rounded-full bg-cta px-8 py-3.5 text-sm font-semibold tracking-wide text-on-cta transition-all duration-300 hover:bg-cta/85 disabled:cursor-not-allowed disabled:opacity-40"
+                        className="group inline-flex items-center gap-3 rounded-full bg-cta px-8 py-3.5 text-sm font-semibold tracking-wide text-on-cta transition-[background-color,opacity,scale] duration-150 hover:bg-cta/85 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-40"
                       >
                         {status === 'sending' ? (
                           <>
@@ -353,11 +355,11 @@ function StepRole({ value, onChange }: { value: string; onChange: (v: string) =>
               key={opt.value}
               type="button"
               onClick={() => onChange(opt.value)}
-              className={`flex flex-col items-start rounded-xl border px-4 py-3.5 text-left transition-all duration-200 ${
+              className={`flex flex-col items-start rounded-xl border px-4 py-3.5 text-left transition-[scale] duration-100 active:scale-[0.98] ${
                 active ? 'border-accent bg-accent/5' : 'border-charcoal/10 bg-white/60 hover:border-charcoal/20'
               }`}
             >
-              <span className={`text-[13.5px] font-medium leading-snug transition-colors ${active ? 'text-accent' : 'text-charcoal'}`}>
+              <span className={`text-[13.5px] font-medium leading-snug ${active ? 'text-accent' : 'text-charcoal'}`}>
                 {opt.value}
               </span>
               <span className="mt-0.5 text-[11.5px] text-warm-gray">{opt.sub}</span>
@@ -401,16 +403,16 @@ function StepMedia({ value, onChange }: { value: string[]; onChange: (v: string)
               key={opt}
               type="button"
               onClick={() => onChange(opt)}
-              className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all duration-200 ${
+              className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-[scale] duration-100 active:scale-[0.98] ${
                 active ? 'border-accent bg-accent/5' : 'border-charcoal/10 bg-white/60 hover:border-charcoal/20'
               }`}
             >
-              <span className={`flex h-5 w-5 flex-none items-center justify-center rounded-full border transition-all ${
+              <span className={`flex h-5 w-5 flex-none items-center justify-center rounded-full border ${
                 active ? 'border-accent bg-accent' : 'border-charcoal/20 bg-transparent'
               }`}>
                 {active && <Check size={11} className="text-on-accent" strokeWidth={2.5} />}
               </span>
-              <span className={`text-[13.5px] font-medium transition-colors ${active ? 'text-accent' : 'text-charcoal'}`}>
+              <span className={`text-[13.5px] font-medium ${active ? 'text-accent' : 'text-charcoal'}`}>
                 {opt}
               </span>
             </button>
@@ -448,7 +450,7 @@ function StepPropertyType({ value, onChange }: { value: string[]; onChange: (v: 
               key={opt}
               type="button"
               onClick={() => onChange(opt)}
-              className={`flex items-center gap-2 rounded-full border px-5 py-2.5 text-[13.5px] font-medium transition-all duration-200 ${
+              className={`flex items-center gap-2 rounded-full border px-5 py-2.5 text-[13.5px] font-medium transition-[scale] duration-100 active:scale-[0.98] ${
                 active ? 'border-accent bg-accent text-on-accent' : 'border-charcoal/15 bg-white/60 text-warm-gray hover:border-charcoal/30 hover:text-charcoal'
               }`}
             >
@@ -533,7 +535,7 @@ function StepSource({ value, onChange }: { value: string; onChange: (v: string) 
               key={opt}
               type="button"
               onClick={() => onChange(opt)}
-              className={`flex items-center gap-2 rounded-full border px-5 py-2.5 text-[13.5px] font-medium transition-all duration-200 ${
+              className={`flex items-center gap-2 rounded-full border px-5 py-2.5 text-[13.5px] font-medium transition-[scale] duration-100 active:scale-[0.98] ${
                 active ? 'border-accent bg-accent text-on-accent' : 'border-charcoal/15 bg-white/60 text-warm-gray hover:border-charcoal/30 hover:text-charcoal'
               }`}
             >
