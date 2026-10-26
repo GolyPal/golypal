@@ -106,6 +106,9 @@ export default function PrivacyPolicyModal() {
                     <p className="mt-3">
                       Údaje nevyužívám k zasílání obchodních sdělení ani k marketingu. Nedochází k automatizovanému rozhodování ani profilování.
                     </p>
+                    <p className="mt-3">
+                      Návštěvnost webu měřím službou Vercel Web Analytics, abych věděl, které stránky lidé čtou, odkud přicházejí a kolik poptávek web přinesl. Měření nepoužívá cookies ani nic neukládá do vašeho zařízení. Návštěvy se rozlišují jen pomocí dočasného otisku vytvořeného z technických údajů požadavku, který se po 24 hodinách zahazuje, a statistiky vidím pouze souhrnně, bez možnosti zjistit, kdo jste. Právním základem je můj oprávněný zájem na zlepšování webu (čl. 6 odst. 1 písm. f) GDPR), proti kterému můžete vznést námitku.
+                    </p>
                   </section>
 
                   <section>
@@ -125,7 +128,7 @@ export default function PrivacyPolicyModal() {
                       Odeslaný formulář pro mě technicky zpracovává společnost Formspree, Inc. (USA), která poptávky doručuje na můj e-mail a ukládá je v archivu formuláře. Formspree je zpracovatelem ve smyslu čl. 28 GDPR a předání údajů do USA je zajištěno standardními smluvními doložkami schválenými Evropskou komisí (čl. 46 GDPR).
                     </p>
                     <p className="mt-3">
-                      Web je provozován na hostingu společnosti Vercel Inc. (USA), která při zobrazení stránek zpracovává technické údaje v provozních záznamech serveru. Vercel je certifikován v rámci EU-U.S. Data Privacy Framework, pro který Evropská komise vydala rozhodnutí o odpovídající ochraně (čl. 45 GDPR).
+                      Web je provozován na hostingu společnosti Vercel Inc. (USA), která při zobrazení stránek zpracovává technické údaje v provozních záznamech serveru a pro mě vytváří souhrnné statistiky návštěvnosti. Vercel je certifikován v rámci EU-U.S. Data Privacy Framework, pro který Evropská komise vydala rozhodnutí o odpovídající ochraně (čl. 45 GDPR).
                     </p>
                     <p className="mt-3">
                       Poptávky dostávám do e-mailové schránky u společnosti Apple (iCloud). Jiným třetím stranám vaše údaje nepředávám.
@@ -185,12 +188,12 @@ export default function PrivacyPolicyModal() {
                       Soubory cookies
                     </h3>
                     <p>
-                      Tento web nepoužívá žádné cookies ani analytické či sledovací nástroje. Písma, fotografie i videa se načítají přímo z tohoto webu, ne ze serverů třetích stran.
+                      Tento web nepoužívá žádné cookies. Návštěvnost měřím bez cookies, jak je popsáno výše, a nepoužívám reklamní ani sledovací nástroje třetích stran. Písma, fotografie i videa se načítají přímo z tohoto webu, ne ze serverů třetích stran.
                     </p>
                   </section>
 
                   <p className="text-[12px] text-warm-gray">
-                    Tyto zásady jsou účinné od 25. 10. 2026.
+                    Tyto zásady jsou účinné od 26. 10. 2026.
                   </p>
                 </div>
               </div>

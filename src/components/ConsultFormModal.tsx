@@ -1,3 +1,4 @@
+import { pageview, track } from '@vercel/analytics'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight, Check, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
@@ -144,6 +145,10 @@ export default function ConsultFormModal() {
       })
       if (res.ok) {
         setStatus('success')
+        // Count the enquiry in Vercel Analytics. The made-up page shows up
+        // under Pages on any plan; the custom event only on Pro.
+        pageview({ path: '/poptavka-odeslana' })
+        track('Poptávka odeslána', { role: form.role })
       } else {
         const data = await res.json().catch(() => null)
         setErrorMsg(data?.errors?.[0]?.message || 'Odeslání se nepodařilo. Zkuste to znovu.')
