@@ -359,7 +359,7 @@ export default function CaseStudy() {
           {/* Phones centre everything; from sm up the text sits left */}
           <div className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
             <div className="text-center sm:text-left lg:col-span-5">
-              <div className="editorial-line-light mb-7" />
+              <div className="editorial-line-light mb-7 sm:ml-0!" />
               <p className="mb-3 text-[11px] uppercase tracking-[0.3em] text-accent">Spolupráce</p>
               <h2 className="font-serif text-[clamp(1.6rem,3vw,2.5rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-white">
                 Chcete, aby vaše videa taky <em className="text-accent">prodávala</em>?
