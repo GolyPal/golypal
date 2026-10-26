@@ -390,12 +390,18 @@ export default function Viral() {
   const phoneRef = useRef<HTMLDivElement>(null)
   const cardsRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress: phoneProgress } = useScroll({ target: phoneRef, offset: ['start end', 'center center'] })
-  const { scrollYProgress: cardsProgress } = useScroll({ target: cardsRef, offset: ['start end', 'center center'] })
-  const mLikesX = useTransform(cardsProgress, [0.15, 0.85], ['-115%', '0%'])
-  const mViewsX = useTransform(cardsProgress, [0.15, 0.85], ['115%', '0%'])
-  const mLikesRotate = useTransform(cardsProgress, [0.15, 0.85], [-8, 0])
-  const mViewsRotate = useTransform(cardsProgress, [0.15, 0.85], [8, 0])
-  const mOpacity = useTransform(cardsProgress, [0.15, 0.5], [0, 1])
+  // Cards: start the moment their row peeks in at the bottom of the screen
+  // and land before the row is fully in view (0 → 1 = row enters → row's
+  // bottom reaches the bottom of the screen)
+  const { scrollYProgress: cardsProgress } = useScroll({ target: cardsRef, offset: ['start end', 'end end'] })
+  const mLikesX = useTransform(cardsProgress, [0, 0.85], ['-115%', '0%'])
+  const mViewsX = useTransform(cardsProgress, [0, 0.85], ['115%', '0%'])
+  const mLikesRotate = useTransform(cardsProgress, [0, 0.85], [-8, 0])
+  const mViewsRotate = useTransform(cardsProgress, [0, 0.85], [8, 0])
+  // Function form on purpose: a plain opacity range gets handed to the
+  // browser's native ViewTimeline, which maps this offset wrongly and left
+  // the cards transparent until far too late
+  const mOpacity = useTransform(cardsProgress, (p) => Math.min(1, Math.max(0, p / 0.35)))
 
   const { value: likes, popped: likesPopped } = useLoopCounter(1000, 5000)
   const { value: views, popped: viewsPopped } = useLoopCounter(100000, 5000)
