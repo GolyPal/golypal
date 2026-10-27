@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion, useInView, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import { useConsultForm } from '../context/ConsultFormContext'
+import { useNearViewport } from '../hooks/useNearViewport'
 import { Eye, Heart, MessageCircle, Repeat, Send, TrendingUp, ChevronLeft, ChevronRight, Volume2, VolumeX, type LucideIcon } from 'lucide-react'
 
 /* ── Pavel's top 3 reels shown in the phone ── */
@@ -18,6 +19,7 @@ function PhoneReels() {
   const [muted, setMuted] = useState(true)
   const videoRef = useRef<HTMLVideoElement>(null)
   const wrapRef = useRef<HTMLDivElement>(null)
+  const near = useNearViewport(wrapRef)
   const total = phoneReels.length
 
   const go = (next: number) => {
@@ -68,7 +70,7 @@ function PhoneReels() {
           <video
             key={idx}
             ref={videoRef}
-            src={phoneReels[idx].src}
+            src={near ? phoneReels[idx].src : undefined}
             poster={phoneReels[idx].poster}
             autoPlay
             muted={muted}

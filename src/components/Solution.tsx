@@ -4,6 +4,7 @@ import { Camera, Video, Wand2, Gift, ChevronLeft, ChevronRight, Maximize2, Volum
 import { Link } from 'react-router-dom'
 import Lightbox from './Lightbox'
 import { useMediaQuery } from '../hooks/useMediaQuery'
+import { useNearViewport } from '../hooks/useNearViewport'
 import { ctaArrowRight, ctaSecondaryClass } from './cta'
 
 /* ── Before / After Slider ── */
@@ -453,6 +454,7 @@ function VideoCarousel({ active }: { active: boolean }) {
   const [muted, setMuted] = useState(true)
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const near = useNearViewport(containerRef)
   const total = reels.length
 
   const prev = () => setCurrent((c) => (c - 1 + total) % total)
@@ -506,13 +508,13 @@ function VideoCarousel({ active }: { active: boolean }) {
               <motion.video
                 key={current}
                 ref={videoRef}
-                src={reels[current]}
+                src={near ? reels[current] : undefined}
                 poster={reels[current].replace('.mp4', '-poster.jpg')}
                 autoPlay={active}
                 loop
                 muted={muted}
                 playsInline
-                preload="auto"
+                preload={near ? 'auto' : 'none'}
                 onLoadedMetadata={(e) => { e.currentTarget.muted = muted }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
