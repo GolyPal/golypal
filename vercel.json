@@ -1,9 +1,10 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "redirects": [
+    { "source": "/(.*)", "has": [{ "type": "host", "value": "golypal.vercel.app" }], "destination": "https://www.golasvisuals.com/$1", "permanent": true }
+  ],
   "rewrites": [
-    { "source": "/(.*)", "has": [{ "type": "host", "value": "golasvisuals.com" }], "destination": "/coming-soon.html" },
-    { "source": "/(.*)", "has": [{ "type": "host", "value": "www.golasvisuals.com" }], "destination": "/coming-soon.html" },
     { "source": "/(.*)", "destination": "/app.html" }
   ]
 }
