@@ -72,7 +72,7 @@ export default function About() {
               {[
                 { href: 'mailto:info@golasvisuals.com', label: 'info@golasvisuals.com', icon: <Mail size={17} strokeWidth={1.75} /> },
                 { href: 'tel:+420737248144', label: '+420 737 248 144', icon: <Phone size={17} strokeWidth={1.75} /> },
-                { href: 'https://www.instagram.com/golypal/', label: 'Instagram', icon: <InstagramIcon size={17} />, external: true },
+                { href: 'https://www.instagram.com/golasowski_pavel/', label: 'Instagram', icon: <InstagramIcon size={17} />, external: true },
                 { href: 'https://www.linkedin.com/in/pavel-golasowski-b11889136/', label: 'LinkedIn', icon: <LinkedInIcon size={17} />, external: true },
               ].map((c) => (
                 <li key={c.href}>

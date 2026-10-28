@@ -105,7 +105,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <a
-                    href="https://www.instagram.com/golypal/"
+                    href="https://www.instagram.com/golasowski_pavel/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-sm text-warm-gray transition-colors hover:text-charcoal"
