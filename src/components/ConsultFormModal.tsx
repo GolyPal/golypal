@@ -8,7 +8,7 @@ import { useDialogFocus } from '../hooks/useDialogFocus'
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mbggdnpz'
 
-const TOTAL_STEPS = 7
+const TOTAL_STEPS = 8
 
 type FormState = {
   role: string
@@ -17,6 +17,7 @@ type FormState = {
   location: string
   volume: string
   source: string
+  message: string
   name: string
   phone: string
   email: string
@@ -30,6 +31,7 @@ const initialState: FormState = {
   location: '',
   volume: '',
   source: '',
+  message: '',
   name: '',
   phone: '',
   email: '',
@@ -118,7 +120,8 @@ export default function ConsultFormModal() {
     if (step === 4) return true // optional
     if (step === 5) return true // optional
     if (step === 6) return form.source !== ''
-    if (step === 7) return form.name.trim() !== '' && form.phone.trim() !== '' && form.email.trim() !== ''
+    if (step === 7) return true // optional
+    if (step === 8) return form.name.trim() !== '' && form.phone.trim() !== '' && form.email.trim() !== ''
     return false
   }
 
@@ -144,6 +147,7 @@ export default function ConsultFormModal() {
           _subject: `Nová poptávka z webu: ${form.name.trim()}`,
           _replyto: form.email.trim(),
           'Kdo jsem': form.role,
+          'Co hledá / očekává': form.message.trim() || '(nevyplněno)',
           'Aktuální řešení foto/video': form.mediaStatus.join(', '),
           'Typ nemovitostí': form.propertyType.join(', '),
           'Oblast působení': form.location,
@@ -272,6 +276,9 @@ export default function ConsultFormModal() {
                             <StepSource value={form.source} onChange={v => setForm(p => ({ ...p, source: v }))} />
                           )}
                           {step === 7 && (
+                            <StepMessage value={form.message} onChange={v => setForm(p => ({ ...p, message: v }))} />
+                          )}
+                          {step === 8 && (
                             <StepContact
                               form={form}
                               onChange={(k, v) => setForm(p => ({ ...p, [k]: v }))}
@@ -558,7 +565,29 @@ function StepSource({ value, onChange }: { value: string; onChange: (v: string) 
   )
 }
 
-/* ── Step 7: Contact ── */
+/* ── Step 7: Open message ── */
+function StepMessage({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  return (
+    <div>
+      <h2 className="mb-2 font-serif text-[clamp(1.35rem,3vw,1.85rem)] font-medium leading-[1.1] tracking-[-0.01em] text-charcoal">
+        Co od spolupráce očekáváte?
+      </h2>
+      <p className="mb-5 text-[14px] leading-[1.7] text-warm-gray">
+        Napište pár vět o tom, co hledáte nebo co potřebujete. Čím konkrétněji, tím líp se připravím na náš hovor.
+      </p>
+      <textarea
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        rows={6}
+        placeholder="Např. chci pravidelná videa ke každé nemovitosti na Instagram, potřebuji nafotit byt v Ostravě do konce měsíce, chci začít budovat osobní brand…"
+        className="w-full resize-none rounded-xl border border-charcoal/15 bg-white/60 px-4 py-3 text-[15px] leading-[1.6] text-charcoal outline-none transition-colors placeholder:text-warm-gray/40 focus:border-accent"
+        autoFocus
+      />
+    </div>
+  )
+}
+
+/* ── Step 8: Contact ── */
 function StepContact({
   form,
   onChange,

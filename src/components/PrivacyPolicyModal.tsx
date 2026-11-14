@@ -92,7 +92,7 @@ export default function PrivacyPolicyModal() {
                       Jaké osobní údaje zpracovávám
                     </h3>
                     <p>
-                      Prostřednictvím poptávkového formuláře: jméno a příjmení, telefon, e-mail, odkaz na sociální sítě (nepovinný) a vaše odpovědi z dotazníku, tedy roli v realitách, jak aktuálně řešíte foto a video, typy nemovitostí, oblast působení, orientační počet zakázek měsíčně a odkud jste se o mně dozvěděli. Při odeslání formuláře a při zobrazení webu se navíc zpracovávají technické údaje, jako je IP adresa a typ prohlížeče.
+                      Prostřednictvím poptávkového formuláře: jméno a příjmení, telefon, e-mail, odkaz na sociální sítě (nepovinný) a vaše odpovědi z dotazníku, tedy roli v realitách, jak aktuálně řešíte foto a video, typy nemovitostí, oblast působení, orientační počet zakázek měsíčně, odkud jste se o mně dozvěděli a co od spolupráce očekáváte (pokud to vyplníte). Při odeslání formuláře a při zobrazení webu se navíc zpracovávají technické údaje, jako je IP adresa a typ prohlížeče.
                     </p>
                   </section>
 
@@ -193,7 +193,7 @@ export default function PrivacyPolicyModal() {
                   </section>
 
                   <p className="text-[12px] text-warm-gray">
-                    Tyto zásady jsou účinné od 26. 10. 2026.
+                    Tyto zásady jsou účinné od 14. 11. 2026.
                   </p>
                 </div>
               </div>
